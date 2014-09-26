@@ -15,6 +15,14 @@ $config = [
         ],
         'session' => [
             'cookieParams' => ['httponly' => true, 'path' => '/']
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+            'rules' => [
+                
+            ],
         ]
     ]
 ];

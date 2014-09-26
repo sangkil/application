@@ -17,21 +17,6 @@ return [
         'admin' => [
             'class' => 'mdm\admin\Module',
         ],
-        'master' => [
-            'class' => 'biz\master\Module',
-        ],
-        'purchase' => [
-            'class' => 'biz\purchase\Module',
-        ],
-        'inventory' => [
-            'class' => 'biz\inventory\Module',
-        ],
-        'sales' => [
-            'class' => 'biz\sales\Module',
-        ],
-        'accounting' => [
-            'class' => 'biz\accounting\Module',
-        ],
     ],
     'components' => [
         'user' => [
