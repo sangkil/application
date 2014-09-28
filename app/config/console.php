@@ -17,6 +17,7 @@ return [
                 '@mdm/admin/migrations',
                 '@mdm/autonumber/migrations',
                 '@yii/rbac/migrations',
+                '@biz/migrations',
             ]
         ]
     ],

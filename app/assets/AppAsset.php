@@ -21,7 +21,6 @@ class AppAsset extends AssetBundle
         'css/font-awesome.min.css',
         'css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
         'css/AdminLTE.css',
-        'css/biz-style.css',
     ];
     public $js = [
         'js/bootstrap.min.js',
