@@ -1,14 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use biz\adminlte\MyAsset;
 
 /**
  * @var \yii\web\View $this
  * @var string $content
  */
-$lte_asset = MyAsset::register($this);
-$baseurl = $lte_asset->baseUrl;
+$asset = app\assets\AppAsset::register($this);
+$baseurl = $asset->baseUrl;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

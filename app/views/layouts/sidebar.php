@@ -1,6 +1,6 @@
 <?php
 
-use biz\adminlte\SideMenu;
+use app\components\SideMenu;
 use mdm\admin\components\MenuHelper;
 
 /* @var $this yii\web\View */

@@ -24,7 +24,7 @@ $asset = app\assets\AppAsset::register($this);
     <?php $this->beginBody() ?>
     <body class="skin-blue fixed">
         <header class="header">
-            <?php echo $this->render('heading', ['baseurl' => $baseurl]); ?>
+            <?php echo $this->render('heading', ['baseurl' => $asset->baseUrl]); ?>
         </header>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <aside class="right-side">
@@ -55,7 +55,7 @@ $asset = app\assets\AppAsset::register($this);
                 </section>
             </aside>            
             <aside class="left-side sidebar-offcanvas">
-                <?php echo $this->render('sidebar', ['baseurl' => $baseurl]); ?>
+                <?php echo $this->render('sidebar', ['baseurl' => $asset->baseUrl]); ?>
             </aside>
         </div>
 

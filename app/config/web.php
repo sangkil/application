@@ -11,7 +11,6 @@ return [
     'controllerNamespace' => 'app\controllers',
     'bootstrap' => [
         'log',
-        'biz\Bootstrap',
     ],
     'modules' => [
         'admin' => [
