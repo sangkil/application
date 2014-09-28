@@ -95,7 +95,8 @@ use mdm\admin\components\MenuHelper;
         return $item;
     };
 
-    $items = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, $menuCallback);
+    //$items = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, $menuCallback);
+    $items = [];
     echo SideMenu::widget([
         'items' => $items,
     ]);

@@ -1,5 +1,7 @@
 <?php
+
 namespace app\controllers\purchase;
+
 /**
  * Description of PurchaseController
  *
@@ -7,13 +9,14 @@ namespace app\controllers\purchase;
  */
 class PurchaseController extends \yii\web\Controller
 {
+
     public function actionIndex()
     {
         return $this->render('index');
     }
-    
+
     public function actionCreate()
     {
-        
+        return $this->render('create');
     }
 }
