@@ -35,18 +35,20 @@ class MigrateController extends \yii\console\controllers\MigrateController
             }
 
             foreach (array_unique($directories) as $dir) {
-                $dir = Yii::getAlias($dir);
-                $handle = opendir($dir);
-                while (($file = readdir($handle)) !== false) {
-                    if ($file === '.' || $file === '..') {
-                        continue;
+                $dir = Yii::getAlias($dir, false);
+                if ($dir && is_dir($dir)) {
+                    $handle = opendir($dir);
+                    while (($file = readdir($handle)) !== false) {
+                        if ($file === '.' || $file === '..') {
+                            continue;
+                        }
+                        $path = $dir . DIRECTORY_SEPARATOR . $file;
+                        if (preg_match('/^(m(\d{6}_\d{6})_.*?)\.php$/', $file, $matches) && is_file($path)) {
+                            $this->_migrationPaths[$matches[1]] = $path;
+                        }
                     }
-                    $path = $dir . DIRECTORY_SEPARATOR . $file;
-                    if (preg_match('/^(m(\d{6}_\d{6})_.*?)\.php$/', $file, $matches) && is_file($path)) {
-                        $this->_migrationPaths[$matches[1]] = $path;
-                    }
+                    closedir($handle);
                 }
-                closedir($handle);
             }
 
             ksort($this->_migrationPaths);
