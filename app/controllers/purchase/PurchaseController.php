@@ -17,6 +17,10 @@ class PurchaseController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        return $this->render('create');
+        $model = new \app\models\purchase\Purchase();
+        return $this->render('create',[
+            'model'=>$model,
+            'details'=>$model->purchaseDtls
+        ]);
     }
 }

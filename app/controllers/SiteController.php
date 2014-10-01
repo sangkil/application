@@ -117,17 +117,6 @@ class SiteController extends Controller
                 'model' => $model,
         ]);
     }
-
-    public function actionUserList()
-    {
-        $searchModel = new \app\models\UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
-        return $this->render('user-list', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-        ]);
-    }
     
     public function actionTestRest()
     {
