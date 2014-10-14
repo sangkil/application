@@ -2,23 +2,17 @@
 
 use yii\helpers\Html;
 
-/**
- * @var yii\web\View $this
- * @var biz\purchase\models\Purchase $model
- */
 
-$this->title = 'Update Purchase: ' . $model->purchase_num;
-$this->params['breadcrumbs'][] = ['label' => 'Purchase', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->purchase_num, 'url' => ['view', 'id' => $model->id_purchase]];
-$this->params['breadcrumbs'][] = 'Update';
+/* @var $this yii\web\View */
+/* @var $model app\models\purchase\Purchase */
+
 ?>
-<div class="purchase-hdr-update">
+<div class="purchase-update">
 
-	<h1><?= Html::encode($this->title) ?></h1>
+    <h1>purchase/purchase/update</h1>
 
-	<?php echo $this->render('_form', [
+    <?= $this->render('_form', [
         'model' => $model,
-        'details'=>$details,
-    ]); ?>
+    ]) ?>
 
 </div>

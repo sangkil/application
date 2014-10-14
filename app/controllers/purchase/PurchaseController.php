@@ -2,12 +2,12 @@
 
 namespace app\controllers\purchase;
 
+use Yii;
+
 /**
- * Description of PurchaseController
- *
- * @author Misbahul D Munir (mdmunir) <misbahuldmunir@gmail.com>
+ * app\controllers\purchase\PurchaseController .
  */
-class PurchaseController extends \yii\web\Controller
+class app\controllers\purchase\PurchaseController extends \yii\web\Controller
 {
 
     public function actionIndex()
@@ -17,10 +17,33 @@ class PurchaseController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        $model = new \app\models\purchase\Purchase();
-        return $this->render('create',[
-            'model'=>$model,
-            'details'=>$model->purchaseDtls
+        $model = new app\models\purchase\Purchase();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                return;
+            }
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdate()
+    {
+        $model = new app\models\purchase\Purchase();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                return;
+            }
+        }
+
+        return $this->render('update', [
+            'model' => $model,
         ]);
     }
 }

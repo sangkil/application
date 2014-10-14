@@ -33,7 +33,13 @@ if (!YII_ENV_TEST) {
     $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = 'yii\gii\Module';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        'generators' => [
+            'd-crud' => ['class' => 'mdm\gii\generators\crud\Generator'],
+            'd-mvc' => ['class' => 'mdm\gii\generators\mvc\Generator'],
+        ]
+    ];
 }
 
 return $config;

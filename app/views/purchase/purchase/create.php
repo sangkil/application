@@ -2,23 +2,17 @@
 
 use yii\helpers\Html;
 
-/**
- * @var yii\web\View $this
- * @var biz\purchase\models\Purchase $model
- */
-$this->title = 'Create Purchase';
-$this->params['breadcrumbs'][] = ['label' => 'Purchase', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\purchase\Purchase */
+
 ?>
-<div class="purchase-hdr-create">
+<div class="purchase-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>purchase/purchase/create</h1>
 
-    <?php
-    echo $this->render('_form', [
+    <?= $this->render('_form', [
         'model' => $model,
-        'details' => $details,
-    ]);
-    ?>
+    ]) ?>
 
 </div>
