@@ -10,9 +10,9 @@ yii.purchase = (function($) {
             var has = false;
             $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
                 var $row = $(this);
-                if ($row.find('input[data-field="id_product"]').val() == item.id) {
+                if ($row.find('input[data-field="product_id"]').val() == item.id) {
                     has = true;
-                    var $qty = $row.find('input[data-field="purch_qty"]');
+                    var $qty = $row.find('input[data-field="qty"]');
                     $qty.val($qty.val() == '' ? '2' : $qty.val() * 1 + 1);
                 }
             });
@@ -21,17 +21,17 @@ yii.purchase = (function($) {
 
                 $row.find('span.cd_product').text(item.cd);
                 $row.find('span.nm_product').text(item.text);
-                $row.find('input[data-field="id_product"]').val(item.id);
-                $row.find('input[data-field="purch_qty"]').val('1');
+                $row.find('input[data-field="product_id"]').val(item.id);
+                $row.find('input[data-field="qty"]').val('1');
 
                 // apply uoms
-                var $select = $row.find('select[data-field="id_uom"]').html('');
+                var $select = $row.find('select[data-field="uom_id"]').html('');
                 $.each(item.uoms, function() {
                     $select.append($('<option>').val(this.id).text(this.nm).attr('data-isi', this.isi));
                 });
 
                 $('#detail-grid').mdmTabularInput('selectRow', $row);
-                $row.find('input[data-field="purch_qty"]').focus();
+                $row.find('input[data-field="qty"]').focus();
             }
             local.normalizeItem();
         },
@@ -39,11 +39,11 @@ yii.purchase = (function($) {
             var total = 0.0;
             $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
                 var $row = $(this);
-                var q = $row.find('input[data-field="purch_qty"]').val();
+                var q = $row.find('input[data-field="qty"]').val();
                 q = (q == '' ? 1 : q);
-                var isi = $row.find('[data-field="id_uom"] > :selected').data('isi');
+                var isi = $row.find('[data-field="uom_id"] > :selected').data('isi');
                 isi = isi ? isi : 1;
-                var t = isi * q * $row.find('input[data-field="purch_price"]').val();
+                var t = isi * q * $row.find('input[data-field="price"]').val();
                 $row.find('span.total-price').text(local.format(t));
                 $row.find('input[data-field="total_price"]').val(t);
                 total += t;

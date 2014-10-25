@@ -3,11 +3,13 @@
 namespace app\controllers\purchase;
 
 use Yii;
+use app\models\purchase\Purchase;
+
 
 /**
- * app\controllers\purchase\PurchaseController .
+* PurchaseController .
  */
-class app\controllers\purchase\PurchaseController extends \yii\web\Controller
+class PurchaseController extends \yii\web\Controller
 {
 
     public function actionIndex()
@@ -17,7 +19,7 @@ class app\controllers\purchase\PurchaseController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        $model = new app\models\purchase\Purchase();
+        $model = new Purchase();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -28,12 +30,13 @@ class app\controllers\purchase\PurchaseController extends \yii\web\Controller
 
         return $this->render('create', [
             'model' => $model,
+            'details' => $model->purchaseDtls
         ]);
     }
 
     public function actionUpdate()
     {
-        $model = new app\models\purchase\Purchase();
+        $model = new Purchase();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {

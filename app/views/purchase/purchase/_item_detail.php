@@ -6,30 +6,41 @@ use yii\helpers\Html;
 ?>
 <td style="width: 50px">
     <a data-action="delete" title="Delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
-    <?= Html::activeTextInput($model, $attribute) ?>
-    <?= Html::hiddenInput("id_product", '', ['data-field' => 'id_product', 'id' => false]) ?>
+    <?= Html::activeHiddenInput($model, "[$key]product_id", ['data-field' => 'product_id', 'id' => false]) ?>
 </td>
 <td class="items" style="width: 45%">
     <ul class="nav nav-list">
+        <li><span class="cd_product"></span>
+            - <span class="nm_product"></span></li>
         <li>
             Jumlah <?=
-            Html::textInput("purch_qty", '', [
-                'data-field' => 'purch_qty',
+            Html::activeTextInput($model, "[$key]qty", [
+                'data-field' => 'qty',
                 'size' => 5, 'id' => false,
                 'required' => true])
             ?>
-            <?= Html::dropDownList("id_uom", '', [], ['data-field' => 'id_uom', 'id' => false]) ?>
+            <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'id_uom', 'id' => false]) ?>
         </li>
         <li>
+            Price Rp <?=
+            Html::activeTextInput($model, "[$key]price", [
+                'data-field' => 'price',
+                'size' => 16, 'id' => false,
+                'required' => true])
+            ?>
         </li>
     </ul>
 </td>
 <td class="selling" style="width: 40%">
     <ul class="nav nav-list">
-        <li>Selling Price</li>
+        
         <li>
-        </li>
-        <li>
+            Price Rp <?=
+            Html::activeTextInput($model, "[$key]price", [
+                'data-field' => 'sales_price',
+                'size' => 16, 'id' => false,
+                'required' => true])
+            ?>
         </li>
     </ul>
 </td>

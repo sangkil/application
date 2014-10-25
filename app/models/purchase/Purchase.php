@@ -5,23 +5,24 @@ namespace app\models\purchase;
 /**
  * Description of Purchase
  *
- * @author Misbahul D Munir (mdmunir) <misbahuldmunir@gmail.com>
+ * @property PurchaseDtl[] $purchaseDtls
+ * 
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  */
-class Purchase extends \yii\base\DynamicModel
+class Purchase extends \biz\core\purchase\models\Purchase
 {
-
-    public function __construct($config = [])
-    {
-        $attributes = [
-            'id_purchase', 'purchase_num', 'status'
-        ];
-        parent::__construct($attributes, $config);
-    }
+    public $supplier;
 
     public function rules()
     {
-        return[
-            [['id_purchase', 'purchase_num', 'status'], 'safe'],
-        ];
+        $rules = parent::rules();
+        return array_merge([
+            [['supplier'], 'required'],
+            ], $rules);
+    }
+    
+    public function getPurchaseDtls()
+    {
+        return $this->hasMany(PurchaseDtl::className(), ['purchase_id' => 'id']);
     }
 }

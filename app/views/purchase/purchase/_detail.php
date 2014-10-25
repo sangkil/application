@@ -7,7 +7,7 @@ use biz\core\purchase\models\PurchaseDtl;
 use mdm\widgets\TabularInput;
 
 /* @var $details PurchaseDtl[] */
-/* @var $model biz\purchase\models\Purchase */
+/* @var $model biz\core\purchase\models\Purchase */
 /* @var $this yii\web\View */
 ?>
 <div class="col-lg-9">
@@ -31,7 +31,7 @@ use mdm\widgets\TabularInput;
             </div>
         </div>
         <div class="panel-body" style="text-align: right;">
-            <?= Html::activeHiddenInput($model, 'purchase_value', ['id' => 'purchase-value']); ?>
+            <?= Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
             <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>
             <h2>Rp <span id="total-price"></span></h2>
         </div>

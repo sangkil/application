@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\widgets\Breadcrumbs;
+use app\components\Alert;
 
 /**
  * @var \yii\web\View $this
@@ -51,6 +52,7 @@ $asset = app\assets\AppAsset::register($this);
                     ?>
                 </section>
                 <section class="content">
+                    <?= Alert::widget() ?>
                     <?= $content ?>
                 </section>
             </aside>            
