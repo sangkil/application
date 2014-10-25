@@ -1,5 +1,5 @@
 {
-	"name": "mdmsoft/app-rest",
+	"name": "sangkil/application",
 	"description": "Simple ERP",
 	"keywords": ["yii2", "ERP"],
 	"homepage": "http://www.sangkilsoft.com/",
@@ -32,7 +32,7 @@
 		"yiisoft/yii2": "*",
 		"mdmsoft/yii2-admin": "*",
 		"mdmsoft/yii2-widgets": "*",
-		"sangkil/biz3-api": "dev-master",
+		"sangkil/biz3-api": "*",
 		"bower-asset/admin-lte": "1.3"
 	},
 	"require-dev": {
