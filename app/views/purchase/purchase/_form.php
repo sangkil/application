@@ -61,3 +61,13 @@ use yii\web\JsExpression;
     ?>
     <?php ActiveForm::end(); ?>
 </div>
+<?php
+
+app\assets\BizWidget::widget([
+    'config' => [
+        'masters' => ['product', 'supplier']
+    ],
+    'scripts' => [
+        \yii\web\View::POS_END => '_script'
+    ]
+]);

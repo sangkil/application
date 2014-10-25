@@ -19,8 +19,8 @@ use mdm\widgets\TabularInput;
                 'name' => 'product',
                 'id' => 'product',
                 'clientOptions' => [
-                    'source' => new JsExpression('yii.global.sourceProduct'),
-                    'select' => new JsExpression('yii.purchase.onProductSelect'),
+                    'source' => new JsExpression('biz.global.sourceProduct'),
+                    'select' => new JsExpression('biz.purchase.onProductSelect'),
                     'delay' => 100,
                 ]
             ]);

@@ -16,7 +16,7 @@ biz.master = (function($) {
                 $.each(biz.config.masters, function() {
                     var name = this;
                     var s = pub.create(name);
-                    pub[name] = s.getAll();
+                    pub[name] = s.all();
                     if (pub[name] === undefined) {
                         masters.push(name);
                     }
@@ -32,7 +32,7 @@ biz.master = (function($) {
                 url = biz.config.pullUrl;
             }
             if (url) {
-                $.getJSON(url, {keys: masters}, function(result) {
+                $.getJSON(url, {masters: masters}, function(result) {
                     $.each(result, function(name, val) {
                         pub.create(name, val);
                         pub[name] = val;
