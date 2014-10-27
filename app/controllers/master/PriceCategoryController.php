@@ -3,16 +3,16 @@
 namespace app\controllers\master;
 
 use Yii;
-use app\models\master\ProductUom;
-use app\models\master\searchs\ProductUom as ProductUomSearch;
+use app\models\master\PriceCategory;
+use app\models\master\searchs\PriceCategory as PriceCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProductUomController implements the CRUD actions for ProductUom model.
+ * PriceCategoryController implements the CRUD actions for PriceCategory model.
  */
-class ProductUomController extends Controller
+class PriceCategoryController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class ProductUomController extends Controller
     }
 
     /**
-     * Lists all ProductUom models.
+     * Lists all PriceCategory models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductUomSearch();
+        $searchModel = new PriceCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,29 +42,28 @@ class ProductUomController extends Controller
     }
 
     /**
-     * Displays a single ProductUom model.
-     * @param integer $product_id
-     * @param integer $uom_id
+     * Displays a single PriceCategory model.
+     * @param integer $id
      * @return mixed
      */
-    public function actionView($product_id, $uom_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($product_id, $uom_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new ProductUom model.
+     * Creates a new PriceCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ProductUom();
+        $model = new PriceCategory();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'product_id' => $model->product_id, 'uom_id' => $model->uom_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -73,18 +72,17 @@ class ProductUomController extends Controller
     }
 
     /**
-     * Updates an existing ProductUom model.
+     * Updates an existing PriceCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $product_id
-     * @param integer $uom_id
+     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($product_id, $uom_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($product_id, $uom_id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'product_id' => $model->product_id, 'uom_id' => $model->uom_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -93,30 +91,28 @@ class ProductUomController extends Controller
     }
 
     /**
-     * Deletes an existing ProductUom model.
+     * Deletes an existing PriceCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $product_id
-     * @param integer $uom_id
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete($product_id, $uom_id)
+    public function actionDelete($id)
     {
-        $this->findModel($product_id, $uom_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the ProductUom model based on its primary key value.
+     * Finds the PriceCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $product_id
-     * @param integer $uom_id
-     * @return ProductUom the loaded model
+     * @param integer $id
+     * @return PriceCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($product_id, $uom_id)
+    protected function findModel($id)
     {
-        if (($model = ProductUom::findOne(['product_id' => $product_id, 'uom_id' => $uom_id])) !== null) {
+        if (($model = PriceCategory::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
