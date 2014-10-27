@@ -3,8 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
+use yii\web\View;
 
-/* @var yii\web\View $this */
+/* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $model app\models\purchase\Purchase */
 ?>
@@ -62,12 +63,14 @@ use yii\web\JsExpression;
     <?php ActiveForm::end(); ?>
 </div>
 <?php
-
 app\assets\BizWidget::widget([
     'config' => [
-        'masters' => ['product', 'supplier']
+        'masters' => ['products', 'suppliers', 'barcodes'],
+        'storageClass' => new JsExpression('DLocalStorage')
     ],
     'scripts' => [
-        \yii\web\View::POS_END => '_script'
+        View::POS_END => $this->render('_script'),
+        View::POS_READY => 'biz.purchase.onReady();'
     ]
 ]);
+

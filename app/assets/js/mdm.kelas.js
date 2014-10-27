@@ -6,7 +6,7 @@ Kelas = (function() {
             } catch (e) {
             }
         }
-        return dst
+        return dst;
     }
 
     var fn = function() {

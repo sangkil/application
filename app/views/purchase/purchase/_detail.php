@@ -19,7 +19,7 @@ use mdm\widgets\TabularInput;
                 'name' => 'product',
                 'id' => 'product',
                 'clientOptions' => [
-                    'source' => new JsExpression('biz.global.sourceProduct'),
+                    'source' => new JsExpression('biz.master.sourceProduct'),
                     'select' => new JsExpression('biz.purchase.onProductSelect'),
                     'delay' => 100,
                 ]

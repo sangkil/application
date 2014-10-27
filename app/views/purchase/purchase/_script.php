@@ -1,9 +1,6 @@
 <script>
     biz.purchase = (function($) {
         var local = {
-            format: function(n) {
-                return $.number(n, 0);
-            },
             addItem: function(item) {
                 var has = false;
                 $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
@@ -42,12 +39,12 @@
                     var isi = $row.find('[data-field="uom_id"] > :selected').data('isi');
                     isi = isi ? isi : 1;
                     var t = isi * q * $row.find('input[data-field="price"]').val();
-                    $row.find('span.total-price').text(local.format(t));
+                    $row.find('span.total-price').text(biz.format(t));
                     $row.find('input[data-field="total_price"]').val(t);
                     total += t;
                 });
                 $('#purchase-value').val(total);
-                $('#total-price').text(local.format(total));
+                $('#total-price').text(biz.format(total));
             },
             showDiscount: function() {
                 var purch_val = $('#purchase-value').val();
@@ -55,16 +52,16 @@
                 if (disc_val * 1 != 0) {
                     $('#bfore').show();
                     var disc_val = purch_val * disc_val * 0.01;
-                    $('#purchase-val').text($.number(purch_val, 0));
-                    $('#disc-val').text($.number(disc_val, 0));
-                    $('#total-price').text($.number((purch_val - disc_val), 0));
+                    $('#purchase-val').text(biz.format(purch_val));
+                    $('#disc-val').text(biz.format(disc_val));
+                    $('#total-price').text(biz.format(purch_val - disc_val));
                 } else {
-                    $('#total-price').text($.number(purch_val, 0));
+                    $('#total-price').text(biz.format(purch_val));
                     $('#bfore').hide();
                 }
             },
             onProductChange: function() {
-                var item = yii.global.searchProductByCode(this.value);
+                var item = biz.master.searchProductByCode(this.value);
                 if (item !== false) {
                     local.addItem(item);
                 }
@@ -129,10 +126,10 @@
 
                 $('#product').change(local.onProductChange);
                 $('#product').focus();
-                $('#product').data('ui-autocomplete')._renderItem = yii.global.renderItem;
+                $('#product').data('ui-autocomplete')._renderItem = biz.global.renderItem;
 
                 local.showDiscount();
-                yii.global.isChangeOrEnter($('#item-discount'), '', local.showDiscount);
+                $('#item-discount').change(local.showDiscount);
 
                 $(window).keydown(function(event) {
                     if (event.keyCode == 13) {
@@ -156,10 +153,19 @@
                             var isi = product.uoms[$opt.val()].isi;
                             $opt.attr('data-isi', isi);
                         });
+
+                        $row.find('span.cd_product').text(product.cd);
+                        $row.find('span.nm_product').text(product.text);
+
+                        // apply uoms
+                        var $select = $row.find('select[data-field="uom_id"]').html('');
+                        $.each(item.uoms, function() {
+                            $select.append($('<option>').val(this.id).text(this.nm).attr('data-isi', this.isi));
+                        });
                     }
                 });
 
-                yii.numeric.input($('#detail-grid'), 'input[data-field]');
+                $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
 
             },

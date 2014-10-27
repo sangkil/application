@@ -24,11 +24,6 @@ class BizWidget extends \yii\base\Widget
      */
     public $scripts = [];
 
-    /**
-     * @var array 
-     */
-    public $scriptParams = [];
-
     protected function getClientOptions()
     {
         return ArrayHelper::merge([
@@ -46,13 +41,12 @@ class BizWidget extends \yii\base\Widget
         }
 
         $config = Json::encode($options);
-        $view->registerJs("biz.configure({$config})", View::POS_END);
+        $view->registerJs("biz.configure({$config});", View::POS_END);
 
         /* from yiqing */
         $jsBlockPattern = '|^<script[^>]*>(?P<block_content>.+?)</script>$|is';
 
-        foreach ($this->scripts as $position => $scriptView) {
-            $js = $view->render($scriptView, $this->scriptParams);
+        foreach ($this->scripts as $position => $js) {
             if (preg_match($jsBlockPattern, $js, $matches)) {
                 $js = $matches['block_content'];
             }

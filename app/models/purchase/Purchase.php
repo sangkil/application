@@ -2,6 +2,8 @@
 
 namespace app\models\purchase;
 
+use biz\core\master\models\Supplier;
+
 /**
  * Description of Purchase
  *
@@ -18,9 +20,10 @@ class Purchase extends \biz\core\purchase\models\Purchase
         $rules = parent::rules();
         return array_merge([
             [['supplier'], 'required'],
+            [['supplier'], 'in', 'range' => Supplier::find()->select(['name'])->column()],
             ], $rules);
     }
-    
+
     public function getPurchaseDtls()
     {
         return $this->hasMany(PurchaseDtl::className(), ['purchase_id' => 'id']);

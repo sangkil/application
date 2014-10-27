@@ -10,13 +10,18 @@ biz = (function($) {
             }
         },
         format: function(n) {
-            if (n.indexOf(',') == -1) {
-                return numeral(n).format('0,0');
+            if (n.toString().indexOf(',') == -1) {
+                var s = [];
+                while (n > 0){
+                    s.push(n % 1000);
+                    n = Math.floor(n / 1000);
+                }
+                return s.reverse().join(',');
             }
         },
         unformat: function(n) {
-            if (n.indexOf(',') >= 0) {
-                return numeral().unformat(n);
+            if (n.toString().indexOf(',') >= 0) {
+                return n.toString().replace(/,/g,'');
             }
         },
         init: function() {

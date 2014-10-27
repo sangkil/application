@@ -12,8 +12,9 @@ class BizAsset extends \yii\web\AssetBundle
 {
     public $sourcePath = '@app/assets/js';
     public $js = [
+        'mdm.numeric.js',
         'biz.js',
-        'biz.global.js'
+        'biz.global.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

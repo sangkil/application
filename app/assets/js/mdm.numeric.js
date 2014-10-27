@@ -1,4 +1,4 @@
-yii.numeric = (function($) {
+(function($) {
     function getCaret(element) {
         if (element.selectionStart)
             return element.selectionStart;
@@ -58,30 +58,55 @@ yii.numeric = (function($) {
 
     var focus = function() {
         if (this.value.indexOf(',') >= 0) {
-            this.value = numeral().unformat(this.value);
+            this.value = this.value.replace(/,/g, '');
         }
     }
 
     var blur = function() {
-        if (this.value.indexOf(',') == -1) {
-            this.value = numeral(this.value).format('0,0');
+        var n = this.value;
+        if (n.toString().indexOf(',') == -1) {
+            var s = [];
+            while (n > 0) {
+                s.push(n % 1000);
+                n = Math.floor(n / 1000);
+            }
+            this.value = s.reverse().join(',');
         }
     }
 
-    var pub = {
-        input: function($obj, sel, opt) {
+    $.fn.mdmNumericInput = function(opt) {
+        return this.each(function() {
+            opt = opt || {};
+            var selector = undefined;
+            if (typeof opt == 'string') {
+                selector = opt;
+                opt = {};
+            } else if (opt.selector) {
+                selector = opt.selector;
+                opt.selector = undefined;
+            }
             opt = $.extend({}, {
                 allowFloat: true,
                 allowNegative: false,
-            }, opt || {});
-            $obj.off('keypress.mdmNumericInput', sel)
-                .on('keypress.mdmNumericInput', sel, opt, keypress);
-        },
-        format: function($obj, sel) {
-            $obj.off('focus.mdmNumericInput, blur.mdmNumericInput', sel)
-                .on('focus.mdmNumericInput', sel, focus)
-                .on('blur.mdmNumericInput', sel, blur);
-        },
+            }, opt);
+
+            if (selector !== undefined) {
+                $(this).on('keypress.mdmNumericInput', selector, opt, keypress);
+            } else {
+                $(this).on('keypress.mdmNumericInput', opt, keypress);
+            }
+        });
     }
-    return pub;
+
+    $.fn.mdmNumericFormat = function(sel) {
+        return this.each(function() {
+            if (sel) {
+                $(this).on('focus.mdmNumericFormat', sel, focus)
+                    .on('blur.mdmNumericFormat', sel, blur);
+            } else {
+                $(this).on('focus.mdmNumericFormat', focus)
+                    .on('blur.mdmNumericFormat', blur);
+            }
+        });
+    }
 })(window.jQuery);
