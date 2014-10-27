@@ -167,7 +167,13 @@
 
                 $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
-
+                $('#purchase-form').on('beforeSubmit', function() {
+                    var data = $(this).serialize() + '&_action=save';
+                    $.post('<?= yii\helpers\Url::to(''); ?>', data, function(r) {
+                        
+                    });
+                    return false;
+                });
             },
             onProductSelect: function(event, ui) {
                 local.addItem(ui.item);
