@@ -2,7 +2,7 @@
 
 namespace app\models\purchase;
 
-use biz\core\master\models\Supplier;
+use app\models\master\Supplier;
 
 /**
  * Description of Purchase

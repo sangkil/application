@@ -6,5 +6,9 @@ return[
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'formatter' => [
+            'dateFormat' => 'dd/MM/yyyy',
+            'datetimeFormat' => 'dd/MM/yyyy HH:mm:ss'
+        ],
     ],
 ];
