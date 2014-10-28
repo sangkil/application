@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 /**
  * Description of MigrateController
  *
- * @author Misbahul D Munir (mdmunir) <misbahuldmunir@gmail.com>
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  */
 class MigrateController extends \yii\console\controllers\MigrateController
 {
