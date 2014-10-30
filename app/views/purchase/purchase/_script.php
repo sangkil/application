@@ -14,8 +14,7 @@
                 if (!has) {
                     var $row = $('#detail-grid').mdmTabularInput('addRow');
 
-                    $row.find('span.cd_product').text(item.cd);
-                    $row.find('span.nm_product').text(item.text);
+                    $row.find('span.product').text(item.cd+' '+item.text);
                     $row.find('input[data-field="product_id"]').val(item.id);
                     $row.find('input[data-field="qty"]').val('1');
 
