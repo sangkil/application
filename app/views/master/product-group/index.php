@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\master\searchs\Orgn */
+/* @var $searchModel app\models\master\searchs\ProductGroup */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Orgns';
+$this->title = 'Product Groups';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="orgn-index">
+<div class="product-group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Orgn', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Product Group', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'id',
             'code',
             'name',
             'created_at',

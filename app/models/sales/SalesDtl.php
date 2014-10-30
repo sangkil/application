@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\purchase;
+namespace app\models\sales;
 
 use yii\helpers\ArrayHelper;
 use app\models\master\Uom;
@@ -8,18 +8,18 @@ use app\models\master\Product;
 use app\models\master\ProductUom;
 
 /**
- * PurchaseDtl
+ * SalesDtl
  *
  * @property Product $product
  * @property ProductUom[] $productUoms
  * @property Uom[] $uoms
- * @property Purchase $purchase
  * @property array $uomList
+ * @property Sales $sales
  * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class PurchaseDtl extends \biz\core\purchase\models\PurchaseDtl
+class SalesDtl extends \biz\core\sales\models\SalesDtl
 {
     private $_uomList;
 
@@ -29,11 +29,6 @@ class PurchaseDtl extends \biz\core\purchase\models\PurchaseDtl
             $this->_uomList = ArrayHelper::map($this->uoms, 'id', 'name');
         }
         return $this->_uomList;
-    }
-
-    public function getUoms()
-    {
-        return $this->hasMany(Uom::className(), ['id' => 'uom_id'])->via('productUoms');
     }
 
     public function getProduct()
@@ -46,8 +41,13 @@ class PurchaseDtl extends \biz\core\purchase\models\PurchaseDtl
         return $this->hasMany(ProductUom::className(), ['product_id' => 'id'])->via('product');
     }
 
-    public function getPurchase()
+    public function getUoms()
     {
-        return $this->hasOne(Purchase::className(), ['id' => 'purchase_id']);
+        return $this->hasMany(Uom::className(), ['id' => 'uom_id'])->via('productUoms');
+    }
+
+    public function getSales()
+    {
+        return $this->hasOne(Sales::className(), ['id' => 'sales_id']);
     }
 }

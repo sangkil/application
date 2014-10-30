@@ -4,6 +4,7 @@ namespace app\controllers\purchase;
 
 use Yii;
 use app\models\purchase\Purchase;
+use biz\core\purchase\components\Purchase as ApiPurchase;
 
 
 /**
@@ -20,10 +21,12 @@ class PurchaseController extends \yii\web\Controller
     public function actionCreate()
     {
         $model = new Purchase();
-
+        $api = new ApiPurchase();
+        
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                // form inputs are valid, do something here
+                
+                $api->create($data,$model);
                 return;
             }
         }

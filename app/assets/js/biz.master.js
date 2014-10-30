@@ -25,6 +25,7 @@ biz.master = (function($) {
                 if (masters.length > 0) {
                     pub.pull(masters);
                 }
+                pub.pull(biz.config.masters);
             }
         },
         pull: function(masters, url) {
