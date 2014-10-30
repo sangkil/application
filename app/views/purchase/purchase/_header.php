@@ -13,9 +13,9 @@ use yii\helpers\Html;
         <li><a href="#tab_2-2" data-toggle="tab"><i class="fa fa-money"></i> Finance & Costing</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_1-1" style="height: 19em;">
+        <div class="tab-pane active" id="tab_1-1" style="height: 14em;">
             <div class="col-lg-6">
-                <?= $form->field($model, 'number')->textInput(['maxlength' => 16, 'readonly' => true]); ?>
+                <?= $form->field($model, 'number')->textInput(['maxlength' => 16, 'readonly' => true, 'style'=>'width:50%']); ?>
                 <?=
                         $form->field($model, 'supplier')
                         ->widget('yii\jui\AutoComplete', [
@@ -25,6 +25,8 @@ use yii\helpers\Html;
                             ]
                 ]);
                 ?>
+            </div>
+            <div class="col-lg-6">                
                 <?=
                         $form->field($model, 'Date')
                         ->widget('yii\jui\DatePicker', [
@@ -32,12 +34,12 @@ use yii\helpers\Html;
                             'dateFormat' => 'php:d-m-Y',
                 ]);
                 ?>
+                Display Total, dll
+            </div>
+            <div class="col-lg-12 footer">                
                 <?php
                 echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
                 ?>
-            </div>
-            <div class="col-lg-6">
-                Display Total, dll
             </div>
         </div>
         <div class="tab-pane" id="tab_2-2">
