@@ -11,6 +11,7 @@ use app\components\Alert;
  */
 
 $asset = app\assets\AppAsset::register($this);
+$asset2 = app\assets\AddAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -23,7 +24,7 @@ $asset = app\assets\AppAsset::register($this);
         <?php $this->head() ?>
     </head>
     <?php $this->beginBody() ?>
-    <body class="skin-blue fixed">
+    <body class="skin-black fixed">
         <header class="header">
             <?php echo $this->render('heading', ['baseurl' => $asset->baseUrl]); ?>
         </header>

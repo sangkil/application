@@ -18,15 +18,15 @@
 	},
 	"minimum-stability": "dev",
 	"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/mdmsoft/yii2-gii"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/sangkil/biz3-api"
-        }
-    ],
+            {
+                "type": "git",
+                "url": "https://github.com/mdmsoft/yii2-gii"
+            },
+            {
+                "type": "git",
+                "url": "https://github.com/sangkil/biz3-api"
+            }
+        ],
 	"require": {
 		"php": ">=5.4.0",
 		"yiisoft/yii2": "*",
@@ -34,7 +34,8 @@
 		"mdmsoft/yii2-widgets": "*",
 		"sangkil/biz3-api": "*",
 		"yiisoft/yii2-bootstrap": "*",
-		"bower-asset/admin-lte": "1.3"
+		"bower-asset/admin-lte": "1.3",
+                "dektrium/yii2-user": "*"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "*",
