@@ -25,7 +25,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'signup', 'page', 'test-rest'],
+                        'actions' => ['login', 'error', 'signup', 'page', 'test-rest','captcha'],
                         'allow' => true,
                     ],
                     [
@@ -55,7 +55,11 @@ class SiteController extends Controller
             ],
             'page' => [
                 'class' => 'yii\web\ViewAction',
-            ]
+            ],
+            'captcha' => [
+                'class' => 'mdm\captcha\CaptchaAction',
+                'level' => 1, // avaliable level are 1,2,3 :D
+            ],
         ];
     }
 

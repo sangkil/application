@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\purchase\searchs\Purchase */
+/* @var $searchModel app\models\master\searchs\Price */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Purchases';
+$this->title = 'Prices';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="purchase-index">
+<div class="price-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Purchase', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Price', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,16 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'number',
-            'supplier_id',
-            'branch_id',
-            'date',
-            // 'value',
-            // 'discount',
-            // 'status',
-            // 'created_at',
-            // 'created_by',
+            'product_id',
+            'price_category_id',
+            'price',
+            'created_at',
+            'created_by',
             // 'updated_at',
             // 'updated_by',
 

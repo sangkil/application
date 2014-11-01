@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use biz\purchase\models\Purchase;
+use app\models\purchase\Purchase;
 
 /**
  * @var yii\web\View $this
- * @var biz\purchase\models\Purchase $model
+ * @var app\models\purchase\Purchase $model
  */
-$this->title = $model->purchase_num;
+$this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Purchase', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,9 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-striped detail-view', 'style' => 'padding:0px;'],
             'model' => $model,
             'attributes' => [
-                'purchase_num',
-                'idSupplier.nm_supplier',
-                'purchaseDate',
+                'number',
+                'supplier',
+                'Date',
                 'nmStatus',
             ],
         ]);
@@ -35,13 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-footer" style="text-align: right;">
             <?php
             if ($model->status == Purchase::STATUS_DRAFT) {
-                echo Html::a('Update', ['update', 'id' => $model->id_purchase], ['class' => 'btn btn-primary']) . ' ';
-                echo Html::a('Delete', ['delete', 'id' => $model->id_purchase], [
+                echo Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) . ' ';
+                echo Html::a('Delete', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
                     'data-confirm' => Yii::t('app', 'Are you sure to delete this item?'),
                     'data-method' => 'post',
                 ]) . ' ';
-                echo Html::a('Receive', ['receive', 'id' => $model->id_purchase], [
+                echo Html::a('Receive', ['receive', 'id' => $model->id], [
                     'class' => 'btn btn-success',
                     'data-confirm' => Yii::t('app', 'Are you sure to receive this item?'),
                     'data-method' => 'post',
@@ -63,11 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]),
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'idProduct.nm_product',
-            'purch_qty',
-            'purch_price',
-            'sales_price',
-            'idUom.nm_uom',
+            'product.name',
+            'qty',
+            'price',
+            'uom.name',
         ]
     ]);
     ?>

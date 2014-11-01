@@ -1,21 +1,19 @@
 <?php
 
-namespace app\controllers\purchase;
+namespace app\controllers\master;
 
 use Yii;
-use app\models\purchase\Purchase;
-use app\models\purchase\searchs\Purchase as PurchaseSearch;
+use app\models\master\Uom;
+use app\models\master\searchs\Uom as UomSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use biz\core\purchase\components\Purchase as ApiPurchase;
 
 /**
- * PurchaseController implements the CRUD actions for Purchase model.
+ * UomController implements the CRUD actions for Uom model.
  */
-class PurchaseController extends Controller
+class UomController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -29,69 +27,52 @@ class PurchaseController extends Controller
     }
 
     /**
-     * Lists all Purchase models.
+     * Lists all Uom models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PurchaseSearch();
+        $searchModel = new UomSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Purchase model.
+     * Displays a single Uom model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
         return $this->render('view', [
-                'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Purchase model.
+     * Creates a new Uom model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Purchase([
-            'branch_id' => 1
-        ]);
-        $api = new ApiPurchase();
+        $model = new Uom();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $data = $model->attributes;
-                $data['details'] = Yii::$app->request->post('PurchaseDtl', []);
-                $model = $api->create($data, $model);
-                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
-                    $transaction->commit();
-                    return $this->redirect(['view', 'id' => $model->id]);
-                } else {
-                    $transaction->rollBack();
-                }
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                throw $e;
-            }
-        }
-        return $this->render('create', [
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
                 'model' => $model,
-                'details' => $model->purchaseDtls
-        ]);
+            ]);
+        }
     }
 
     /**
-     * Updates an existing Purchase model.
+     * Updates an existing Uom model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -104,14 +85,13 @@ class PurchaseController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                    'model' => $model,
-                    'details' => $model->purchaseDtls
+                'model' => $model,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Purchase model.
+     * Deletes an existing Uom model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,15 +104,15 @@ class PurchaseController extends Controller
     }
 
     /**
-     * Finds the Purchase model based on its primary key value.
+     * Finds the Uom model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Purchase the loaded model
+     * @return Uom the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Purchase::findOne($id)) !== null) {
+        if (($model = Uom::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

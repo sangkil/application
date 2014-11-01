@@ -4,36 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\purchase\searchs\Purchase */
+/* @var $model app\models\master\searchs\Price */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="purchase-search">
+<div class="price-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= $form->field($model, 'product_id') ?>
 
-    <?= $form->field($model, 'number') ?>
+    <?= $form->field($model, 'price_category_id') ?>
 
-    <?= $form->field($model, 'supplier_id') ?>
+    <?= $form->field($model, 'price') ?>
 
-    <?= $form->field($model, 'branch_id') ?>
+    <?= $form->field($model, 'created_at') ?>
 
-    <?= $form->field($model, 'date') ?>
-
-    <?php // echo $form->field($model, 'value') ?>
-
-    <?php // echo $form->field($model, 'discount') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'created_by') ?>
+    <?= $form->field($model, 'created_by') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
 

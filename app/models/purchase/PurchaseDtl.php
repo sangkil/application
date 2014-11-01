@@ -12,9 +12,10 @@ use app\models\master\ProductUom;
  *
  * @property Product $product
  * @property ProductUom[] $productUoms
- * @property Uom[] $uoms
+ * @property Uom[] $uoms Uom of product
  * @property Purchase $purchase
  * @property array $uomList
+ * @property Uom $uom Uom transaction
  * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
@@ -49,5 +50,10 @@ class PurchaseDtl extends \biz\core\purchase\models\PurchaseDtl
     public function getPurchase()
     {
         return $this->hasOne(Purchase::className(), ['id' => 'purchase_id']);
+    }
+    
+    public function getUom()
+    {
+        return $this->hasOne(Uom::className(), ['id'=>'uom_id']);
     }
 }

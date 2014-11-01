@@ -4,7 +4,7 @@ use yii\db\Schema;
 
 class m130524_201442_init extends \yii\db\Migration
 {
-    public function up()
+    public function safeUp()
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
@@ -26,7 +26,7 @@ class m130524_201442_init extends \yii\db\Migration
         ], $tableOptions);
     }
 
-    public function down()
+    public function safeDown()
     {
         $this->dropTable('{{%user}}');
     }

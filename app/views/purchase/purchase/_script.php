@@ -166,13 +166,13 @@
 
                 $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
-                $('#purchase-form').on('beforeSubmit', function() {
-                    var data = $(this).serialize() + '&_action=save';
-                    $.post(window.location.href, data, function(r) {
-                        
-                    });
-                    return false;
-                });
+//                $('#purchase-form').on('beforeSubmit', function() {
+//                    var data = $(this).serialize() + '&_action=save';
+//                    $.post(window.location.href, data, function(r) {
+//                        
+//                    });
+//                    return false;
+//                });
             },
             onProductSelect: function(event, ui) {
                 local.addItem(ui.item);
