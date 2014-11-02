@@ -13,7 +13,7 @@ biz = (function($) {
             if (n.toString().indexOf(',') == -1) {
                 var s = [];
                 while (n > 0){
-                    s.push(n % 1000);
+                    s.push(Math.floor(n % 1000));
                     n = Math.floor(n / 1000);
                 }
                 return s.reverse().join(',');

@@ -92,28 +92,6 @@
                             }
                         }
                     });
-                $('#detail-grid')
-                    .off('change.purchase', ':input[data-field]')
-                    .on('change.purchase', ':input[data-field]', function() {
-                        var $row = $(this).closest('tr');
-                        var isi = $row.find('[data-field="id_uom"] > :selected').data('isi');
-                        var p = $row.find('input[data-field="purch_price"]').val();
-                        var m = $row.find('input[data-field="markup_price"]').val();
-                        var s = $row.find('input[data-field="sales_price"]').val();
-                        switch ($(this).data('field')) {
-                            case 'markup_price':
-                            case 'id_uom':
-                                var s = (1.0 * p / isi) / (1 - 0.01 * m);
-                                $row.find('input[data-field="sales_price"]').val(s.toFixed(2));
-                                break;
-                            case 'purch_price':
-                            case 'sales_price':
-                                var m = s > 0 ? 100 * (s - (1.0 * p / isi)) / s : 0;
-                                $row.find('input[data-field="markup_price"]').val(m.toFixed(2));
-                                break;
-                        }
-                        local.normalizeItem();
-                    });
 
                 var clicked = false;
                 $('#detail-grid')
