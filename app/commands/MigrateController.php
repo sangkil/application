@@ -188,7 +188,7 @@ class MigrateController extends \yii\console\controllers\MigrateController
             $migrations = array_keys($this->getMigrationHistory(null));
             foreach ($migrations as $migration) {
                 if (strpos($migration, $version . '_') === 0) {
-                    if ($this->confirm("Revert the $migration migration?")) {
+                    if ($this->confirm("Redo the $migration migration?")) {
                         if (!$this->migrateDown($migration)) {
                             echo "\nMigration failed.\n";
 
