@@ -17,7 +17,7 @@ use yii\helpers\Html;
             <div class="col-lg-6">
                 <?= $form->field($model, 'number')->textInput(['maxlength' => 16, 'readonly' => true, 'style'=>'width:50%']); ?>
                 <?=
-                        $form->field($model, 'supplier')
+                        $form->field($model, 'nmSupplier')
                         ->widget('yii\jui\AutoComplete', [
                             'options' => ['class' => 'form-control'],
                             'clientOptions' => [

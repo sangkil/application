@@ -21,8 +21,8 @@ class Purchase extends \biz\core\purchase\models\Purchase
     {
         $rules = parent::rules();
         return array_merge([
-            [['supplier', 'Date'], 'required'],
-            [['supplier'], 'in', 'range' => Supplier::find()->select('name')->column()],
+            [['nmSupplier', 'Date'], 'required'],
+            [['nmSupplier'], 'in', 'range' => Supplier::find()->select('name')->column()],
             ], $rules);
     }
 
@@ -44,7 +44,7 @@ class Purchase extends \biz\core\purchase\models\Purchase
             [
                 'class' => 'mdm\converter\RelatedConverter',
                 'attributes' => [
-                    'supplier' => ['supplier_id', Supplier::className(), 'name', 'id'],
+                    'nmSupplier' => [[Supplier::className(), 'id' => 'supplier_id'], 'name'],
                 ],
             ],
             ], $behaviors);

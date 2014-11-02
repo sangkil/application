@@ -19,27 +19,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Purchase', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'number',
-            'supplier_id',
+            'nmSupplier',
             'branch_id',
-            'date',
-            // 'value',
+            'Date',
+            'value',
             // 'discount',
-            // 'status',
-            // 'created_at',
-            // 'created_by',
-            // 'updated_at',
-            // 'updated_by',
-
+            'nmStatus',
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>
