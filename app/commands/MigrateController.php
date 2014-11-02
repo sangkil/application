@@ -4,6 +4,7 @@ namespace app\commands;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\console\Exception;
 
 /**
  * Description of MigrateController
@@ -12,6 +13,11 @@ use yii\helpers\ArrayHelper;
  */
 class MigrateController extends \yii\console\controllers\MigrateController
 {
+    /**
+     * @var boolean Up, Down and Redo to version without affected to other migration.
+     */
+    public $specialAction = false;
+
     /**
      * @var array
      */
@@ -22,6 +28,10 @@ class MigrateController extends \yii\console\controllers\MigrateController
      */
     private $_migrationFiles;
 
+    /**
+     * List of migration class at all entire path
+     * @return array
+     */
     protected function getMigrationFiles()
     {
         if ($this->_migrationFiles === null) {
@@ -55,6 +65,9 @@ class MigrateController extends \yii\console\controllers\MigrateController
         return $this->_migrationFiles;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function createMigration($class)
     {
         $file = $this->getMigrationFiles()[$class];
@@ -63,6 +76,9 @@ class MigrateController extends \yii\console\controllers\MigrateController
         return new $class(['db' => $this->db]);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function getNewMigrations()
     {
         $applied = [];
@@ -78,5 +94,118 @@ class MigrateController extends \yii\console\controllers\MigrateController
         }
 
         return $migrations;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function options($actionID)
+    {
+        $options = parent::options($actionID);
+        if (in_array($actionID, ['up', 'down', 'redo'])) {
+            $options = array_merge($options, ['specialAction']);
+        }
+        return $options;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionUp($limit = 0)
+    {
+        if ($this->specialAction) {
+            $version = $limit;
+            if (preg_match('/^m?(\d{6}_\d{6})(_.*?)?$/', $version, $matches)) {
+                $version = 'm' . $matches[1];
+            } else {
+                throw new Exception("The version argument must be either a timestamp (e.g. 101129_185401)\nor the full name of a migration (e.g. m101129_185401_create_user_table).");
+            }
+
+            $migrations = $this->getNewMigrations();
+            foreach ($migrations as $migration) {
+                if (strpos($migration, $version . '_') === 0) {
+                    if ($this->confirm("Apply the $migration migration?")) {
+                        if (!$this->migrateUp($migration)) {
+                            echo "\nMigration failed.\n";
+
+                            return self::EXIT_CODE_ERROR;
+                        }
+                        return self::EXIT_CODE_NORMAL;
+                    }
+                    return;
+                }
+            }
+            throw new Exception("Unable to find the version '$limit'.");
+        }
+        return parent::actionUp($limit);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionDown($limit = 1)
+    {
+        if ($this->specialAction) {
+            $version = $limit;
+            if (preg_match('/^m?(\d{6}_\d{6})(_.*?)?$/', $version, $matches)) {
+                $version = 'm' . $matches[1];
+            } else {
+                throw new Exception("The version argument must be either a timestamp (e.g. 101129_185401)\nor the full name of a migration (e.g. m101129_185401_create_user_table).");
+            }
+
+            $migrations = array_keys($this->getMigrationHistory(null));
+            foreach ($migrations as $migration) {
+                if (strpos($migration, $version . '_') === 0) {
+                    if ($this->confirm("Revert the $migration migration?")) {
+                        if (!$this->migrateDown($migration)) {
+                            echo "\nMigration failed.\n";
+
+                            return self::EXIT_CODE_ERROR;
+                        }
+                        return self::EXIT_CODE_NORMAL;
+                    }
+                    return;
+                }
+            }
+            throw new Exception("Unable to find the version '$limit'.");
+        }
+        return parent::actionDown($limit);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionRedo($limit = 1)
+    {
+        if ($this->specialAction) {
+            $version = $limit;
+            if (preg_match('/^m?(\d{6}_\d{6})(_.*?)?$/', $version, $matches)) {
+                $version = 'm' . $matches[1];
+            } else {
+                throw new Exception("The version argument must be either a timestamp (e.g. 101129_185401)\nor the full name of a migration (e.g. m101129_185401_create_user_table).");
+            }
+
+            $migrations = array_keys($this->getMigrationHistory(null));
+            foreach ($migrations as $migration) {
+                if (strpos($migration, $version . '_') === 0) {
+                    if ($this->confirm("Revert the $migration migration?")) {
+                        if (!$this->migrateDown($migration)) {
+                            echo "\nMigration failed.\n";
+
+                            return self::EXIT_CODE_ERROR;
+                        }
+                        if (!$this->migrateUp($migration)) {
+                            echo "\nMigration failed.\n";
+
+                            return self::EXIT_CODE_ERROR;
+                        }
+                        return self::EXIT_CODE_NORMAL;
+                    }
+                    return;
+                }
+            }
+            throw new Exception("Unable to find the version '$limit'.");
+        }
+        return parent::actionDown($limit);
     }
 }
