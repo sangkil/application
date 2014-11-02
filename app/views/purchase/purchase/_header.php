@@ -31,7 +31,7 @@ use yii\helpers\Html;
                         $form->field($model, 'Date')
                         ->widget('yii\jui\DatePicker', [
                             'options' => ['class' => 'form-control', 'style' => 'width:50%'],
-                            'dateFormat' => 'php:d-m-Y',
+                            //'dateFormat' => 'php:d-m-Y',
                 ]);
                 ?>
                 Display Total, dll
@@ -47,3 +47,5 @@ use yii\helpers\Html;
         </div>
     </div>
 </div>
+<?php
+                Yii::$app->formatter->locale;

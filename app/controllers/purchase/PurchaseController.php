@@ -100,14 +100,29 @@ class PurchaseController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                    'model' => $model,
-                    'details' => $model->purchaseDtls
-            ]);
+        $api = new ApiPurchase();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $data = $model->attributes;
+                $data['details'] = Yii::$app->request->post('PurchaseDtl', []);
+                $model = $api->update($id, $data, $model);
+                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
         }
+        return $this->render('create', [
+                'model' => $model,
+                'details' => $model->purchaseDtls
+        ]);
     }
 
     /**

@@ -29,30 +29,30 @@ class Helper
 
         // master product
         if (isset($masters['products'])) {
-            $query_product = Product::find()
-                ->select(['p.id', 'p.code', 'p.name', 'uom_id' => 'u.id', 'uom_nm' => 'u.name', 'pu.isi'])
-                ->from(Product::tableName() . ' p')
-                ->joinWith(['productUoms' => function($q) {
-                    $q->from(ProductUom::tableName() . ' pu');
+            $query_product = ProductUom::find()
+                ->select(['pu.*', 'p.code', 'p.name', 'uom_nm' => 'u.name'])
+                ->from(ProductUom::tableName() . ' pu')
+                ->joinWith(['product'=>function($q){
+                    $q->from(Product::tableName() . ' p');
                 }])
-                ->joinWith(['uoms' => function($q) {
+                ->joinWith(['uom'=>function($q){
                     $q->from(Uom::tableName() . ' u');
                 }])
-                ->orderBy(['p.id' => SORT_ASC, 'pu.isi' => SORT_ASC])
+                ->orderBy(['pu.product_id' => SORT_ASC, 'pu.isi' => SORT_ASC])
                 ->asArray();
 
             $products = [];
             foreach ($query_product->all() as $row) {
-                $id = $row['id'];
+                $id = $row['product_id'];
                 if (!isset($products[$id])) {
                     $products[$id] = [
-                        'id' => $row['id'],
+                        'id' => $row['product_id'],
                         'cd' => $row['code'],
                         'text' => $row['name'],
                         'label' => $row['name'],
                     ];
                 }
-                $products[$id]['uoms'][$row['uom_id']] = [
+                $products[$id]['uoms'][] = [
                     'id' => $row['uom_id'],
                     'nm' => $row['uom_nm'],
                     'isi' => $row['isi']
@@ -87,18 +87,9 @@ class Helper
         // prices
         if (isset($masters['prices'])) {
             $prices = [];
-            $query_prices = Product::find()
-                    ->select(['p.id', 'pc.price_category_id', 'pc.price'])
-                    ->from(Product::tableName() . ' p')
-                    ->joinWith(['prices' => function($q) {
-                        $q->from(Price::tableName() . ' pc');
-                    }])->asArray();
+            $query_prices = Price::find()->asArray();
             foreach ($query_prices->all() as $row) {
-                if ($row['price_category_id']) {
-                    $prices[$row['id']][$row['price_category_id']] = $row['price'];
-                } else {
-                    $prices[$row['id']] = [];
-                }
+                $prices[$row['product_id']][$row['price_category_id']] = $row['price'];
             }
             $result['prices'] = $prices;
         }

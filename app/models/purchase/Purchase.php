@@ -14,7 +14,8 @@ use app\models\master\Supplier;
  */
 class Purchase extends \biz\core\purchase\models\Purchase
 {
-    public $supplier;
+
+//    public $supplier;
 
     public function rules()
     {
@@ -22,22 +23,30 @@ class Purchase extends \biz\core\purchase\models\Purchase
         return array_merge([
             [['supplier', 'Date'], 'required'],
             [['supplier'], 'in', 'range' => Supplier::find()->select('name')->column()],
-            [['supplier'], 'applySupplier'],
             ], $rules);
-    }
-
-    public function applySupplier()
-    {
-        $supplier = Supplier::findOne(['name' => $this->supplier]);
-        if($supplier){
-            $this->supplier_id = $supplier->id;
-        }  else {
-            $this->addError('supplier', 'Supplier not valid');
-        }
     }
 
     public function getPurchaseDtls()
     {
         return $this->hasMany(PurchaseDtl::className(), ['purchase_id' => 'id']);
+    }
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        return array_merge([
+            [
+                'class' => 'mdm\converter\DateConverter',
+                'attributes' => [
+                    'Date' => 'date',
+                ]
+            ],
+            [
+                'class' => 'mdm\converter\RelatedConverter',
+                'attributes' => [
+                    'supplier' => ['supplier_id', Supplier::className(), 'name', 'id'],
+                ],
+            ],
+            ], $behaviors);
     }
 }

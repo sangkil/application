@@ -1,6 +1,20 @@
 <script>
     biz.purchase = (function($) {
         var local = {
+            applyProduct: function($row, item, sel_uom) {
+                $row.find('span.product').text(item.cd + ' ' + item.text);
+                $row.find('input[data-field="product_id"]').val(item.id);
+
+                // apply uoms
+                var $select = $row.find('select[data-field="uom_id"]').html('');
+                $.each(item.uoms, function() {
+                    var $opt = $('<option>').val(this.id).text(this.nm).attr('data-isi', this.isi);
+                    if (sel_uom !== undefined && sel_uom == this.id) {
+                        $opt.prop('selected', true);
+                    }
+                    $select.append($opt);
+                });
+            },
             addItem: function(item) {
                 var has = false;
                 $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
@@ -14,16 +28,8 @@
                 if (!has) {
                     var $row = $('#detail-grid').mdmTabularInput('addRow');
 
-                    $row.find('span.product').text(item.cd+' '+item.text);
-                    $row.find('input[data-field="product_id"]').val(item.id);
+                    local.applyProduct($row, item);
                     $row.find('input[data-field="qty"]').val('1');
-
-                    // apply uoms
-                    var $select = $row.find('select[data-field="uom_id"]').html('');
-                    $.each(item.uoms, function() {
-                        $select.append($('<option>').val(this.id).text(this.nm).attr('data-isi', this.isi));
-                    });
-
                     $('#detail-grid').mdmTabularInput('selectRow', $row);
                     $row.find('input[data-field="qty"]').focus();
                 }
@@ -145,34 +151,14 @@
                 // inisialisasi uom
                 $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
                     var $row = $(this);
-                    var product = biz.master.products[$row.find('[data-field="id_product"]').val()];
+                    var product = biz.master.products[$row.find('[data-field="product_id"]').val()];
                     if (product) {
-                        $row.find('[data-field="id_uom"] > option').each(function() {
-                            var $opt = $(this);
-                            var isi = product.uoms[$opt.val()].isi;
-                            $opt.attr('data-isi', isi);
-                        });
-
-                        $row.find('span.cd_product').text(product.cd);
-                        $row.find('span.nm_product').text(product.text);
-
-                        // apply uoms
-                        var $select = $row.find('select[data-field="uom_id"]').html('');
-                        $.each(item.uoms, function() {
-                            $select.append($('<option>').val(this.id).text(this.nm).attr('data-isi', this.isi));
-                        });
+                        local.applyProduct($row, product, $row.find('[data-field="sel_uom_id"]').val());
                     }
                 });
 
                 $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
-//                $('#purchase-form').on('beforeSubmit', function() {
-//                    var data = $(this).serialize() + '&_action=save';
-//                    $.post(window.location.href, data, function(r) {
-//                        
-//                    });
-//                    return false;
-//                });
             },
             onProductSelect: function(event, ui) {
                 local.addItem(ui.item);

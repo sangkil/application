@@ -21,13 +21,26 @@ class Sales extends \biz\core\sales\models\Sales
     {
         $rules = parent::rules();
         return array_merge([
-            [['customer'], 'required'],
+            [['customer', 'Date'], 'required'],
             [['customer'], 'in', 'range' => Customer::find()->select('name')->column()]
             ], $rules);
     }
-    
+
     public function getSalesDtls()
     {
-        return $this->hasMany(SalesDtl::className(), ['sales_id'=>'id']);
+        return $this->hasMany(SalesDtl::className(), ['sales_id' => 'id']);
+    }
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        return array_merge([
+            [
+                'class' => 'mdm\converter\DateConverter',
+                'attributes' => [
+                    'Date' => 'date',
+                ]
+            ],
+            ], $behaviors);
     }
 }
