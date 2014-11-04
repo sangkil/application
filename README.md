@@ -1,4 +1,4 @@
-app-rest
-========
+Sangkilbiz3 Application
+=======================
 
-Application with angular js
+Sangkilbiz3 application template.
