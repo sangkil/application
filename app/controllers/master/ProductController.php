@@ -5,6 +5,7 @@ namespace app\controllers\master;
 use Yii;
 use app\models\master\Product;
 use app\models\master\searchs\Product as ProductSearch;
+use app\models\master\searchs\ProductPrice as ProductPriceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,6 +37,21 @@ class ProductController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Product models.
+     * @return mixed
+     */
+    public function actionPrices()
+    {
+        $searchModel = new ProductPriceSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('prices', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
