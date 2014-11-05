@@ -127,8 +127,10 @@ class PurchaseController extends Controller
 
     public function actionGr($id)
     {
+        
         return $this->render('gr', [
                 'model' => $this->findModel($id),
+                'dataProvider'
         ]);
     }
 
