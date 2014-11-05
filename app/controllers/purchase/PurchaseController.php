@@ -125,6 +125,13 @@ class PurchaseController extends Controller
         ]);
     }
 
+    public function actionGr($id)
+    {
+        return $this->render('gr', [
+                'model' => $this->findModel($id),
+        ]);
+    }
+
     /**
      * Deletes an existing Purchase model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

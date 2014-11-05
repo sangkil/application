@@ -34,18 +34,16 @@ use mdm\widgets\TabularInput;
         <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>
         <h2>Rp <span id="total-price"></span></h2>
     </div>
-    <table class="table table-striped">
-        <?=
-        TabularInput::widget([
-            'id' => 'detail-grid',
-            'allModels' => $details,
-            'modelClass' => PurchaseDtl::className(),
-            'options' => ['tag' => 'tbody'],
-            'itemOptions' => ['tag' => 'tr'],
-            'itemView' => '_item_detail',
-            'clientOptions' => [
-            ]
-        ])
-        ?>
-    </table>
+    <?=
+    TabularInput::widget([
+        'id' => 'detail-grid',
+        'allModels' => $details,
+        'modelClass' => PurchaseDtl::className(),
+        'options' => ['class' => 'tabular table-striped'],
+//            'itemOptions' => ['tag' => 'tr'],
+        'itemView' => '_item_detail',
+        'clientOptions' => [
+        ]
+    ])
+    ?>
 </div>

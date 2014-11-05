@@ -4,18 +4,17 @@ namespace app\models\purchase;
 
 use Yii;
 use app\models\master\Supplier;
+use app\models\inventory\GoodMovement;
 
 /**
  * Description of Purchase
  *
  * @property PurchaseDtl[] $purchaseDtls
- * 
+ * @property GoodMovement[] $grs
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  */
 class Purchase extends \biz\core\purchase\models\Purchase
 {
-
-//    public $supplier;
 
     public function rules()
     {
@@ -31,10 +30,16 @@ class Purchase extends \biz\core\purchase\models\Purchase
         return $this->hasMany(PurchaseDtl::className(), ['purchase_id' => 'id']);
     }
 
+    public function getGrs()
+    {
+        return $this->hasMany(GoodMovement::className(), ['reff_id' => 'id'])
+                ->onCondition(['reff_type' => GoodMovement::TYPE_PURCHASE]);
+    }
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        return array_merge([
+        return array_merge($behaviors, [
             [
                 'class' => 'mdm\converter\DateConverter',
                 'attributes' => [
@@ -47,6 +52,6 @@ class Purchase extends \biz\core\purchase\models\Purchase
                     'nmSupplier' => [[Supplier::className(), 'id' => 'supplier_id'], 'name'],
                 ],
             ],
-            ], $behaviors);
+        ]);
     }
 }

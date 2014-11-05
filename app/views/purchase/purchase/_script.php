@@ -81,7 +81,7 @@
                     .on('keydown.purchase', ':input[data-field]', function(e) {
                         if (e.keyCode == 13) {
                             var $this = $(this);
-                            var $inputs = $this.closest('tr').find(':input:visible[data-field]');
+                            var $inputs = $this.closest('div.table-row').find(':input:visible[data-field]');
                             var idx = $inputs.index(this);
                             if (idx >= 0) {
                                 if (idx < $inputs.length - 1) {
