@@ -13,3 +13,19 @@ Create at {date('now')}
     background-color: #fcf2f2;
     border-color: #dFb5b4;
 }
+
+.form-control {
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+
+.form-control {    
+    display:inline;
+    height: 28px;  
+}
+
+.form-group .form-control{
+    position: relative;
+    left: 50px; 
+    width: 300px;
+}
