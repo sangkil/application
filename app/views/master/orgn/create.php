@@ -1,5 +1,5 @@
 <?php 
-use app\components\SideMenu;
+use app\components\Toolbar;
 use yii\helpers\Html;
 
 
