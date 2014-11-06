@@ -31,7 +31,7 @@ use mdm\admin\models\Menu;
         ])
         ?>
         <?= $form->field($model, 'order')->input('number') ?>
-        <?= $form->field($model, 'data')->input(['maxlength' => 256]) ?>
+        <?= $form->field($model, 'data')->textInput(['maxlength' => 256]) ?>
     </div>
     <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
