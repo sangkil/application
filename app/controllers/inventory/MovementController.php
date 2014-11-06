@@ -8,12 +8,17 @@ use app\models\inventory\searchs\GoodMovement as GoodMovementSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use biz\core\inventory\components\GoodMovement as ApiMovement;
+use yii\helpers\ArrayHelper;
+use app\models\inventory\GoodMovementDtl;
+use app\models\master\GlobalConfig;
 
 /**
  * MovementController implements the CRUD actions for GoodMovement model.
  */
 class MovementController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -36,8 +41,8 @@ class MovementController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -49,7 +54,7 @@ class MovementController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
 
@@ -58,17 +63,39 @@ class MovementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($reff_type, $reff_id)
     {
-        $model = new GoodMovement();
+        $model = new GoodMovement([
+            'reff_type' => $reff_type,
+            'reff_id' => $reff_id,
+        ]);
+        $api = new ApiMovement();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                $transaction = Yii::$app->db->beginTransaction();
+                $data = $model->attributes;
+
+                $data['details'] = Yii::$app->request->post('GoodMovementDtl', []);
+
+                $model = $api->create($data, $model);
+                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $exc) {
+                $transaction->rollBack();
+                throw $exc;
+            }
         }
+        list($modelRef, $details) = $this->getReference($reff_type, $reff_id, $model->goodMovementDtls);
+        return $this->render('create', [
+                'model' => $model,
+                'modelRef' => $modelRef,
+                'details' => $details,
+        ]);
     }
 
     /**
@@ -81,13 +108,63 @@ class MovementController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $api = new ApiMovement();
+
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                $transaction = Yii::$app->db->beginTransaction();
+                $data = $model->attributes;
+
+                $data['details'] = Yii::$app->request->post('GoodMovementDtl', []);
+
+                $model = $api->update($id, $data, $model);
+                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $exc) {
+                $transaction->rollBack();
+                throw $exc;
+            }
         }
+        list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodMovementDtls);
+        return $this->render('update', [
+                'model' => $model,
+                'modelRef' => $modelRef,
+                'details' => $details,
+        ]);
+    }
+
+    protected function getReference($reff_type, $reff_id, $origin = null)
+    {
+        $config = GlobalConfig::findOne([
+                'group' => GoodMovement::GROUP_REFF_TYPE,
+                'name' => $reff_type,
+            ])->Value;
+        $class = $config['class'];
+        $relation = $config['relation'];
+        $qty_field = $config['qty_field'];
+        $total_field = $config['total_field'];
+
+        $modelRef = $class::findOne($reff_id);
+        $refDtls = $modelRef->$relation;
+
+        if ($origin === null) {
+            $details = [];
+        } else {
+            $details = ArrayHelper::index($origin, 'product_id');
+        }
+        foreach ($refDtls as $refDtl) {
+            if (!isset($details[$refDtl->product_id])) {
+                $details[$refDtl->product_id] = new GoodMovementDtl([
+                    'product_id' => $refDtl->product_id,
+                ]);
+            }
+            $details[$refDtl->product_id]->avaliable = $refDtl->{$qty_field} - $refDtl->{$total_field};
+        }
+        return [$modelRef, array_values($details)];
     }
 
     /**

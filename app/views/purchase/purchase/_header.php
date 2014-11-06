@@ -47,5 +47,3 @@ use yii\helpers\Html;
         </div>
     </div>
 </div>
-<?php
-                Yii::$app->formatter->locale;
