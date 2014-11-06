@@ -23,10 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <div class="col-lg-5">
         <div class="box box-info menu-view">
-            <div class="box-body no-padding">
+            <div class="box-header">
                 Avaliable:
                 <?php
                 echo Html::textInput('search_av', '', ['class' => 'role-search', 'data-target' => 'avaliable']) . '<br>';
+                ?>
+            </div>
+            <div class="box-body no-padding">
+                <?php
                 echo Html::listBox('roles', '', $avaliable, [
                     'id' => 'avaliable',
                     'multiple' => true,
@@ -45,10 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-lg-5">
         <div class="box box-info menu-view">
-            <div class="box-body no-padding">
+            <div class="box-header">
                 Assigned:
                 <?php
                 echo Html::textInput('search_asgn', '', ['class' => 'role-search', 'data-target' => 'assigned']) . '<br>';
+                ?>
+            </div>
+            <div class="box-body no-padding">
+                <?php
                 echo Html::listBox('roles', '', $assigned, [
                     'id' => 'assigned',
                     'multiple' => true,
