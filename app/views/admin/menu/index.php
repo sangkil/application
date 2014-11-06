@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-12 menu-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
-
     <?=
     Toolbar::widget(['items' => [
             ['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
