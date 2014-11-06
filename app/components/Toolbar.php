@@ -35,11 +35,12 @@ class Toolbar extends \yii\base\Widget {
 
     public function init() {
         parent::init();
-        Html::beginTag('div', ['class'=>'btn-group']);
+        $result = Html::beginTag('div', ['class'=>'btn-group']);
         foreach ($this->items as $item) {
-            $this->renderItem($item);
+            $result .= $this->renderItem($item);
         }
-        Html::endTag('div');
+        $result .= Html::endTag('div');
+        echo $result;
     }
 
     protected function renderItem($item) {
