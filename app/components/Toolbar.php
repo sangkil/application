@@ -59,6 +59,7 @@ class Toolbar extends \yii\base\Widget {
         if ($icon) {
             $linkContent .= Html::tag('i', '', ['class' => $icon]);
         }
+        $linkContent .= '&nbsp;';
         $linkContent .= $label;
         
         return Html::a($linkContent, $url, $linkOptions);
