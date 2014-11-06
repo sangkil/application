@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = 'Update';
     <?php
     echo Toolbar::widget();
     ?>
-    <br><br>
+    <br>
     <?=
     $this->render('_form', [
         'model' => $model,
