@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Update';
     </div>  
     <div class="btn-group">
         <?= Html::button('Test', ['class' => 'btn btn-info btn-sm', 'data-toggle' => 'dropdown']); ?>
-        <button class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown" type="button">
+        <button class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" type="button">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
         </button>
