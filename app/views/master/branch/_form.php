@@ -10,22 +10,20 @@ use app\models\master\Orgn;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="col-lg-8 branch-form">
+
+<div class="box box-warning">
     <?php $form = ActiveForm::begin(); ?>
-    <div class="box box-warning">
-        <div class="box-body">
-            <?= $form->field($model, 'orgn_id')->dropDownList(ArrayHelper::map(Orgn::find()->all(), 'id', 'name')); ?>
+    <div class="box-body">
+        <?= $form->field($model, 'orgn_id')->dropDownList(ArrayHelper::map(Orgn::find()->all(), 'id', 'name')); ?>
 
-            <?= $form->field($model, 'code')->textInput(['maxlength' => 4]) ?>
+        <?= $form->field($model, 'code')->textInput(['maxlength' => 4]) ?>
 
-            <?= $form->field($model, 'name')->textInput(['maxlength' => 32]) ?>
-        </div>
-        <div class="box-footer">
-            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-
-        </div>   
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 32]) ?>
     </div>
+    <div class="box-footer">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 
-    <?php ActiveForm::end(); ?>
-
+    </div>
+    <?php ActiveForm::end(); ?>   
 </div>
+
