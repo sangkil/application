@@ -40,7 +40,7 @@ class Toolbar extends \yii\base\Widget {
         $result .= Html::a('<i class="fa fa-trash-o"></i> Delete', ['delete', 'id' => 3], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]);
         $result .= Html::a('<i class="fa fa-list"></i> List', ['index'], ['class' => 'btn btn-info btn-sm']);
         $result .= Html::endTag('div');
-        return $result; 
+        echo $result; 
     }
 
     protected function renderItem($item) {
