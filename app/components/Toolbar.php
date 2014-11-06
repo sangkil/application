@@ -51,11 +51,11 @@ class Toolbar extends \yii\base\Widget {
         $icon = ArrayHelper::getValue($item, 'icon');
         $badge = ArrayHelper::getValue($item, 'badge');
 
-        if (isset($item['active'])) {
-            $active = ArrayHelper::remove($item, 'active', false);
-        } else {
-            $active = $this->isItemActive($item);
-        }
+//        if (isset($item['active'])) {
+//            $active = ArrayHelper::remove($item, 'active', false);
+//        } else {
+//            $active = $this->isItemActive($item);
+//        }
         $linkContent = '';
         if ($icon) {
             $linkContent .= Html::tag('i', '', ['class' => $icon]);
