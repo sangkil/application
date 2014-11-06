@@ -11,7 +11,7 @@ $this->title = 'Orgns';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="branch-index">
-    <div class="btn-group pull-right">
+    <div class="btn-group">
         <?php  
             $action = $this->context->action->id;
             $visible_create = in_array($action, array('update','view','index'));

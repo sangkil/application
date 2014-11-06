@@ -1,5 +1,5 @@
-<?php
-
+<?php 
+use app\components\SideMenu;
 use yii\helpers\Html;
 
 
@@ -7,11 +7,11 @@ use yii\helpers\Html;
 /* @var $model app\models\master\Orgn */
 
 $this->title = 'Create Orgn';
-$this->params['breadcrumbs'][] = ['label' => 'Orgns', 'url' => ['index']];
+$this->params['bread'][] = ['label' => 'Orgns', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-8 orgn-create">
-    <div class="btn-group pull-right">
+    <div class="btn-group">
         <?php  
             $action = $this->context->action->id;
             $visible_create = in_array($action, array('update','view','index'));
@@ -26,7 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= ($visible_delete) ? Html::a('Delete', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]) : '' ?> 
         <?= ($visible_list)? Html::a('<i class="fa fa-list"></i> List', ['index'], ['class' => 'btn btn-info btn-sm']):'' ?>
     </div> 
-    <br><br>
+    <br>    
+    <?= SideMenu::widget(['items'=>['label'=>'Create','url'=>['create','id'=>'2']]]); ?>
+    <br>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

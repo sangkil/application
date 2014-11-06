@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Orgns', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-8">
-    <div class="btn-group pull-right">
+    <div class="btn-group">
         <?php  
             $action = $this->context->action->id;
             $visible_create = in_array($action, array('update','view','index'));
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             DetailView::widget([
                 'model' => $model,
-                'options' => ['class' => 'table table-striped detail-view'],
+                'options' => ['class' => 'table detail-view'],
                 'attributes' => [
                     'id',
                     'code',

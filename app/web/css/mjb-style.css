@@ -6,6 +6,9 @@ Create at {date('now')}
     Created on : Oct 30, 2014, 7:07:53 PM
     Author     : samsung-pc
 */
+form{
+    margin-top: 10px;
+}
 .error-summary{
     margin: 0px 15px 15px 15px;
     padding: 15px 30px 15px 15px;
@@ -25,7 +28,11 @@ Create at {date('now')}
 }
 
 .form-group .form-control{
-    position: relative;
-    left: 50px; 
+    position: absolute;
+    left: 150px; 
     width: 300px;
+}
+
+.box .box-footer{
+    text-align: right;
 }

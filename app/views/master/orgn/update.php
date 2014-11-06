@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="col-lg-8 orgn-update">
-    <div class="btn-group pull-right">
+    <div class="btn-group">
         <?php  
             $action = $this->context->action->id;
             $visible_create = in_array($action, array('update','view','index'));
