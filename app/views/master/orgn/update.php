@@ -33,11 +33,11 @@ $this->params['breadcrumbs'][] = 'Update';
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-            <li>Satu</li>
-            <li>Dua</li>
-            <li>Tiga</li>
+            <li><a href="#">Satu</a></li>
+            <li><a href="#">Dua</a></li>
+            <li><a href="#">Tiga</a></li>
             <li class="divider"></li>
-            <li>Empat</li>
+            <li><a href="#">Empat</a></li>
         </ul>
     </div>
 
