@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\Toolbar;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\master\Orgn */
