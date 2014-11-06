@@ -5,10 +5,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\master\GlobalConfig */
-/* @var $schema app\models\master\GlobalConfig */
+/* @var $schema array */
 
-$this->title = $schema->name . ' : ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => $schema->name, 'url' => ['index', 'group' => $group]];
+$this->title = $group . ' : ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => $group, 'url' => ['index', 'group' => $group]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="global-config-view">
@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php
     $attributes = ['name', 'description',];
-    foreach ($schema->serializeValue as $col) {
-        $attributes[] = 'serializeValue.' . $col . ':text:' . $col;
+    foreach ($schema as $col) {
+        $attributes[] = $col;
     }
     ?>
     <?=

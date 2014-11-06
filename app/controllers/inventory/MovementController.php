@@ -142,11 +142,11 @@ class MovementController extends Controller
         $config = GlobalConfig::findOne([
                 'group' => GoodMovement::GROUP_REFF_TYPE,
                 'name' => $reff_type,
-            ])->Value;
-        $class = $config['class'];
-        $relation = $config['relation'];
-        $qty_field = $config['qty_field'];
-        $total_field = $config['total_field'];
+        ]);
+        $class = $config->class;
+        $relation = $config->relation;
+        $qty_field = $config->qty_field;
+        $total_field = $config->total_field;
 
         $modelRef = $class::findOne($reff_id);
         $refDtls = $modelRef->$relation;

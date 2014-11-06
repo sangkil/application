@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $schema app\models\master\GlobalConfig */
+/* @var $schema array */
 /* @var $model yii\base\DynamicModel */
 /* @var $form yii\widgets\ActiveForm */
 ?>
@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
 
-    <?php foreach ($schema->serializeValue as $col): ?>
+    <?php foreach ($schema as $col): ?>
         <?= $form->field($model, $col)->textInput() ?>
     <?php endforeach; ?>
     <div class="form-group">

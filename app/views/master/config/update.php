@@ -4,10 +4,10 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model yii\base\DynamicModel */
-/* @var $schema app\models\master\GlobalConfig */
+/* @var $schema array */
 
-$this->title = 'Update ' . $schema->name . ': ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => $schema->name, 'url' => ['index', 'group' => $group]];
+$this->title = 'Update ' . $group . ': ' . ' ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => $group, 'url' => ['index', 'group' => $group]];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'group' => $group, 'name' => $model->name]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

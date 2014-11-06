@@ -34,7 +34,7 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
                 'name' => $this->reff_type,
         ]);
         if ($config) {
-            $this->type = $config->Value['type'];
+            $this->type = $config->type;
         } else {
             $this->addError('reff_type', "Reference type {$this->reff_type} not recognize");
         }

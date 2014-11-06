@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $schema app\models\master\GlobalConfig */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $schema->name;
+$this->title = $group;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="global-config-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create ' . $schema->name, ['create', 'group' => $group], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create ' . $group, ['create', 'group' => $group], ['class' => 'btn btn-success']) ?>
     </p>
     <?php
     $columns = [
@@ -25,11 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'description',
     ];
     $i = 1;
-    foreach ($schema->serializeValue as $col) {
-        $columns[] = [
-            'label' => $col,
-            'value' => 'serializeValue.' . $col
-        ];
+    foreach ($schema as $col) {
+        $columns[] = $col;
         $i++;
         if ($i > 5) {
             break;
