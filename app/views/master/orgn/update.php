@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = 'Update';
         <?= ($visible_update)? Html::a('<i class="fa fa-pencil"></i> Update', ['update','id'=>$model->id], ['class' => 'btn btn-warning btn-sm']):'' ?> 
         <?= ($visible_delete) ? Html::a('<i class="fa fa-trash-o"></i> Delete', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]) : '' ?> 
         <?= ($visible_list)? Html::a('<i class="fa fa-list"></i> List', ['index'], ['class' => 'btn btn-info btn-sm']):'' ?>
+        <?= Html::button('Test', ['class' => 'btn btn-info btn-sm']); ?>
     </div>  
     <br><br>
     <?=
