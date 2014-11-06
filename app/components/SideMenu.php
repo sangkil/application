@@ -209,8 +209,8 @@ class SideMenu extends \yii\base\Widget
             return true;
         }
         if($this->activateParents && !empty($item['items'])){
-            foreach ($item['items'] as $_item) {
-                if($this->isItemActive($_item)){
+            foreach ($item['items'] as $child) {
+                if($this->isItemActive($child)){
                     return true;
                 }
             }
