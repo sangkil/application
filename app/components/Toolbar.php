@@ -70,9 +70,9 @@ class Toolbar extends \yii\base\Widget {
             $linkContent .= Html::tag('small', $badge[0], ['class' => $bagdeCss]);
         }
         
-        if ($this->activateItems && $active) {
-            Html::addCssClass($options, 'active');
-        }
+//        if ($this->activateItems && $active) {
+//            Html::addCssClass($options, 'active');
+//        }
 
         //return Html::tag('li', Html::a($linkContent, $url, $linkOptions) . $items, $options);
         return Html::a($linkContent, $url, $linkOptions) . $items;
