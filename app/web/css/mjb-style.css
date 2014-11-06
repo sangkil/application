@@ -36,3 +36,7 @@ form{
 .box .box-footer{
     text-align: right;
 }
+
+.btn-group{
+    margin-bottom: 15px;
+}
