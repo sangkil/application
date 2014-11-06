@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use biz\core\purchase\components\Purchase as ApiPurchase;
+use app\models\inventory\GoodMovement;
+use app\models\inventory\searchs\GoodMovement as GoodMovementSearch;
 
 /**
  * PurchaseController implements the CRUD actions for Purchase model.
@@ -125,12 +127,40 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function actionGr($id)
+    public function actionGr($id, $gr_id = null)
     {
-        
+        $model = $this->findModel($id);
+        $modelSearch = new GoodMovementSearch([
+            'reff_type' => GoodMovement::TYPE_PURCHASE,
+            'reff_id' => $id,
+        ]);
+
+        if ($gr_id === null) {
+            $grModel = GoodMovement::findOne([
+                    'reff_type' => GoodMovement::TYPE_PURCHASE,
+                    'reff_id' => $id,
+                    'status' => GoodMovement::STATUS_OPEN,
+            ]);
+        } else {
+            $grModel = GoodMovement::findOne([
+                    'id' => $gr_id,
+                    'reff_type' => GoodMovement::TYPE_PURCHASE,
+                    'reff_id' => $id,
+            ]);
+        }
+        $grModel = $grModel? : new GoodMovement([
+            'reff_type' => GoodMovement::TYPE_PURCHASE,
+            'reff_id' => $id,
+            'status' => GoodMovement::STATUS_OPEN,
+        ]);
+
+
+
+        $dataProvider = $modelSearch->search(Yii::$app->request->getQueryParams());
         return $this->render('gr', [
-                'model' => $this->findModel($id),
-                'dataProvider'
+                'model' => $model,
+                'dataProvider' => $dataProvider,
+                'grModel' => $grModel,
         ]);
     }
 

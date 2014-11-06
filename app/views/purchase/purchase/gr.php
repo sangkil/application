@@ -3,10 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\purchase\Purchase;
-
+use app\models\inventory\GoodMovement;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\purchase\Purchase */
+/* @var $model Purchase */
+/* @var $grModel GoodMovement */
+
 $this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Purchase', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -16,9 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-lg-12" style="padding-left: 0px;">
     <div class="panel panel-primary">
-        <div class="panel-heading">
-            Purchase Header
-        </div>
         <?php
         echo DetailView::widget([
             'options' => ['class' => 'table table-striped detail-view', 'style' => 'padding:0px;'],
@@ -39,18 +38,24 @@ $this->params['breadcrumbs'][] = $this->title;
     echo yii\grid\GridView::widget([
         'tableOptions' => ['class' => 'table table-striped'],
         'layout' => '{items}',
-        'dataProvider' => new \yii\data\ActiveDataProvider([
-            'query' => $model->getGrs(),
-            'sort' => false,
-            'pagination' => false,
-            ]),
+        'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'product.name',
-            'qty',
-            'price',
-            'uom.name',
+            'number',
+            'date',
         ]
     ]);
     ?>
 </div>
+<?php if ($grModel->status == GoodMovement::STATUS_OPEN) {
+    echo $this->render('_gr_edit', [
+        'model'=>$model,
+        'grModel'=>$grModel,
+    ]);
+}  else {
+    echo $this->render('_gr_view', [
+        'model'=>$model,
+        'grModel'=>$grModel,
+    ]);
+}
+?>

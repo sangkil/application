@@ -1,16 +1,16 @@
 <?php
 
-namespace app\models\inventory\searchs;
+namespace app\models\master\searchs;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\inventory\GoodMovement as GoodMovementModel;
+use app\models\master\GlobalConfig as GlobalConfigModel;
 
 /**
- * GoodMovement represents the model behind the search form about `app\models\inventory\GoodMovement`.
+ * GlobalConfig represents the model behind the search form about `app\models\master\GlobalConfig`.
  */
-class GoodMovement extends GoodMovementModel
+class GlobalConfig extends GlobalConfigModel
 {
 
     /**
@@ -19,8 +19,9 @@ class GoodMovement extends GoodMovementModel
     public function rules()
     {
         return [
-            [['id', 'type', 'reff_type', 'reff_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['number', 'date', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['group'], 'required'],
+            [['group', 'name', 'value', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['created_by', 'updated_by'], 'integer'],
         ];
     }
 
@@ -42,7 +43,7 @@ class GoodMovement extends GoodMovementModel
      */
     public function search($params)
     {
-        $query = GoodMovementModel::find();
+        $query = GlobalConfigModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,19 +56,15 @@ class GoodMovement extends GoodMovementModel
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'date' => $this->date,
-            'type' => $this->type,
-            'reff_type' => $this->reff_type,
-            'reff_id' => $this->reff_id,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])
+        $query->andFilterWhere(['like', 'group', $this->group])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'value', $this->value])
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
