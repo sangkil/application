@@ -24,29 +24,34 @@ $this->params['breadcrumbs'][] = $this->title;
         //['label' => 'List', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-info btn-sm']]
     ]]);
     ?>
-    <?php
-    Pjax::begin(['formSelector' => 'form', 'enablePushState' => false]);
-    echo GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'layout' => "{items}\n{pager}",
-        'tableOptions' => ['class' => 'table table-striped'],
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'menuParent.name',
-                'filter' => Html::activeTextInput($searchModel, 'parent_name', [
-                    'class' => 'form-control', 'id' => null
-                ]),
-                'label' => 'Parent'
-            ],
-            'name',
-            'route',
-            'order',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]);
-    Pjax::end();
-    ?>
+    <div class="box box-info">
+        <div class="box-body no-padding">
+            <?php
+            Pjax::begin(['formSelector' => 'form', 'enablePushState' => false]);
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'layout' => "{items}\n{pager}",
+                'tableOptions' => ['class' => 'table table-striped'],
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'menuParent.name',
+                        'filter' => Html::activeTextInput($searchModel, 'parent_name', [
+                            'class' => 'form-control', 'id' => null
+                        ]),
+                        'label' => 'Parent'
+                    ],
+                    'name',
+                    'route',
+                    'order',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]);
+            Pjax::end();
+            ?>
+        </div>
+    </div>
+
 
 </div>
