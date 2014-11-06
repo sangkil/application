@@ -4,15 +4,15 @@ use yii\helpers\Html;
 use app\components\Toolbar;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\master\Branch */
+/* @var $model mdm\admin\models\Menu */
 
-$this->title = 'Update Branch: ' . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Branches', 'url' => ['index']];
+$this->title = 'Update Menu: ' . ' ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Menus', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="col-lg-8 branch-update">
-    <?=
+<div class="col-lg-8 menu-update">
+<?=
     Toolbar::widget(['items' => [
             ['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
             ['label' => 'Detail', 'url' => ['view', 'id' => $model->id], 'icon' => 'fa fa-search', 'linkOptions' => ['class' => 'btn bg-navy btn-sm']],
@@ -21,10 +21,8 @@ $this->params['breadcrumbs'][] = 'Update';
             ['label' => 'List', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-info btn-sm']]
     ]]);
     ?>
-    <?=
-    $this->render('_form', [
+    <?= $this->render('_form', [
         'model' => $model,
-    ])
-    ?>
+    ]) ?>
 
 </div>
