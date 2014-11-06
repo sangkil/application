@@ -26,14 +26,21 @@ $this->params['breadcrumbs'][] = 'Update';
         <?= ($visible_delete) ? Html::a('<i class="fa fa-trash-o"></i> Delete', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]) : '' ?> 
         <?= ($visible_list) ? Html::a('<i class="fa fa-list"></i> List', ['index'], ['class' => 'btn btn-info btn-sm']) : '' ?>
     </div>  
-    <?= Html::button('Test', ['class' => 'btn btn-info btn-sm', 'data-toggle' => 'dropdown']); ?>
-    <ul class="dropdown-menu" role="menu">
-        <li>Satu</li>
-        <li>Dua</li>
-        <li>Tiga</li>
-        <li class="divider"></li>
-        <li>Empat</li>
-    </ul>
+    <div class="btn-group">
+        <?= Html::button('Test', ['class' => 'btn btn-info btn-sm', 'data-toggle' => 'dropdown']); ?>
+        <button class="btn btn-warning btn-flat dropdown-toggle" data-toggle="dropdown" type="button">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>Satu</li>
+            <li>Dua</li>
+            <li>Tiga</li>
+            <li class="divider"></li>
+            <li>Empat</li>
+        </ul>
+    </div>
+
     <br><br>
     <?=
     $this->render('_form', [
