@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="box box-warning orgn-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
-        <?= $form->field($model, 'code',['template'=>'{}'])->textInput(['maxlength' => 4]) ?>
+        <?= $form->field($model, 'code')->textInput(['maxlength' => 4]) ?>
         <?= $form->field($model, 'name')->textInput(['maxlength' => 32]) ?>
     </div>
     <div class="box-footer">
