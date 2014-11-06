@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= ($visible_list)? Html::a('<i class="fa fa-list"></i> List', ['index'], ['class' => 'btn btn-info btn-sm']):'' ?>
     </div> 
     <br>    
-    <?= SideMenu::widget(['items'=>['label'=>'Create','url'=>['create','id'=>'2']]]); ?>
+    <?= ''//SideMenu::widget(['items'=>['label'=>'Create','url'=>['create','id'=>'2']]]); ?>
     <br>
     <?= $this->render('_form', [
         'model' => $model,
