@@ -9,8 +9,9 @@ use mdm\admin\models\Menu;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
+
 <div class="box box-info menu-form">
+    <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
         <?= $form->field($model, 'name')->textInput(['maxlength' => 128]) ?>
         <?=
@@ -36,7 +37,8 @@ use mdm\admin\models\Menu;
     <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
 
-<?php ActiveForm::end(); ?>
+
 
