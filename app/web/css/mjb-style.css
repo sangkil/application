@@ -37,6 +37,10 @@ form{
     text-align: right;
 }
 
+.box .box-header{
+    padding: 15px;
+}
+
 .btn-group{
     margin-bottom: 10px;
 }
