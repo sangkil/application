@@ -16,6 +16,14 @@ return [
         'admin' => [
             'class' => 'mdm\admin\Module',
         ],
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => true,
+            'enableRegistration'=>true, 
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'admins' => ['admin','mujib'],
+        ],
     ],
     'components' => [
         'user' => [
