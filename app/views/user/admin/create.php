@@ -25,22 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php echo $this->render('flash') ?>
 <?php $form = ActiveForm::begin(); ?>
-<div class="box box-primary">
-    <div class="box-header">
-        <?= Html::encode($this->title) ?>
+<div class="col-lg-8">
+    <div class="box box-primary">
+        <div class="box-header">
+            <?= Html::encode($this->title) ?>
+        </div>
+        <div class="box-body">
+
+            <?= $form->field($model, 'username')->textInput(['maxlength' => 25, 'autofocus' => true]) ?>
+
+            <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+
+            <?= $form->field($model, 'password')->passwordInput() ?>
+
+        </div>
+        <div class="box-footer">
+            <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
     </div>
-    <div class="box-body">
-
-        <?= $form->field($model, 'username')->textInput(['maxlength' => 25, 'autofocus' => true]) ?>
-
-        <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-    </div>
-    <div class="box-footer">
-        <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 </div>
