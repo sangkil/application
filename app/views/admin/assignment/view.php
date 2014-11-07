@@ -9,7 +9,7 @@ use app\components\Toolbar;
 $this->title = 'Assignments for ' . $model->{$usernameField};
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="col-lg-12 menu-view">
+<div class="menu-view">
     <div class="col-lg-12">
         <?= ''//Html::a('Users', ['index'], ['class'=>'btn btn-success']) ?>
 <!--    <h1>User: <?= ''//$model->{$usernameField}    ?></h1>-->
