@@ -6,6 +6,7 @@
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ * modify view
  */
 
 use yii\helpers\Html;
@@ -19,13 +20,13 @@ $this->title = Yii::t('user', 'Create a user account');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="alert alert-info">
-    <?= Yii::t('user', 'Password and username will be sent to user by email') ?>.
-    <?= Yii::t('user', 'If you want password to be generated automatically leave its field empty') ?>.
-</div>
-<?php echo $this->render('flash') ?>
-<?php $form = ActiveForm::begin(); ?>
 <div class="col-lg-8">
+    <div class="alert alert-info">
+        <?= Yii::t('user', 'Password and username will be sent to user by email') ?>.
+        <?= Yii::t('user', 'If you want password to be generated automatically leave its field empty') ?>.
+    </div>
+    <?php echo $this->render('flash') ?>
+    <?php $form = ActiveForm::begin(); ?>
     <div class="box box-primary">
         <div class="box-header">
             <?= Html::encode($this->title) ?>
@@ -43,6 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-success']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
