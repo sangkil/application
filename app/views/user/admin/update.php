@@ -22,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-8">
     <div class="alert alert-info">        
-        <?= Yii::t('user', 'Information') ?>
         <?= Yii::t('user', 'Registered at {0, date, MMMM dd, YYYY HH:mm} from {1}', [$model->created_at, is_null($model->registration_ip) ? 'N/D' : long2ip($model->registration_ip)]) ?>
         <br/>
         <?php if (Yii::$app->getModule('user')->enableConfirmation && $model->getIsConfirmed()): ?>
@@ -37,12 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     $dItem = [];
     if (!$model->getIsConfirmed()) {
-        $dItem[] = ['label' => Yii::t('user', 'Confirm'), 'url' => ['confirm', 'id' => $model->id], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-success btn-xs', 'data-method' => 'post']];
+        $dItem[] = ['label' => Yii::t('user', 'Confirm'), 'url' => ['confirm', 'id' => $model->id], 'icon' => 'fa fa-question-circle', 'linkOptions' => ['class' => 'btn btn-success btn-xs', 'data-method' => 'post']];
     }
     if ($model->getIsBlocked()) {
-        $dItem[] = ['label' => Yii::t('user', 'Unblock'), 'url' => ['block', 'id' => $model->id], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-success btn-xs', 'data-method' => 'post', 'data-confirm' => Yii::t('user', 'Are you sure to block this user?')]];
+        $dItem[] = ['label' => Yii::t('user', 'Unblock'), 'url' => ['block', 'id' => $model->id], 'icon' => 'fa fa-check-square-o', 'linkOptions' => ['class' => 'btn btn-success btn-xs', 'data-method' => 'post', 'data-confirm' => Yii::t('user', 'Are you sure to block this user?')]];
     } else {
-        $dItem[] = ['label' => Yii::t('user', 'Block'), 'url' => ['block', 'id' => $model->id], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => Yii::t('user', 'Are you sure to block this user?')]];
+        $dItem[] = ['label' => Yii::t('user', 'Block'), 'url' => ['block', 'id' => $model->id], 'icon' => 'fa fa-ban', 'linkOptions' => ['class' => 'btn btn-danger btn-xs', 'data-method' => 'post', 'data-confirm' => Yii::t('user', 'Are you sure to block this user?')]];
     }
     echo Toolbar::widget(['items' => $dItem]);
     ?>
