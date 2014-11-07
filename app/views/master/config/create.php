@@ -4,11 +4,11 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model yii\base\DynamicModel */
-/* @var $schema app\models\master\GlobalConfig */
+/* @var $schema array */
 
 
-$this->title = 'Create '.$schema->name;
-$this->params['breadcrumbs'][] = ['label' => $schema->name, 'url' => ['index','group'=>$group]];
+$this->title = 'Create '.$group;
+$this->params['breadcrumbs'][] = ['label' => $group, 'url' => ['index','group'=>$group]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="global-config-create">

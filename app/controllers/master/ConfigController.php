@@ -15,7 +15,6 @@ use yii\base\DynamicModel;
  */
 class ConfigController extends Controller
 {
-    const GROUP_SCHEMA = 'GROUP_SCHEMA';
 
     public function behaviors()
     {
@@ -48,7 +47,11 @@ class ConfigController extends Controller
 
     protected function getSchema($group)
     {
-        return $this->findModel(self::GROUP_SCHEMA, $group);
+        if (isset(GlobalConfig::$schemaDefinition[$group])) {
+            return array_keys(GlobalConfig::$schemaDefinition[$group]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -74,37 +77,17 @@ class ConfigController extends Controller
      */
     public function actionCreate($group)
     {
-        $schema = $this->getSchema($group);
-        $attrs = ['name', 'description'];
-        foreach ($schema->serializeValue as $col) {
-            $attrs[] = $col;
-        }
-        $model = new DynamicModel($attrs);
-        $model->addRule('name', 'required');
-        $model->addRule('name', 'unique', [
-            'targetClass' => GlobalConfig::className(),
-            'targetAttribute' => 'name',
-            'filter' => ['group' => $group]
+        $model = new GlobalConfig([
+            'group' => $group,
         ]);
-        $model->addRule($attrs, 'safe');
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $attrs = $model->attributes;
-            unset($attrs['name'], $attrs['description']);
-            $configModel = new GlobalConfig([
-                'group' => $group,
-                'name' => $model->name,
-                'description' => $model->description,
-            ]);
-            $configModel->serializeValue = $attrs;
-            if ($configModel->save()) {
-                return $this->redirect(['view', 'group' => $group, 'name' => $model->name]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'group' => $group, 'name' => $model->name]);
         }
         return $this->render('create', [
                 'model' => $model,
                 'group' => $group,
-                'schema' => $schema
+                'schema' => $this->getSchema($group),
         ]);
     }
 
@@ -119,47 +102,13 @@ class ConfigController extends Controller
     {
         $model = $this->findModel($group, $name);
 
-        $schema = $this->getSchema($group);
-
-        $attrs = [
-            'name' => $model->name,
-            'description' => $model->description
-        ];
-        $serializeValue = $model->serializeValue;
-        foreach ($schema->serializeValue as $col) {
-            if (isset($serializeValue[$col])) {
-                $attrs[$col] = $serializeValue[$col];
-            } else {
-                $attrs[] = $col;
-            }
-        }
-        $model = new DynamicModel($attrs);
-        $model->addRule('name', 'required');
-        $model->addRule('name', 'unique', [
-            'targetClass' => GlobalConfig::className(),
-            'targetAttribute' => 'name',
-            'filter' => ['group' => $group]
-        ]);
-        $model->addRule('description', 'safe');
-        $model->addRule($schema->serializeValue, 'safe');
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $attrs = $model->attributes;
-            unset($attrs['name'], $attrs['description']);
-            $configModel = new GlobalConfig([
-                'group' => $group,
-                'name' => $model->name,
-                'description' => $model->description,
-            ]);
-            $configModel->serializeValue = $attrs;
-            if ($configModel->save()) {
-                return $this->redirect(['view', 'group' => $group, 'name' => $model->name]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'group' => $group, 'name' => $model->name]);
         }
         return $this->render('update', [
                 'model' => $model,
                 'group' => $group,
-                'schema' => $schema
+                'schema' => $this->getSchema($group),
         ]);
     }
 

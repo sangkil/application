@@ -41,7 +41,7 @@ class GlobalConfig extends GlobalConfigModel
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search()
     {
         $query = GlobalConfigModel::find();
 
@@ -49,23 +49,14 @@ class GlobalConfig extends GlobalConfigModel
             'query' => $query,
         ]);
 
-        $this->load($params);
         if (!$this->validate()) {
             $query->where('1=0');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
-            'updated_at' => $this->updated_at,
-            'updated_by' => $this->updated_by,
+            'group' => $this->group,
         ]);
-
-        $query->andFilterWhere(['like', 'group', $this->group])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'value', $this->value])
-            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

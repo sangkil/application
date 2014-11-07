@@ -130,9 +130,7 @@ class SideMenu extends \yii\base\Widget
 
         if ($items !== null && is_array($items)) {
             Html::addCssClass($options, 'treeview');
-            if ($this->activateItems) {
-                $items = $this->isChildActive($items, $active);
-            }
+            
             $items = Html::tag('ul', implode("\n", $this->renderItems($items)), ['class' => 'treeview-menu']);
 
             $linkContent .= Html::tag('span', $label);
@@ -210,7 +208,13 @@ class SideMenu extends \yii\base\Widget
 
             return true;
         }
-
+        if($this->activateParents && !empty($item['items'])){
+            foreach ($item['items'] as $child) {
+                if($this->isItemActive($child)){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }
