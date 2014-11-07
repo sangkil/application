@@ -9,6 +9,10 @@ Create at {date('now')}
 form{
     margin-top: 15px;
 }
+
+select {
+    padding: 10px;
+}
 .error-summary{
     margin: 0px 15px 15px 15px;
     padding: 15px 30px 15px 15px;
@@ -49,3 +53,4 @@ form{
     position: absolute;
     left: 150px; 
 }
+
