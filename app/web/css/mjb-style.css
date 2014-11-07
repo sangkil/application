@@ -55,3 +55,6 @@ select {
     left: 150px; 
 }
 
+.alert {
+    margin-left: 0px;
+}
