@@ -22,7 +22,7 @@ return [
             'enableRegistration'=>true, 
             'confirmWithin' => 21600,
             'cost' => 12,
-            'admins' => ['admin'],
+            'admins' => ['admin','mujib'],
         ],
     ],
     'components' => [
