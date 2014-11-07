@@ -10,6 +10,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\components\Toolbar;
 
 /**
  * @var yii\web\View $this
