@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-lg-2" style="text-align: center;">
         <?php
-        echo Html::a('>>', '#', ['class' => 'btn btn-success', 'data-action' => 'assign']) . '&nbsp;';
-        echo Html::a('<<', '#', ['class' => 'btn btn-success', 'data-action' => 'delete']);
+        echo Html::a('<<', '#', ['class' => 'btn btn-success', 'data-action' => 'delete']) . '&nbsp;';
+        echo Html::a('>>', '#', ['class' => 'btn btn-success', 'data-action' => 'assign']);
         ?>
     </div>
     <div class="col-lg-5">
