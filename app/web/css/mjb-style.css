@@ -50,8 +50,24 @@ select {
     margin-bottom: 10px;
 }
 
-.form-group > .btn:first-child{
+/*.form-group > .btn:first-child{
     position: absolute;
     left: 150px; 
 }
+
+.footer > .btn:first-child{
+    position: absolute;
+    left: 150px; 
+}
+
+
+.form-group > .btn:not(:first-child){
+    position: relative;
+    left: 150px; 
+}
+
+.footer > .btn:not(:first-child){
+    position: relative;
+    left: 150px; 
+}*/
 
