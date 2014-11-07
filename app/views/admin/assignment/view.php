@@ -6,18 +6,18 @@ use app\components\Toolbar;
 /* @var $this yii\web\View */
 /* @var $model yii\web\IdentityInterface */
 
-$this->title = 'Assignments for '.$model->{$usernameField};
+$this->title = 'Assignments for ' . $model->{$usernameField};
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-12 menu-view">
     <div class="col-lg-12">
-    <?= ''//Html::a('Users', ['index'], ['class'=>'btn btn-success']) ?>
-<!--    <h1>User: <?= ''//$model->{$usernameField}   ?></h1>-->
-    <?=
-    Toolbar::widget(['items' => [
-            ['label' => 'Users', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-success btn-sm']]
-    ]]);
-    ?>        
+        <?= ''//Html::a('Users', ['index'], ['class'=>'btn btn-success']) ?>
+<!--    <h1>User: <?= ''//$model->{$usernameField}    ?></h1>-->
+        <?=
+        Toolbar::widget(['items' => [
+                ['label' => 'Users', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-success btn-sm']]
+        ]]);
+        ?>        
     </div>
     <div class="col-lg-5">
         <div class="box box-info menu-view">
@@ -38,11 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-    <div class="col-lg-2">
-        &nbsp;<br><br>
+    <div class="col-lg-2" style="text-align: center;">
         <?php
-        echo Html::a('>>', '#', ['class' => 'btn btn-success', 'data-action' => 'assign']) . '<br>';
-        echo Html::a('<<', '#', ['class' => 'btn btn-success', 'data-action' => 'delete']) . '<br>';
+        echo Html::a('>>', '#', ['class' => 'btn btn-success', 'data-action' => 'assign']) . '&nbsp;';
+        echo Html::a('<<', '#', ['class' => 'btn btn-success', 'data-action' => 'delete']);
         ?>
     </div>
     <div class="col-lg-5">
