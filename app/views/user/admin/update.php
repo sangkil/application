@@ -46,12 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
     echo Toolbar::widget(['items' => $dItem]);
     ?>
     <div class="box box-primary">
+        <?php $form = ActiveForm::begin(); ?>
         <div class="box-header">
             <i class="fa fa-user"></i>
             <?= Html::encode($model->username) ?>
         </div>
         <div class="box-body">
-            <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($model, 'username')->textInput(['maxlength' => 25]) ?>
 
@@ -59,12 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'password')->passwordInput() ?>
 
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-primary']) ?>
-            </div>
-
-            <?php ActiveForm::end(); ?>
         </div>
+        <div class="box-footer">
+            <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-primary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
     </div>
 </div>
 
