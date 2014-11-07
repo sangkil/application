@@ -15,19 +15,6 @@ use app\models\master\Product;
  */
 class GoodMovementDtl extends \biz\core\inventory\models\GoodMovementDtl
 {
-    public $avaliable;
-
-    public function rules()
-    {
-        $rules = parent::rules();
-        return array_merge($rules, [
-            [['avaliable'], 'safe'],
-            [['qty'], 'compare', 'compareAttribute' => 'avaliable', 'operator' => '>=',
-                'when' => function($obj) {
-                return $obj->avaliable !== null && $obj->avaliable !== '';
-            }]
-        ]);
-    }
 
     public function getProduct()
     {

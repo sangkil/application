@@ -11,7 +11,6 @@ use yii\filters\VerbFilter;
 use biz\core\inventory\components\GoodMovement as ApiMovement;
 use yii\helpers\ArrayHelper;
 use app\models\inventory\GoodMovementDtl;
-use app\models\master\GlobalConfig;
 
 /**
  * MovementController implements the CRUD actions for GoodMovement model.
@@ -107,7 +106,6 @@ class MovementController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         $api = new ApiMovement();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -139,14 +137,11 @@ class MovementController extends Controller
 
     protected function getReference($reff_type, $reff_id, $origin = null)
     {
-        $config = GlobalConfig::findOne([
-                'group' => GoodMovement::GROUP_REFF_TYPE,
-                'name' => $reff_type,
-        ]);
-        $class = $config->class;
-        $relation = $config->relation;
-        $qty_field = $config->qty_field;
-        $total_field = $config->total_field;
+        $config = GoodMovement::reffConfig($reff_type);
+        $class = $config['class'];
+        $relation = $config['relation'];
+        $qty_field = $config['qty_field'];
+        $total_field = $config['total_field'];
 
         $modelRef = $class::findOne($reff_id);
         $refDtls = $modelRef->$relation;
@@ -175,8 +170,9 @@ class MovementController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $api = new ApiMovement();
+        $api->delete($id, $model);
         return $this->redirect(['index']);
     }
 

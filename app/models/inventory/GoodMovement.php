@@ -2,7 +2,8 @@
 
 namespace app\models\inventory;
 
-use app\models\master\GlobalConfig;
+use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * GoodMovement
@@ -12,7 +13,6 @@ use app\models\master\GlobalConfig;
  */
 class GoodMovement extends \biz\core\inventory\models\GoodMovement
 {
-    const GROUP_REFF_TYPE = 'GM_REFF_TYPE';
 
     public function getGoodMovementDtls()
     {
@@ -25,19 +25,6 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
             [['Date'], 'required'],
             [['reff_type'], 'resolveType'],
             ], parent::rules());
-    }
-
-    public function resolveType()
-    {
-        $config = GlobalConfig::findOne([
-                'group' => self::GROUP_REFF_TYPE,
-                'name' => $this->reff_type,
-        ]);
-        if ($config) {
-            $this->type = $config->type;
-        } else {
-            $this->addError('reff_type', "Reference type {$this->reff_type} not recognize");
-        }
     }
 
     public function behaviors()
@@ -53,3 +40,5 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
         ]);
     }
 }
+// Load refference
+GoodMovement::$reffTypes = ArrayHelper::merge(GoodMovement::$reffTypes, require(__DIR__ . DIRECTORY_SEPARATOR . 'reff_types'));
