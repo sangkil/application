@@ -1,8 +1,7 @@
 <?php
 
 $params = array_merge(
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/params.php'), require(__DIR__ . '/params-local.php')
 );
 
 return [
@@ -19,10 +18,10 @@ return [
         'user' => [
             'class' => 'dektrium\user\Module',
             'enableUnconfirmedLogin' => true,
-            'enableRegistration'=>true, 
+            'enableRegistration' => true,
             'confirmWithin' => 21600,
             'cost' => 12,
-            'admins' => ['admin','mujib'],
+            'admins' => ['admin', 'mujib'],
         ],
     ],
     'components' => [
@@ -41,6 +40,14 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@mdm/admin/views' => '@app/views/admin',
+                    '@dektrium/user/views' => '@app/views/user',
+                ]
+            ]
         ]
     ],
     'params' => $params,

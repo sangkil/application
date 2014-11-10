@@ -27,14 +27,6 @@ $config = [
                 
             ],
         ],
-        'view'=>[
-            'theme'=>[
-                'pathMap'=>[
-                    '@mdm/admin/views'=>'@app/views/admin',
-                    '@dektrium/user/views'=>'@app/views/user',
-                ]
-            ]
-        ]
     ]
 ];
 
