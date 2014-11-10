@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m141101_065028_extended_purchase extends Migration
+class m141101_065028_extended_sangkil extends Migration
 {
 
     public function safeUp()
