@@ -27,7 +27,7 @@ class m141101_065028_extended_purchase extends Migration
             // constrain
             'PRIMARY KEY ([[group]], [[name]])',
             ], $tableOptions);
-        
+/*
         $this->createTable('{{%ext_purchase}}', [
             'id' => Schema::TYPE_INTEGER,
             'tax' => Schema::TYPE_FLOAT,
@@ -36,11 +36,12 @@ class m141101_065028_extended_purchase extends Migration
             'PRIMARY KEY ([[id]])',
             'FOREIGN KEY ([[id]]) REFERENCES {{%purchase}} ([[id]]) ON DELETE CASCADE ON UPDATE CASCADE',
             ], $tableOptions);
+*/
     }
 
     public function safeDown()
     {
-        $this->dropTable('{{%ext_purchase}}');
+//        $this->dropTable('{{%ext_purchase}}');
         $this->dropTable('{{%global_config}}');
     }
 }
