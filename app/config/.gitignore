@@ -4,4 +4,3 @@ console-local.php
 container-local.php
 params-local.php
 web-local.php
-!/web-local.php
