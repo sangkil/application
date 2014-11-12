@@ -62,11 +62,11 @@ class MovementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($reff_type, $reff_id)
+    public function actionCreate($type, $id)
     {
         $model = new GoodMovement([
-            'reff_type' => $reff_type,
-            'reff_id' => $reff_id,
+            'reff_type' => $type,
+            'reff_id' => $id,
         ]);
         $api = new ApiMovement();
 
@@ -89,7 +89,7 @@ class MovementController extends Controller
                 throw $exc;
             }
         }
-        list($modelRef, $details) = $this->getReference($reff_type, $reff_id, $model->goodMovementDtls);
+        list($modelRef, $details) = $this->getReference($type, $id, $model->goodMovementDtls);
         return $this->render('create', [
                 'model' => $model,
                 'modelRef' => $modelRef,

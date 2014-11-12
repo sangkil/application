@@ -9,8 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use biz\core\purchase\components\Purchase as ApiPurchase;
-use app\models\inventory\GoodMovement;
-use app\models\inventory\searchs\GoodMovement as GoodMovementSearch;
 
 /**
  * PurchaseController implements the CRUD actions for Purchase model.
@@ -129,7 +127,7 @@ class PurchaseController extends Controller
 
     public function actionReceive($id)
     {
-        return $this->redirect(['/inventory/movement/create','reff_type'=>100,'reff_id'=>$id]);
+        return $this->redirect(['/inventory/movement/create','type'=>100,'id'=>$id]);
     }
 
     /**

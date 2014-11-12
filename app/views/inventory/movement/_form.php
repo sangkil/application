@@ -17,7 +17,7 @@ use app\models\master\Warehouse;
     
     <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::warehouseList()) ?>
+    <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
 
     <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker') ?>
 
