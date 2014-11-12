@@ -2,18 +2,19 @@
 
 namespace app\models\master;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * Orgn
  *
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class Orgn extends \biz\core\master\models\Orgn {
+class Orgn extends \biz\core\master\models\Orgn
+{
 
-    public function rules() {
-        $dRule = parent::rules();
-        $dRule[] = [['code'], 'unique'];
-        return $dRule;
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'name');
     }
-
 }

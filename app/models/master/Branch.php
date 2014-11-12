@@ -1,5 +1,9 @@
 <?php
+
 namespace app\models\master;
+
+use yii\helpers\ArrayHelper;
+
 /**
  * Branch
  *
@@ -8,5 +12,11 @@ namespace app\models\master;
  */
 class Branch extends \biz\core\master\models\Branch
 {
-    
+
+    public static function selectOptions($orgn_id = null)
+    {
+        return ArrayHelper::map(static::find()->andFilterWhere([
+                    'orgn_id' => $orgn_id
+                ])->all(), 'id', 'name');
+    }
 }

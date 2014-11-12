@@ -2,6 +2,8 @@
 
 namespace app\models\master;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * ProductGroup
  *
@@ -10,5 +12,9 @@ namespace app\models\master;
  */
 class ProductGroup extends \biz\core\master\models\ProductGroup
 {
-    
+
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'name');
+    }
 }

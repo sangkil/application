@@ -44,8 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) . ' ';
                 echo Html::a('Receive', ['receive', 'id' => $model->id], [
                     'class' => 'btn btn-success',
-                    'data-confirm' => Yii::t('app', 'Are you sure to receive this item?'),
-                    'data-method' => 'post',
                 ]);
             }
             ?>

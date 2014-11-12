@@ -92,7 +92,7 @@
                             }
                         }
                     });
-
+                    
                 var clicked = false;
                 $('#detail-grid')
                     .off('click.purchase, focus.purchase', 'input[data-field]')
@@ -110,7 +110,11 @@
                 $('#product').change(local.onProductChange);
                 $('#product').focus();
                 $('#product').data('ui-autocomplete')._renderItem = biz.global.renderItem;
-
+                
+                $('#detail-grid').on('change','[data-field]',function(){
+                    local.normalizeItem();
+                });
+                
                 local.showDiscount();
                 $('#item-discount').change(local.showDiscount);
 

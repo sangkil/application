@@ -127,41 +127,9 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function actionGr($id, $gr_id = null)
+    public function actionReceive($id)
     {
-        $model = $this->findModel($id);
-        $modelSearch = new GoodMovementSearch([
-            'reff_type' => GoodMovement::TYPE_PURCHASE,
-            'reff_id' => $id,
-        ]);
-
-        if ($gr_id === null) {
-            $grModel = GoodMovement::findOne([
-                    'reff_type' => GoodMovement::TYPE_PURCHASE,
-                    'reff_id' => $id,
-                    'status' => GoodMovement::STATUS_OPEN,
-            ]);
-        } else {
-            $grModel = GoodMovement::findOne([
-                    'id' => $gr_id,
-                    'reff_type' => GoodMovement::TYPE_PURCHASE,
-                    'reff_id' => $id,
-            ]);
-        }
-        $grModel = $grModel? : new GoodMovement([
-            'reff_type' => GoodMovement::TYPE_PURCHASE,
-            'reff_id' => $id,
-            'status' => GoodMovement::STATUS_OPEN,
-        ]);
-
-
-
-        $dataProvider = $modelSearch->search(Yii::$app->request->getQueryParams());
-        return $this->render('gr', [
-                'model' => $model,
-                'dataProvider' => $dataProvider,
-                'grModel' => $grModel,
-        ]);
+        return $this->redirect(['/inventory/movement/create','reff_type'=>100,'reff_id'=>$id]);
     }
 
     /**

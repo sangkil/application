@@ -41,4 +41,4 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
     }
 }
 // Load refference
-GoodMovement::$reffTypes = ArrayHelper::merge(GoodMovement::$reffTypes, require(__DIR__ . DIRECTORY_SEPARATOR . 'reff_types'));
+GoodMovement::$reffTypes = ArrayHelper::merge(GoodMovement::$reffTypes, require(__DIR__ . DIRECTORY_SEPARATOR . 'reff_types.php'));

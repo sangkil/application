@@ -13,11 +13,10 @@ use yii\helpers\ArrayHelper;
 class Warehouse extends \biz\core\master\models\Warehouse
 {
 
-    public static function warehouseList($branch_id = null)
+    public static function selectOptions($branch_id = null)
     {
-        $whs = static::find()->andFilterWhere([
-            'branch_id' => $branch_id
-        ])->all();
-        return ArrayHelper::map($whs, 'id', 'name');
+        return ArrayHelper::map(static::find()->andFilterWhere([
+                    'branch_id' => $branch_id
+                ])->all(), 'id', 'name');
     }
 }

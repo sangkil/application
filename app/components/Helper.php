@@ -2,16 +2,16 @@
 
 namespace app\components;
 
-use biz\core\master\models\Product;
-use biz\core\master\models\ProductUom;
-use biz\core\master\models\Uom;
-use biz\core\master\models\ProductChild;
-use biz\core\master\models\PriceCategory;
-use biz\core\master\models\Price;
-use biz\core\master\models\Customer;
-use biz\core\master\models\Supplier;
-use biz\core\master\models\ProductSupplier;
-use biz\core\master\models\ProductStock;
+use app\models\master\Product;
+use app\models\master\ProductUom;
+use app\models\master\Uom;
+use app\models\master\ProductChild;
+use app\models\master\PriceCategory;
+use app\models\master\Price;
+use app\models\master\Customer;
+use app\models\master\Supplier;
+use app\models\master\ProductSupplier;
+use app\models\master\ProductStock;
 
 /**
  * Helper
@@ -29,30 +29,24 @@ class Helper
 
         // master product
         if (isset($masters['products'])) {
-            $query_product = ProductUom::find()
-                ->select(['pu.*', 'p.code', 'p.name', 'uom_nm' => 'u.name'])
+            $query_product = Product::find()
+                ->select(['id', 'cd' => 'code', 'text' => 'name', 'label' => 'name'])
+                ->andWhere(['status' => Product::STATUS_ACTIVE])
+                ->indexBy('id')
+                ->asArray();
+
+            $products = $query_product->all();
+
+            $query_uom = ProductUom::find()
+                ->select(['pu.product_id', 'pu.uom_id', 'pu.isi', 'uom_nm' => 'u.name'])
                 ->from(ProductUom::tableName() . ' pu')
-                ->joinWith(['product'=>function($q){
-                    $q->from(Product::tableName() . ' p');
-                }])
-                ->joinWith(['uom'=>function($q){
+                ->joinWith(['uom' => function($q) {
                     $q->from(Uom::tableName() . ' u');
                 }])
                 ->orderBy(['pu.product_id' => SORT_ASC, 'pu.isi' => SORT_ASC])
                 ->asArray();
-
-            $products = [];
-            foreach ($query_product->all() as $row) {
-                $id = $row['product_id'];
-                if (!isset($products[$id])) {
-                    $products[$id] = [
-                        'id' => $row['product_id'],
-                        'cd' => $row['code'],
-                        'text' => $row['name'],
-                        'label' => $row['name'],
-                    ];
-                }
-                $products[$id]['uoms'][] = [
+            foreach ($query_uom->all() as $row) {
+                $products[$row['product_id']]['uoms'][] = [
                     'id' => $row['uom_id'],
                     'nm' => $row['uom_nm'],
                     'isi' => $row['isi']

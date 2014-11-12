@@ -2,6 +2,7 @@
 
 namespace app\models\master;
 
+use yii\helpers\ArrayHelper;
 /**
  * Price category
  *
@@ -10,5 +11,9 @@ namespace app\models\master;
  */
 class PriceCategory extends \biz\core\master\models\PriceCategory
 {
-    
+
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'name');
+    }
 }

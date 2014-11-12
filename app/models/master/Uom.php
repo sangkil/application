@@ -1,5 +1,9 @@
 <?php
+
 namespace app\models\master;
+
+use yii\helpers\ArrayHelper;
+
 /**
  * Uom
  *
@@ -8,5 +12,9 @@ namespace app\models\master;
  */
 class Uom extends \biz\core\master\models\Uom
 {
-    
+
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'name');
+    }
 }

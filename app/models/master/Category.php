@@ -2,6 +2,8 @@
 
 namespace app\models\master;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * Category
  *
@@ -10,5 +12,9 @@ namespace app\models\master;
  */
 class Category extends \biz\core\master\models\Category
 {
-    
+
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->all(), 'id', 'name');
+    }
 }

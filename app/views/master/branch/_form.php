@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
 use app\models\master\Orgn;
 
 /* @var $this yii\web\View */
@@ -14,7 +13,7 @@ use app\models\master\Orgn;
 <div class="box box-warning">
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
-        <?= $form->field($model, 'orgn_id')->dropDownList(ArrayHelper::map(Orgn::find()->all(), 'id', 'name')); ?>
+        <?= $form->field($model, 'orgn_id')->dropDownList(Orgn::selectOptions()); ?>
 
         <?= $form->field($model, 'code')->textInput(['maxlength' => 4]) ?>
 
