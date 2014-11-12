@@ -23,7 +23,6 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
     {
         return array_merge([
             [['Date'], 'required'],
-            [['reff_type'], 'resolveType'],
             ], parent::rules());
     }
 

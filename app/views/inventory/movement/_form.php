@@ -14,7 +14,7 @@ use app\models\master\Warehouse;
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->errorSummary($model); ?>
     <?= $form->errorSummary($details); ?>
-    
+
     <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
 
     <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
@@ -35,7 +35,9 @@ use app\models\master\Warehouse;
             ?>
             <?php foreach ($details as $detail): ?>
                 <tr>
-                    <td><?= $i + 1; ?><?= Html::activeHiddenInput($detail, "[{$i}]product_id") ?></td>
+                    <td><?= $i + 1; ?>
+                        <?= Html::activeHiddenInput($detail, "[{$i}]product_id") ?>
+                        <?= Html::activeHiddenInput($detail, "[{$i}]avaliable") ?></td>
                     <td><?= $detail->product->name ?></td>
                     <td><?= $detail->avaliable ?></td>
                     <td><?= Html::activeTextInput($detail, "[{$i}]qty") ?></td>

@@ -64,7 +64,12 @@ class MovementController extends Controller
      */
     public function actionCreate($type, $id)
     {
-        $model = new GoodMovement([
+        $model = GoodMovement::findOne([
+                'reff_type' => $type,
+                'reff_id' => $id,
+                'status' => GoodMovement::STATUS_OPEN,
+        ]);
+        $model = $model ? : new GoodMovement([
             'reff_type' => $type,
             'reff_id' => $id,
         ]);
@@ -173,6 +178,14 @@ class MovementController extends Controller
         $model = $this->findModel($id);
         $api = new ApiMovement();
         $api->delete($id, $model);
+        return $this->redirect(['index']);
+    }
+
+    public function actionApply($id)
+    {
+        $model = $this->findModel($id);
+        $api = new ApiMovement();
+        $api->apply($id, $model);
         return $this->redirect(['index']);
     }
 
