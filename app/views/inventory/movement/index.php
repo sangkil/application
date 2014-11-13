@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\inventory\GoodMovement;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\inventory\searchs\GoodMovement */
@@ -19,27 +20,34 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Good Movement', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'number',
-            'date',
-            'type',
-            'reff_type',
-            // 'reff_id',
-            // 'description',
-            // 'status',
-            // 'created_at',
-            // 'created_by',
-            // 'updated_at',
-            // 'updated_by',
-
+            'Date',
+            [
+                'attribute' => 'type',
+                'value' => 'nmType',
+                'filter' => [
+                    GoodMovement::TYPE_RECEIVE => 'Receive',
+                    GoodMovement::TYPE_ISSUE => 'Issue',
+                ]
+            ],
+            [
+                'attribute' => 'reff_type',
+                'value' => 'nmReffType',
+            ],
+            [
+                'label' => 'Reference',
+                'value' => 'reffLink',
+                'format'=>'html'
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>
