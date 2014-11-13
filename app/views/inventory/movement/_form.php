@@ -36,8 +36,7 @@ use app\models\master\Warehouse;
             <?php foreach ($details as $detail): ?>
                 <tr>
                     <td><?= $i + 1; ?>
-                        <?= Html::activeHiddenInput($detail, "[{$i}]product_id") ?>
-                        <?= Html::activeHiddenInput($detail, "[{$i}]avaliable") ?></td>
+                        <?= Html::activeHiddenInput($detail, "[{$i}]product_id") ?></td>
                     <td><?= $detail->product->name ?></td>
                     <td><?= $detail->avaliable ?></td>
                     <td><?= Html::activeTextInput($detail, "[{$i}]qty") ?></td>

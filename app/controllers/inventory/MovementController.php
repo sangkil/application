@@ -75,6 +75,8 @@ class MovementController extends Controller
         ]);
         $api = new ApiMovement();
 
+        list($modelRef, $details) = $this->getReference($type, $id, $model->goodMovementDtls);
+        $model->populateRelation('goodMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
             try {
                 $transaction = Yii::$app->db->beginTransaction();
@@ -94,11 +96,10 @@ class MovementController extends Controller
                 throw $exc;
             }
         }
-        list($modelRef, $details) = $this->getReference($type, $id, $model->goodMovementDtls);
         return $this->render('create', [
                 'model' => $model,
                 'modelRef' => $modelRef,
-                'details' => $details,
+                'details' => $model->goodMovementDtls,
         ]);
     }
 
@@ -113,6 +114,8 @@ class MovementController extends Controller
         $model = $this->findModel($id);
         $api = new ApiMovement();
 
+        list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodMovementDtls);
+        $model->populateRelation('goodMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
             try {
                 $transaction = Yii::$app->db->beginTransaction();
@@ -132,37 +135,32 @@ class MovementController extends Controller
                 throw $exc;
             }
         }
-        list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodMovementDtls);
         return $this->render('update', [
                 'model' => $model,
                 'modelRef' => $modelRef,
-                'details' => $details,
+                'details' => $model->goodMovementDtls,
         ]);
     }
 
-    protected function getReference($reff_type, $reff_id, $origin = null)
+    protected function getReference($reff_type, $reff_id, $origin = [])
     {
         $config = GoodMovement::reffConfig($reff_type);
         $class = $config['class'];
         $relation = $config['relation'];
-        $qty_field = $config['qty_field'];
-        $total_field = $config['total_field'];
 
         $modelRef = $class::findOne($reff_id);
         $refDtls = $modelRef->$relation;
 
-        if ($origin === null) {
-            $details = [];
-        } else {
-            $details = ArrayHelper::index($origin, 'product_id');
-        }
+        $details = ArrayHelper::index($origin, 'product_id');
         foreach ($refDtls as $refDtl) {
             if (!isset($details[$refDtl->product_id])) {
                 $details[$refDtl->product_id] = new GoodMovementDtl([
                     'product_id' => $refDtl->product_id,
                 ]);
             }
-            $details[$refDtl->product_id]->avaliable = $refDtl->{$qty_field} - $refDtl->{$total_field};
+            if (!empty($config['apply_method'])) {
+                call_user_func([$refDtl, $config['apply_method']], $details[$refDtl->product_id]);
+            }
         }
         return [$modelRef, array_values($details)];
     }
