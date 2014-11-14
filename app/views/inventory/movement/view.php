@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\inventory\GoodMovement;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\inventory\GoodMovement */
+/* @var $model GoodMovement */
 
-$this->title = $model->id;
+$this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,32 +16,61 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if ($model->status == GoodMovement::STATUS_DRAFT): ?>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?=
+            Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ])
+            ?>
+            <?=
+            Html::a('Apply', ['apply', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ])
+            ?>
+        <?php endif; ?>
     </p>
 
-    <?= DetailView::widget([
+    <?=
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'number',
-            'date',
-            'type',
-            'reff_type',
-            'reff_id',
+            'Date',
+            'nmType',
+            'nmReffType',
+            'reffLink:html:Reference',
             'description',
-            'status',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
+            'nmStatus',
         ],
-    ]) ?>
+    ])
+    ?>
 
+</div>
+
+<div class="col-lg-9">
+    <?php
+    echo yii\grid\GridView::widget([
+        'tableOptions' => ['class' => 'table table-striped'],
+        'layout' => '{items}',
+        'dataProvider' => new \yii\data\ActiveDataProvider([
+            'query' => $model->getGoodMovementDtls(),
+            'sort' => false,
+            'pagination' => false,
+            ]),
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'product.name',
+            'qty',
+        ]
+    ]);
+    ?>
 </div>

@@ -42,10 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data-confirm' => Yii::t('app', 'Are you sure to delete this item?'),
                     'data-method' => 'post',
                 ]) . ' ';
-                echo Html::a('Receive', ['receive', 'id' => $model->id], [
-                    'class' => 'btn btn-success',
-                ]);
             }
+            echo Html::a('Receive', ['receive', 'id' => $model->id], [
+                'class' => 'btn btn-success',
+            ]);
             ?>
         </div>
     </div>
@@ -64,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'product.name',
             'qty',
+            'total_receive',
             'price',
             'uom.name',
         ]

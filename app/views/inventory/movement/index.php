@@ -19,7 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Good Movement', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?php
+    $filterRef = [];
+    foreach (GoodMovement::$reffTypes as $key => $value) {
+        $filterRef[$key] = isset($value['name']) ? $value['name'] : $key;
+    }
+    ?>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -39,11 +44,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'reff_type',
                 'value' => 'nmReffType',
+                'filter' => $filterRef,
             ],
             [
                 'label' => 'Reference',
                 'value' => 'reffLink',
-                'format'=>'html'
+                'format' => 'html',
+            ],
+            [
+                'attribute'=>'status',
+                'value'=>'nmStatus',
+                'filter'=>[
+                    GoodMovement::STATUS_DRAFT => 'Draft',
+                    GoodMovement::STATUS_APPLIED => 'Applied',
+                    GoodMovement::STATUS_INVOICED => 'Invoiced',
+                ]
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],

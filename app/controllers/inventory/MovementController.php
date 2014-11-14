@@ -67,7 +67,7 @@ class MovementController extends Controller
         $model = GoodMovement::findOne([
                 'reff_type' => $type,
                 'reff_id' => $id,
-                'status' => GoodMovement::STATUS_OPEN,
+                'status' => GoodMovement::STATUS_DRAFT,
         ]);
         $model = $model ? : new GoodMovement([
             'reff_type' => $type,
@@ -174,17 +174,37 @@ class MovementController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $api = new ApiMovement();
-        $api->delete($id, $model);
-        return $this->redirect(['index']);
+        try {
+            $transaction = Yii::$app->db->beginTransaction();
+            $api = new ApiMovement();
+            if ($api->delete($id, $model)) {
+                $transaction->commit();
+                return $this->redirect(['index']);
+            }  else {
+                $transaction->rollBack();
+            }
+        } catch (\Exception $exc) {
+            $transaction->rollBack();
+            throw $exc;
+        }
     }
 
     public function actionApply($id)
     {
         $model = $this->findModel($id);
-        $api = new ApiMovement();
-        $api->apply($id, $model);
-        return $this->redirect(['index']);
+        try {
+            $transaction = Yii::$app->db->beginTransaction();
+            $api = new ApiMovement();
+            if ($api->apply($id, $model)) {
+                $transaction->commit();
+                return $this->redirect(['index']);
+            }  else {
+                $transaction->rollBack();
+            }
+        } catch (\Exception $exc) {
+            $transaction->rollBack();
+            throw $exc;
+        }
     }
 
     /**
