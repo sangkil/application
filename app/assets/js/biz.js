@@ -1,8 +1,7 @@
 biz = (function($) {
     var pub = {
         config: {
-            limit:20,
-            
+            limit: 20,
         },
         log: function(data) {
             if (biz.config.debug) {
@@ -10,18 +9,13 @@ biz = (function($) {
             }
         },
         format: function(n) {
-            if (n.toString().indexOf(',') == -1) {
-                var s = [];
-                while (n > 0){
-                    s.push(Math.floor(n % 1000));
-                    n = Math.floor(n / 1000);
-                }
-                return s.reverse().join(',');
+            if (n.toString().indexOf('.') == -1) {
+                return n.toLocaleString('id');
             }
         },
         unformat: function(n) {
-            if (n.toString().indexOf(',') >= 0) {
-                return n.toString().replace(/,/g,'');
+            if (n.toString().indexOf('.') >= 0) {
+                return n.toString().replace(/./g, '');
             }
         },
         init: function() {

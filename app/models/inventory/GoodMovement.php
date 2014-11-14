@@ -38,7 +38,7 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
     public function getReffLink()
     {
         if (($config = $this->reffConfig) !== null && isset($config['link'])) {
-            return $this->reffDoc ? Html::a($this->reffDoc->number, [$config['link'],'id'=>$this->reffDoc->id]) : null;
+            return $this->reffDoc ? Html::a($this->reffDoc->number, [$config['link'], 'id' => $this->reffDoc->id]) : null;
         }
         return null;
     }

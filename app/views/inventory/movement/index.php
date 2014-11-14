@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Reference',
                 'value' => 'reffLink',
-                'format' => 'html',
+                'format' => 'raw',
             ],
             [
                 'attribute'=>'status',

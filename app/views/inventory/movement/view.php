@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'Date',
             'nmType',
             'nmReffType',
-            'reffLink:html:Reference',
+            'reffLink:raw:Reference',
             'description',
             'nmStatus',
         ],

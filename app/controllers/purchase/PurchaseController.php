@@ -65,15 +65,17 @@ class PurchaseController extends Controller
         $model = new Purchase([
             'branch_id' => 1
         ]);
-        $api = new ApiPurchase();
+        $api = new ApiPurchase([
+            'modelClass' => Purchase::className(),
+        ]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $data = $model->attributes;
                 $data['details'] = Yii::$app->request->post('PurchaseDtl', []);
                 $model = $api->create($data, $model);
-                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                if (!$model->hasErrors()) {
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
@@ -99,16 +101,17 @@ class PurchaseController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $api = new ApiPurchase([
+            'modelClass' => Purchase::className(),
+        ]);
 
-        $api = new ApiPurchase();
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $data = $model->attributes;
                 $data['details'] = Yii::$app->request->post('PurchaseDtl', []);
                 $model = $api->update($id, $data, $model);
-                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                if (!$model->hasErrors()) {
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
@@ -127,7 +130,7 @@ class PurchaseController extends Controller
 
     public function actionReceive($id)
     {
-        return $this->redirect(['/inventory/movement/create','type'=>100,'id'=>$id]);
+        return $this->redirect(['/inventory/movement/create', 'type' => 100, 'id' => $id]);
     }
 
     /**
@@ -138,8 +141,11 @@ class PurchaseController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $api = new ApiPurchase([
+            'modelClass' => Purchase::className(),
+        ]);
+        $api->delete($id, $model);
         return $this->redirect(['index']);
     }
 

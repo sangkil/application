@@ -1,26 +1,26 @@
 <?php
 
-namespace app\models\inventory\searchs;
+namespace app\models\accounting\searchs;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\inventory\GoodMovement as GoodMovementModel;
+use app\models\accounting\Invoice as InvoiceModel;
 
 /**
- * GoodMovement represents the model behind the search form about `app\models\inventory\GoodMovement`.
+ * Invoice represents the model behind the search form about `app\models\accounting\Invoice`.
  */
-class GoodMovement extends GoodMovementModel
+class Invoice extends InvoiceModel
 {
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'type', 'reff_type', 'reff_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['number', 'Date', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'type', 'vendor_id', 'status', 'created_by', 'updated_by'], 'integer'],
+            [['number', 'date', 'due_date', 'created_at', 'updated_at'], 'safe'],
+            [['value'], 'number'],
         ];
     }
 
@@ -42,24 +42,23 @@ class GoodMovement extends GoodMovementModel
      */
     public function search($params)
     {
-        $query = GoodMovementModel::find();
+        $query = InvoiceModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
-        if (!$this->validate()) {
-            $query->where('1=0');
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
+            'due_date' => $this->due_date,
             'type' => $this->type,
-            'reff_type' => $this->reff_type,
-            'reff_id' => $this->reff_id,
+            'vendor_id' => $this->vendor_id,
+            'value' => $this->value,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
@@ -67,8 +66,7 @@ class GoodMovement extends GoodMovementModel
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'number', $this->number]);
 
         return $dataProvider;
     }
