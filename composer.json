@@ -36,13 +36,13 @@
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0",
         "mdmsoft/yii2-gii": "~1.0",
-        "yiisoft/yii2-codeception": "~2.0"
+        "yiisoft/yii2-codeception": "~2.0",
+        "yiisoft/yii2-faker": "~2.0"
     },
     "suggest": {
         "codeception/codeception": "Codeception, 1.8.*@dev is currently works well with Yii.",
         "codeception/specify": "BDD style code blocks for PHPUnit and Codeception",
-        "codeception/verify": "BDD Assertions for PHPUnit and Codeception",
-        "yiisoft/yii2-faker": "Fixtures generator for Yii2 based on Faker lib"
+        "codeception/verify": "BDD Assertions for PHPUnit and Codeception"
     },
     "config": {
         "process-timeout": 1800

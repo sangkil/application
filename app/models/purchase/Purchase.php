@@ -22,9 +22,17 @@ class Purchase extends \biz\core\purchase\models\Purchase
         return array_merge([
             [['nmSupplier', 'Date'], 'required'],
             [['nmSupplier'], 'in', 'range' => Supplier::find()->select('name')->column()],
-            ], $rules);
+            ], $rules, [
+            [['purchaseDtls'], 'calcPurcValue'],
+                
+        ]);
     }
 
+    public function calcPurcValue()
+    {
+        
+    }
+    
     public function getPurchaseDtls()
     {
         return $this->hasMany(PurchaseDtl::className(), ['purchase_id' => 'id']);

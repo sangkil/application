@@ -9,6 +9,8 @@ use yii\helpers\Html;
 /**
  * GoodMovement
  *
+ * @property GoodMovementDtl[] $goodMovementDtls
+ * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
@@ -24,7 +26,18 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
     {
         return array_merge([
             [['Date'], 'required'],
-            ], parent::rules());
+            ], parent::rules(), [
+            [['goodMovementDtls'], 'caclTransValue']
+        ]);
+    }
+
+    public function caclTransValue()
+    {
+        $value = 0;
+        foreach ($this->goodMovementDtls as $detail) {
+            $value += $detail->qty * $detail->trans_value;
+        }
+        $this->trans_value = $value;
     }
 
     public function getNmReffType()
