@@ -22,17 +22,18 @@ class Purchase extends \biz\core\purchase\models\Purchase
         return array_merge([
             [['nmSupplier', 'Date'], 'required'],
             [['nmSupplier'], 'in', 'range' => Supplier::find()->select('name')->column()],
-            ], $rules, [
-            [['purchaseDtls'], 'calcPurcValue'],
-                
-        ]);
+            ], $rules);
     }
 
-    public function calcPurcValue()
+    public function calcDetails()
     {
-        
+        $value = 0.0;
+        foreach ($this->purchaseDtls as $detail) {
+            $value += $detail->qty * $detail->price * $detail->productUom->isi * (1.0 - 0.01 * $detail->discount);
+        }
+        $this->value = $value;
     }
-    
+
     public function getPurchaseDtls()
     {
         return $this->hasMany(PurchaseDtl::className(), ['purchase_id' => 'id']);
@@ -41,7 +42,7 @@ class Purchase extends \biz\core\purchase\models\Purchase
     public function getGrs()
     {
         return $this->hasMany(GoodMovement::className(), ['reff_id' => 'id'])
-                ->onCondition(['reff_type' => GoodMovement::TYPE_PURCHASE]);
+                ->onCondition(['reff_type' => 100]);
     }
 
     public function behaviors()
