@@ -17,16 +17,10 @@
         "source": "https://github.com/sangkil/application"
     },
     "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/sangkil/biz3-api"
-        }
-    ],
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0",
-        "mdmsoft/yii2-admin": "~1.0",
+        "mdmsoft/yii2-admin": "~2.0",
         "mdmsoft/yii2-widgets": "~1.0",
         "sangkil/biz3-api": "~3.0",
         "yiisoft/yii2-bootstrap": "~2.0",
