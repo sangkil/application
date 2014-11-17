@@ -5,10 +5,9 @@ use yii\helpers\Inflector;
 use yii\widgets\Breadcrumbs;
 use app\components\Alert;
 
-/**
- * @var \yii\web\View $this
- * @var string $content
- */
+
+/* @var $this \yii\web\View */
+/* @var $content string */
 
 $asset = app\assets\AppAsset::register($this);
 $asset2 = app\assets\AddAsset::register($this);
