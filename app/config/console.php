@@ -18,7 +18,7 @@ return [
                 '@mdm/autonumber/migrations',
                 '@yii/rbac/migrations',
                 '@biz/migrations',
-                '@mdm/upload/migrations',
+                '@dektrium/user/migrations',
             ]
         ]
     ],
