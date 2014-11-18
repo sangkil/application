@@ -19,15 +19,6 @@ $this->title = 'My Yii Application';
     <div class="body-content">
 
         <div class="row">
-            <?php foreach ($modules as $route => $module): ?>
-                <div class="col-lg-4">
-                    <h2><?= $module['name'] ?></h2>
-
-                    <p><?= $module['comment'] ?></p>
-
-                    <p><?= Html::a('Start &raquo', ['/' . $route], ['class' => 'btn btn-default']) ?></p>
-                </div>
-            <?php endforeach; ?>
         </div>
 
     </div>
