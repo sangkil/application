@@ -44,6 +44,7 @@ use app\models\master\Warehouse;
                     <td><?= $detail->product->name ?></td>
                     <td><?= $detail->avaliable ?></td>
                     <td><?= Html::activeTextInput($detail, "[{$i}]qty") ?></td>
+                    <td><?= $detail->uom->name ?></td>
                 </tr>
                 <?php
                 $i++;
