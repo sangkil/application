@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nmType',
             'nmReffType',
             'reffLink:raw:Reference',
+            'trans_value:currency',
             'description',
             'nmStatus',
         ],

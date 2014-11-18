@@ -68,7 +68,7 @@ class SampleDataController extends \yii\console\Controller
             $command->insert('{{%orgn}}', [
                 'id' => $i + 1,
                 'code' => $i * 1000 + 1000,
-                'name' => $faker->companySuffix,
+                'name' => $faker->company,
                 'created_at' => $now,
                 'updated_at' => $now,
             ])->execute();
