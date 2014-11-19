@@ -3,8 +3,8 @@
 namespace app\models\inventory;
 
 use Yii;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use biz\core\base\Configs;
 
 /**
  * GoodMovement
@@ -77,10 +77,4 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
     }
 }
 // Extend reference
-foreach (require(__DIR__ . '/reff_types.php') as $key => $value) {
-    if (isset(GoodMovement::$reffTypes[$key])) {
-        GoodMovement::$reffTypes[$key] = ArrayHelper::merge(GoodMovement::$reffTypes[$key], $value);
-    } else {
-        GoodMovement::$reffTypes[$key] = $value;
-    }
-}
+Configs::merge('movement', '@app/components/configs/movement.php');

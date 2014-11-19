@@ -8,12 +8,14 @@ use app\models\accounting\searchs\Invoice as InvoiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use biz\core\accounting\components\Invoice as ApiInvoice;
 
 /**
  * InvoiceController implements the CRUD actions for Invoice model.
  */
 class InvoiceController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -36,8 +38,8 @@ class InvoiceController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -49,7 +51,7 @@ class InvoiceController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
 
@@ -58,17 +60,36 @@ class InvoiceController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($type)
     {
-        $model = new Invoice();
+        $model = new Invoice([
+            'type' => $type,
+        ]);
+        $api = new ApiInvoice([
+            'modelClass' => Invoice::className(),
+        ]);
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                $transaction = Yii::$app->db->beginTransaction();
+                $data = $model->attributes;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+                $data['details'] = Yii::$app->request->post('InvoiceDtl', []);
+
+                $model = $api->create($data, $model);
+                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $exc) {
+                $transaction->rollBack();
+                throw $exc;
+            }
         }
+        return $this->render('create', [
+                'model' => $model,
+        ]);
     }
 
     /**
@@ -85,7 +106,7 @@ class InvoiceController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                    'model' => $model,
             ]);
         }
     }
