@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\inventory\GoodsMovement;
+use biz\core\base\Configs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\inventory\searchs\GoodsMovement */
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php
     $filterRef = [];
-    foreach (GoodsMovement::$reffTypes as $key => $value) {
+    foreach (Configs::movement() as $key => $value) {
         $filterRef[$key] = isset($value['name']) ? $value['name'] : $key;
     }
     ?>
