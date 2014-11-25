@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use app\models\inventory\GoodMovement;
+use app\models\inventory\GoodsMovement;
 
 /* @var $this yii\web\View */
-/* @var $model GoodMovement */
+/* @var $model GoodsMovement */
 
 $this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if ($model->status == GoodMovement::STATUS_DRAFT): ?>
+        <?php if ($model->status == GoodsMovement::STATUS_DRAFT): ?>
             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?=
             Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions' => ['class' => 'table table-striped'],
         'layout' => '{items}',
         'dataProvider' => new \yii\data\ActiveDataProvider([
-            'query' => $model->getGoodMovementDtls(),
+            'query' => $model->getGoodsMovementDtls(),
             'sort' => false,
             'pagination' => false,
             ]),

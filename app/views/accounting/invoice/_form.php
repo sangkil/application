@@ -8,36 +8,27 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="invoice-form">
-
+<div class="box box-warning">
     <?php $form = ActiveForm::begin(); ?>
+        <div class="col-lg-6">
+            <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
+            <?=
+            $form->field($model, 'Date')->widget('yii\jui\DatePicker', [
+                'options' => ['class' => 'form-control']
+            ])
+            ?>
 
-    <?= $form->field($model, 'number')->textInput(['maxlength' => 16]) ?>
+            <?=
+            $form->field($model, 'DueDate')->widget('yii\jui\DatePicker', [
+                'options' => ['class' => 'form-control']
+            ])
+            ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <?= $form->field($model, 'due_date')->textInput() ?>
-
-    <?= $form->field($model, 'type')->textInput() ?>
-
-    <?= $form->field($model, 'vendor_id')->textInput() ?>
-
-    <?= $form->field($model, 'value')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+            <?= $form->field($model, 'vendor_id')->textInput() ?>
+        </div>
+        <div class="col-lg-12">
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>

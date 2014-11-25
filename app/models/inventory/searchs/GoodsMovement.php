@@ -5,12 +5,12 @@ namespace app\models\inventory\searchs;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\inventory\GoodMovement as GoodMovementModel;
+use app\models\inventory\GoodsMovement as GoodsMovementModel;
 
 /**
- * GoodMovement represents the model behind the search form about `app\models\inventory\GoodMovement`.
+ * GoodsMovement represents the model behind the search form about `app\models\inventory\GoodsMovement`.
  */
-class GoodMovement extends GoodMovementModel
+class GoodsMovement extends GoodsMovementModel
 {
 
     /**
@@ -42,7 +42,7 @@ class GoodMovement extends GoodMovementModel
      */
     public function search($params)
     {
-        $query = GoodMovementModel::find();
+        $query = GoodsMovementModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

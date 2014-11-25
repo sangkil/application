@@ -68,6 +68,7 @@ class InvoiceController extends Controller
         $api = new ApiInvoice([
             'modelClass' => Invoice::className(),
         ]);
+        
         if ($model->load(Yii::$app->request->post())) {
             try {
                 $transaction = Yii::$app->db->beginTransaction();
@@ -76,7 +77,7 @@ class InvoiceController extends Controller
                 $data['details'] = Yii::$app->request->post('InvoiceDtl', []);
 
                 $model = $api->create($data, $model);
-                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                if (!$model->hasErrors()) {
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {

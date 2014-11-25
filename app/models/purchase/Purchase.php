@@ -4,13 +4,13 @@ namespace app\models\purchase;
 
 use Yii;
 use app\models\master\Supplier;
-use app\models\inventory\GoodMovement;
+use app\models\inventory\GoodsMovement;
 
 /**
  * Description of Purchase
  *
  * @property PurchaseDtl[] $purchaseDtls
- * @property GoodMovement[] $grs
+ * @property GoodsMovement[] $grs
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  */
 class Purchase extends \biz\core\purchase\models\Purchase
@@ -41,7 +41,7 @@ class Purchase extends \biz\core\purchase\models\Purchase
 
     public function getGrs()
     {
-        return $this->hasMany(GoodMovement::className(), ['reff_id' => 'id'])
+        return $this->hasMany(GoodsMovement::className(), ['reff_id' => 'id'])
                 ->onCondition(['reff_type' => 100]);
     }
 

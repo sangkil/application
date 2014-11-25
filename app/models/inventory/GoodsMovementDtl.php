@@ -7,7 +7,7 @@ use app\models\master\Product;
 use app\models\master\Uom;
 
 /**
- * GoodMovementDtl
+ * GoodsMovementDtl
  *
  * @property Product $product
  * @property Uom $uom
@@ -15,7 +15,7 @@ use app\models\master\Uom;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class GoodMovementDtl extends \biz\core\inventory\models\GoodMovementDtl
+class GoodsMovementDtl extends \biz\core\inventory\models\GoodsMovementDtl
 {
 
     public function getProduct()

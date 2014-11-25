@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\master\Warehouse;
 use yii\helpers\ArrayHelper;
-use app\models\inventory\GoodMovementDtl;
+use app\models\inventory\GoodsMovementDtl;
 
 /* @var $this yii\web\View */
-/* @var $grModel app\models\inventory\GoodMovement */
+/* @var $grModel app\models\inventory\GoodsMovement */
 /* @var $model app\models\purchase\Purchase */
 /* @var $form yii\widgets\ActiveForm */
 ?>
@@ -29,14 +29,14 @@ use app\models\inventory\GoodMovementDtl;
 </div>
 <div>
     <?php
-    $grDtls = ArrayHelper::index($grModel->goodMovementDtls, 'product_id');
+    $grDtls = ArrayHelper::index($grModel->goodsMovementDtls, 'product_id');
     $i = 1;
     ?>
     <table class="table table-striped">
         <tbody>
             <?php foreach ($model->purchaseDtls as $pchDtl) { ?>
                 <?php
-                $grDtl = isset($grDtls[$pchDtl->product_id]) ? $grDtls[$pchDtl->product_id] : new GoodMovementDtl([
+                $grDtl = isset($grDtls[$pchDtl->product_id]) ? $grDtls[$pchDtl->product_id] : new GoodsMovementDtl([
                     'product_id' => $pchDtl->product_id,
                 ]);
                 ?>

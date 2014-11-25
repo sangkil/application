@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\models\inventory\GoodMovement;
+use app\models\inventory\GoodsMovement;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\inventory\searchs\GoodMovement */
+/* @var $searchModel app\models\inventory\searchs\GoodsMovement */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Good Movements';
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php
     $filterRef = [];
-    foreach (GoodMovement::$reffTypes as $key => $value) {
+    foreach (GoodsMovement::$reffTypes as $key => $value) {
         $filterRef[$key] = isset($value['name']) ? $value['name'] : $key;
     }
     ?>
@@ -37,8 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'type',
                 'value' => 'nmType',
                 'filter' => [
-                    GoodMovement::TYPE_RECEIVE => 'Receive',
-                    GoodMovement::TYPE_ISSUE => 'Issue',
+                    GoodsMovement::TYPE_RECEIVE => 'Receive',
+                    GoodsMovement::TYPE_ISSUE => 'Issue',
                 ]
             ],
             [
@@ -55,9 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'status',
                 'value'=>'nmStatus',
                 'filter'=>[
-                    GoodMovement::STATUS_DRAFT => 'Draft',
-                    GoodMovement::STATUS_APPLIED => 'Applied',
-                    GoodMovement::STATUS_INVOICED => 'Invoiced',
+                    GoodsMovement::STATUS_DRAFT => 'Draft',
+                    GoodsMovement::STATUS_APPLIED => 'Applied',
+                    GoodsMovement::STATUS_INVOICED => 'Invoiced',
                 ]
             ],
             ['class' => 'yii\grid\ActionColumn'],

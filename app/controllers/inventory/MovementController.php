@@ -3,17 +3,17 @@
 namespace app\controllers\inventory;
 
 use Yii;
-use app\models\inventory\GoodMovement;
-use app\models\inventory\searchs\GoodMovement as GoodMovementSearch;
+use app\models\inventory\GoodsMovement;
+use app\models\inventory\searchs\GoodsMovement as GoodsMovementSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use biz\core\inventory\components\GoodMovement as ApiMovement;
+use biz\core\inventory\components\GoodsMovement as ApiMovement;
 use yii\helpers\ArrayHelper;
-use app\models\inventory\GoodMovementDtl;
+use app\models\inventory\GoodsMovementDtl;
 
 /**
- * MovementController implements the CRUD actions for GoodMovement model.
+ * MovementController implements the CRUD actions for GoodsMovement model.
  */
 class MovementController extends Controller
 {
@@ -31,12 +31,12 @@ class MovementController extends Controller
     }
 
     /**
-     * Lists all GoodMovement models.
+     * Lists all GoodsMovement models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GoodMovementSearch();
+        $searchModel = new GoodsMovementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +46,7 @@ class MovementController extends Controller
     }
 
     /**
-     * Displays a single GoodMovement model.
+     * Displays a single GoodsMovement model.
      * @param integer $id
      * @return mixed
      */
@@ -58,31 +58,31 @@ class MovementController extends Controller
     }
 
     /**
-     * Creates a new GoodMovement model.
+     * Creates a new GoodsMovement model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate($type, $id)
     {
-        $model = GoodMovement::findOne([
+        $model = GoodsMovement::findOne([
                 'reff_type' => $type,
                 'reff_id' => $id,
-                'status' => GoodMovement::STATUS_DRAFT,
+                'status' => GoodsMovement::STATUS_DRAFT,
         ]);
-        $model = $model ? : new GoodMovement([
+        $model = $model ? : new GoodsMovement([
             'reff_type' => $type,
             'reff_id' => $id,
         ]);
         $api = new ApiMovement();
 
-        list($modelRef, $details) = $this->getReference($type, $id, $model->goodMovementDtls);
-        $model->populateRelation('goodMovementDtls', $details);
+        list($modelRef, $details) = $this->getReference($type, $id, $model->goodsMovementDtls);
+        $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
             try {
                 $transaction = Yii::$app->db->beginTransaction();
                 $data = $model->attributes;
 
-                $data['details'] = Yii::$app->request->post('GoodMovementDtl', []);
+                $data['details'] = Yii::$app->request->post('GoodsMovementDtl', []);
 
                 $model = $api->create($data, $model);
                 if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
@@ -99,12 +99,12 @@ class MovementController extends Controller
         return $this->render('create', [
                 'model' => $model,
                 'modelRef' => $modelRef,
-                'details' => $model->goodMovementDtls,
+                'details' => $model->goodsMovementDtls,
         ]);
     }
 
     /**
-     * Updates an existing GoodMovement model.
+     * Updates an existing GoodsMovement model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -114,14 +114,14 @@ class MovementController extends Controller
         $model = $this->findModel($id);
         $api = new ApiMovement();
 
-        list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodMovementDtls);
-        $model->populateRelation('goodMovementDtls', $details);
+        list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodsMovementDtls);
+        $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
             try {
                 $transaction = Yii::$app->db->beginTransaction();
                 $data = $model->attributes;
 
-                $data['details'] = Yii::$app->request->post('GoodMovementDtl', []);
+                $data['details'] = Yii::$app->request->post('GoodsMovementDtl', []);
 
                 $model = $api->update($id, $data, $model);
                 if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
@@ -138,13 +138,13 @@ class MovementController extends Controller
         return $this->render('update', [
                 'model' => $model,
                 'modelRef' => $modelRef,
-                'details' => $model->goodMovementDtls,
+                'details' => $model->goodsMovementDtls,
         ]);
     }
 
     protected function getReference($reff_type, $reff_id, $origin = [])
     {
-        $config = GoodMovement::reffConfig($reff_type);
+        $config = GoodsMovement::reffConfig($reff_type);
         $class = $config['class'];
         $relation = $config['relation'];
 
@@ -154,7 +154,7 @@ class MovementController extends Controller
         $details = ArrayHelper::index($origin, 'product_id');
         foreach ($refDtls as $refDtl) {
             if (!isset($details[$refDtl->product_id])) {
-                $details[$refDtl->product_id] = new GoodMovementDtl([
+                $details[$refDtl->product_id] = new GoodsMovementDtl([
                     'product_id' => $refDtl->product_id,
                 ]);
             }
@@ -166,7 +166,7 @@ class MovementController extends Controller
     }
 
     /**
-     * Deletes an existing GoodMovement model.
+     * Deletes an existing GoodsMovement model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -208,15 +208,15 @@ class MovementController extends Controller
     }
 
     /**
-     * Finds the GoodMovement model based on its primary key value.
+     * Finds the GoodsMovement model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return GoodMovement the loaded model
+     * @return GoodsMovement the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = GoodMovement::findOne($id)) !== null) {
+        if (($model = GoodsMovement::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\inventory\GoodMovement */
+/* @var $model app\models\inventory\GoodsMovement */
 
 $this->title = 'Create Good Movement';
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];

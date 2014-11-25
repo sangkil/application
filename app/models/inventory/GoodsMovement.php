@@ -7,19 +7,19 @@ use yii\helpers\Html;
 use biz\core\base\Configs;
 
 /**
- * GoodMovement
+ * GoodsMovement
  *
- * @property GoodMovementDtl[] $goodMovementDtls
+ * @property GoodsMovementDtl[] $goodsMovementDtls
  * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class GoodMovement extends \biz\core\inventory\models\GoodMovement
+class GoodsMovement extends \biz\core\inventory\models\GoodsMovement
 {
 
-    public function getGoodMovementDtls()
+    public function getGoodsMovementDtls()
     {
-        return $this->hasMany(GoodMovementDtl::className(), ['movement_id' => 'id']);
+        return $this->hasMany(GoodsMovementDtl::className(), ['movement_id' => 'id']);
     }
 
     public function rules()
@@ -27,14 +27,14 @@ class GoodMovement extends \biz\core\inventory\models\GoodMovement
         return array_merge([
             [['Date'], 'required'],
             ], parent::rules(), [
-            [['goodMovementDtls'], 'caclTransValue']
+            [['goodsMovementDtls'], 'caclTransValue']
         ]);
     }
 
     public function caclTransValue()
     {
         $value = 0;
-        foreach ($this->goodMovementDtls as $detail) {
+        foreach ($this->goodsMovementDtls as $detail) {
             $value += $detail->qty * $detail->trans_value;
         }
         $this->trans_value = $value;

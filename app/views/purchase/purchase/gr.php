@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\purchase\Purchase;
-use app\models\inventory\GoodMovement;
+use app\models\inventory\GoodsMovement;
 
 /* @var $this yii\web\View */
 /* @var $model Purchase */
-/* @var $grModel GoodMovement */
+/* @var $grModel GoodsMovement */
 
 $this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Purchase', 'url' => ['index']];
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     ?>
 </div>
-<?php if ($grModel->status == GoodMovement::STATUS_OPEN) {
+<?php if ($grModel->status == GoodsMovement::STATUS_OPEN) {
     echo $this->render('_gr_edit', [
         'model'=>$model,
         'grModel'=>$grModel,

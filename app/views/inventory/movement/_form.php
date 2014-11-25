@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\master\Warehouse;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\inventory\GoodMovement */
+/* @var $model app\models\inventory\GoodsMovement */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -30,7 +30,7 @@ use app\models\master\Warehouse;
     <table class="table table-striped">
         <tbody>
             <?php
-            /* @var $detail app\models\inventory\GoodMovementDtl */
+            /* @var $detail app\models\inventory\GoodsMovementDtl */
             $i = 0;
             ?>
             <?php foreach ($details as $detail): ?>
