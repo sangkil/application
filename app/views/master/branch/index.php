@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'tableOptions'=>['class'=>'table table-striped'],
+                'layout'=>"{items}\n{pager}",
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'orgn.name',
