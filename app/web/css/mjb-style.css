@@ -54,6 +54,6 @@ select {
     margin-left: 0px;
 }
 
-grid-view .pagination{
+.grid-view .pagination{
     margin-left: 15px;
 }
