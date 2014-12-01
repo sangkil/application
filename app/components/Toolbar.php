@@ -34,11 +34,6 @@ class Toolbar extends \yii\base\Widget {
     public function init() {
         parent::init();
         $result = Html::beginTag('div', ['class'=>'btn-group']);
-//        $result .= Html::a('<i class="fa fa-plus-square"></i> Create', ['create'], ['class' => 'btn btn-success btn-sm']);
-//        $result .= Html::a('<i class="fa fa-search"></i> Detail', ['view', 'id' => 3], ['class' => 'btn bg-navy btn-sm']);
-//        $result .= Html::a('<i class="fa fa-pencil"></i> Update', ['update', 'id' => 3], ['class' => 'btn btn-warning btn-sm']);
-//        $result .= Html::a('<i class="fa fa-trash-o"></i> Delete', ['delete', 'id' => 3], ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]);
-//        $result .= Html::a('<i class="fa fa-list"></i> List', ['index'], ['class' => 'btn btn-info btn-sm']);
         foreach ($this->items as $item){
              $result .= $this->renderItem($item);
         }
