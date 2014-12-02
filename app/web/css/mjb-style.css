@@ -29,7 +29,7 @@ select {
 
 .form-control {    
     display:inline;
-    height: 28px;  
+    height: 30px;  
 }
 
 .form-group .form-control{
@@ -52,4 +52,8 @@ select {
 
 .alert {
     margin-left: 0px;
+}
+
+.grid-view .pagination{
+    margin-left: 15px;
 }
