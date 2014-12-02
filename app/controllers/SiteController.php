@@ -57,8 +57,8 @@ class SiteController extends Controller
                 'class' => 'yii\web\ViewAction',
             ],
             'captcha' => [
-                'class' => 'mdm\captcha\CaptchaAction',
-                'level' => 1, // avaliable level are 1,2,3 :D
+                'class' => 'yii\captcha\CaptchaAction',
+//                'level' => 1, // avaliable level are 1,2,3 :D
             ],
         ];
     }
