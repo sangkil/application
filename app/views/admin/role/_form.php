@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 ?>
 <div class="box box-warning auth-item-form">
     <?php $form = ActiveForm::begin(); ?>
-    <div class="box-body" style="min-height: 350px;">
+    <div class="box-body" style="min-height: 300px;">
         <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
         <?= $form->field($model, 'description')->textInput(['maxlenght' => 128]) ?>
         <?=
