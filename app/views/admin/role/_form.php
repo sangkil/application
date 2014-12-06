@@ -9,29 +9,28 @@ use yii\widgets\ActiveForm;
  * @var yii\widgets\ActiveForm $form
  */
 ?>
-
-<div class="auth-item-form">
+<div class="box box-warning auth-item-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="box-body">
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+        <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 2]) ?>
+        <?=
+        $form->field($model, 'ruleName')->widget('yii\jui\AutoComplete', [
+            'options' => [
+                'class' => 'form-control',
+            ],
+            'clientOptions' => [
+                'source' => array_keys(Yii::$app->authManager->getRules()),
+            ]
+        ])
+        ?>
 
-    <?=
-    $form->field($model, 'ruleName')->widget('yii\jui\AutoComplete', [
-        'options' => [
-            'class' => 'form-control',
-        ],
-        'clientOptions' => [
-            'source' => array_keys(Yii::$app->authManager->getRules()),
-        ]
-    ])
-    ?>
-
-    <?= $form->field($model, 'data')->textarea(['rows' => 6]) ?>
-
-    <div class="form-group">
+        <?= $form->field($model, 'data')->textarea(['rows' => 6]) ?>
+    </div>
+    <div class="box-footer">
         <?php
         echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', [
             'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])
