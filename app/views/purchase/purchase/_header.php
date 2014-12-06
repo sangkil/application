@@ -13,9 +13,9 @@ use yii\helpers\Html;
         <li><a href="#tab_2-2" data-toggle="tab"><i class="fa fa-money"></i> Finance & Costing</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_1-1" style="height: 14em;">
+        <div class="tab-pane active" id="tab_1-1" style="min-height: 10em;">
             <div class="col-lg-6">
-                <?= $form->field($model, 'number')->textInput(['maxlength' => 16, 'readonly' => true, 'style'=>'width:50%']); ?>
+                <?= $form->field($model, 'number')->textInput(['maxlength' => 16, 'readonly' => true, 'style' => 'width:50%']); ?>
                 <?=
                         $form->field($model, 'nmSupplier')
                         ->widget('yii\jui\AutoComplete', [
@@ -31,7 +31,7 @@ use yii\helpers\Html;
                         $form->field($model, 'Date')
                         ->widget('yii\jui\DatePicker', [
                             'options' => ['class' => 'form-control', 'style' => 'width:50%'],
-                            //'dateFormat' => 'php:d-m-Y',
+                                //'dateFormat' => 'php:d-m-Y',
                 ]);
                 ?>
                 Display Total, dll
