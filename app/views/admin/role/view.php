@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-lg-12 auth-item-view">
     <?=
     Toolbar::widget(['items' => [
+            ['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
             ['label' => 'Update', 'url' => ['update', 'id' => $model->name], 'icon' => 'fa fa-pencil', 'linkOptions' => ['class' => 'btn btn-warning btn-sm']],
             ['label' => 'Delete', 'url' => ['delete', 'id' => $model->name], 'icon' => 'fa fa-trash-o', 'linkOptions' => ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]],
     ]]);
