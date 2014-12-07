@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\Toolbar;
 
 /**
  * @var yii\web\View $this
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="col-lg-12">
         <?= ''//Html::a('Users', ['index'], ['class'=>'btn btn-success']) ?>
-<!--    <h1>User: <?= ''//$model->{$usernameField}       ?></h1>-->
+<!--    <h1>User: <?= ''//$model->{$usernameField}        ?></h1>-->
         <?=
         Toolbar::widget(['items' => [
                 ['label' => 'Users', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
