@@ -10,9 +10,8 @@ use yii\helpers\Html;
 $this->title = $name;
 ?>
 <div class="error-page">
-    <h2 class="headline text-info"> <?= nl2br(Html::encode($message)) ?></h2>
     <div class="error-content">
-        <h3><i class="fa fa-warning text-yellow"></i> Oops! Something Error.</h3>
+        <h3><i class="fa fa-warning text-yellow"></i> Oops! Something Error. </h3>
         <p>
             <?= nl2br(Html::encode($message)) ?>
             Meanwhile, you may <a href='../../index.html'>return to dashboard</a> or try using the search form.
