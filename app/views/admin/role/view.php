@@ -13,14 +13,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Roles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auth-item-view">
-
     <div class="col-lg-12">
-        <?= ''//Html::a('Users', ['index'], ['class'=>'btn btn-success']) ?>
-<!--    <h1>User: <?= ''//$model->{$usernameField}        ?></h1>-->
         <?=
         Toolbar::widget(['items' => [
-                ['label' => 'Users', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
-                ['label' => 'Delete', 'url' => ['delete', 'id' => $model->id], 'icon' => 'fa fa-trash-o', 'linkOptions' => ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]],
+                ['label' => 'Update', 'url' => ['update', 'id' => $model->name],'icon' => 'fa fa-pencil', 'linkOptions' => ['class' => 'btn btn-warning btn-sm']],
+                ['label' => 'Delete', 'url' => ['delete', 'id' => $model->name], 'icon' => 'fa fa-trash-o', 'linkOptions' => ['class' => 'btn btn-danger btn-sm', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]],
         ]]);
         ?> 
 
