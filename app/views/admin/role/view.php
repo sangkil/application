@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-    <div class="col-lg-5">
+    <div class="col-lg-6">
         <div class="box box-info menu-view">
             <div class="box-header">
                 Avaliable:
