@@ -40,7 +40,7 @@ use mdm\widgets\TabularInput;
             'options' => ['class' => 'tabular table-striped','tag'=>'table'],
             'itemOptions' => ['tag' => 'tr'],
             'itemView' => '_item_detail',
-            'clientOptions' => [
+            'clientOptions' => ['style'=>'width:100%'
             ]
         ])
         ?>
