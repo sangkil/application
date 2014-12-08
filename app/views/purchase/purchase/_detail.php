@@ -13,7 +13,7 @@ use mdm\widgets\TabularInput;
 <div class="box box-info">
     <div class="box-body no-padding">
         <div class="row" style="padding: 10px;">
-            <div class="col-xs-6">
+            <div class="col-xs-8">
                 Product :
                 <?php
                 echo AutoComplete::widget([
@@ -23,13 +23,13 @@ use mdm\widgets\TabularInput;
                         'source' => new JsExpression('biz.master.sourceProduct'),
                         'select' => new JsExpression('biz.purchase.onProductSelect'),
                         'delay' => 100,
-                    ]
+                    ],'options' => ['class'=>'form-control'],
                 ]);
                 ?>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 Item Discount:
-                <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount']); ?>
+                <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount', 'class'=>'form-control']); ?>
             </div>
         </div> 
         <table class="tabular table-striped">
