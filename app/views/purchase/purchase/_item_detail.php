@@ -19,7 +19,7 @@ use yii\helpers\Html;
 <div class="table-cell" style="width: 20%;">
     <input type="hidden" data-field="total_price"><span class="total-price"></span>
 </div>
-<div class="table-cell" style="width: 5%;">
+<div class="table-cell" style="width: 5%; text-align: center">
     <a data-action="delete" title="Delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
     <?= Html::activeHiddenInput($model, "[$key]product_id", ['data-field' => 'product_id', 'id' => false]) ?>
     <?= Html::activeHiddenInput($model, "[$key]uom_id", ['data-field' => 'sel_uom_id', 'id' => false, 'name' => false]) ?>
