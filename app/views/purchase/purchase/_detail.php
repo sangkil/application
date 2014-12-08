@@ -29,10 +29,6 @@ use mdm\widgets\TabularInput;
             <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount']); ?>
         </div>        
     </div>
-    &nbsp;
-    <?= Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
-    <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>
-    <h2>Rp <span id="total-price"></span></h2>   
     <div class="box-body no-padding">
         <?=
         TabularInput::widget([
@@ -46,5 +42,10 @@ use mdm\widgets\TabularInput;
             ]
         ])
         ?>
+    </div>
+    <div class="box-footer">
+        <?= Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
+        <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>
+        <h2>Rp <span id="total-price"></span></h2>   
     </div>
 </div>  
