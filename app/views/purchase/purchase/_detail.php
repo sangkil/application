@@ -12,8 +12,8 @@ use mdm\widgets\TabularInput;
 ?>
 <div class="box box-info">
     <div class="box-header">
-        <h3 class="box-title">Product :</h3>
         <div class="box-tools">
+            Product :
             <?php
             echo AutoComplete::widget([
                 'name' => 'product',
@@ -24,15 +24,15 @@ use mdm\widgets\TabularInput;
                     'delay' => 100,
                 ]
             ]);
-            ?>
+            ?>&nbsp;&nbsp;&nbsp;
             Item Discount:
             <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount']); ?>
         </div>        
     </div>
     <div class="box-body no-padding">
-        <?= ''//Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
-<!--        <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>
-        <h2>Rp <span id="total-price"></span></h2>-->        
+        <?= Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
+        <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>
+        <h2>Rp <span id="total-price"></span></h2>        
         <?=
         TabularInput::widget([
             'id' => 'detail-grid',
