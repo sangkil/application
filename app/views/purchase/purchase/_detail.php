@@ -29,7 +29,7 @@ use mdm\widgets\TabularInput;
             </div>
             <div class="col-xs-4">
                 Item Discount:
-                <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount', 'class'=>'form-control']); ?>
+                <?= Html::activeTextInput($model, 'discount', [ 'id' => 'item-discount', 'class'=>'form-control']); ?>
             </div>
         </div> 
         <table class="tabular table-striped">
