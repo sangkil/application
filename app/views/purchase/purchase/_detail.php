@@ -32,18 +32,20 @@ use mdm\widgets\TabularInput;
                 <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount']); ?>
             </div>
         </div> 
+        <table class="tabular table-striped">
         <?=
         TabularInput::widget([
             'id' => 'detail-grid',
             'allModels' => $details,
             'modelClass' => PurchaseDtl::className(),
-            'options' => ['class' => 'tabular table-striped','tag'=>'table'],
+            'options' => ['tag'=>'tbody'],
             'itemOptions' => ['tag' => 'tr'],
             'itemView' => '_item_detail',
             'clientOptions' => [
             ]
         ])
         ?>
+        </table>
     </div>
     <div class="box-footer">    
         <?= Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
