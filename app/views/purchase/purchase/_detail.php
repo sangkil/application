@@ -12,24 +12,29 @@ use mdm\widgets\TabularInput;
 ?>
 <div class="box box-info">
     <div class="box-header">
-        <div class="box-tools">
-            Product :
-            <?php
-            echo AutoComplete::widget([
-                'name' => 'product',
-                'id' => 'product',
-                'clientOptions' => [
-                    'source' => new JsExpression('biz.master.sourceProduct'),
-                    'select' => new JsExpression('biz.purchase.onProductSelect'),
-                    'delay' => 100,
-                ]
-            ]);
-            ?>&nbsp;&nbsp;&nbsp;
-            Item Discount:
-            <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount']); ?>
-        </div>        
+
     </div>
     <div class="box-body no-padding">
+        <div class="row">
+            <div class="col-xs-6">
+                Product :
+                <?php
+                echo AutoComplete::widget([
+                    'name' => 'product',
+                    'id' => 'product',
+                    'clientOptions' => [
+                        'source' => new JsExpression('biz.master.sourceProduct'),
+                        'select' => new JsExpression('biz.purchase.onProductSelect'),
+                        'delay' => 100,
+                    ]
+                ]);
+                ?>
+            </div>
+            <div class="col-xs-6">
+                Item Discount:
+                <?= Html::activeTextInput($model, 'discount', ['style' => 'width:60px;', 'id' => 'item-discount']); ?>
+            </div>
+        </div> 
         <?=
         TabularInput::widget([
             'id' => 'detail-grid',
