@@ -6,12 +6,12 @@ use yii\helpers\Html;
 /* @var $model app\models\purchase\PurchaseDtl */
 /* @var $key string */
 ?>
-<div class="table-cell" style="width: 40%;">
+<div class="table-cell" >
     <span class="product"></span>
 </div>
 <div class="table-cell" style="width: 20%;">
     <?= Html::activeTextInput($model, "[$key]qty", ['data-field' => 'qty', 'size' => 5, 'id' => false, 'required' => true]) ?>
-    <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'uom_id', 'id' => false,'height'=>'150px;']) ?>
+    <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'uom_id', 'id' => false, 'style' => 'height:32px;']) ?>
 </div>
 <div class="table-cell" style="width: 15%;">
     <?= Html::activeTextInput($model, "[$key]price", ['data-field' => 'price', 'size' => 16, 'id' => false, 'required' => true]) ?>
