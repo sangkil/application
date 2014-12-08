@@ -10,8 +10,8 @@ use yii\helpers\Html;
     <span class="product"></span>
 </td>
 <td class="col-lg-3">
-    <?= Html::activeTextInput($model, "[$key]qty", ['data-field' => 'qty', 'size' => 5, 'id' => false, 'required' => true]) ?>
-    <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'uom_id', 'id' => false, 'style' => 'height:32px;']) ?>
+    <?= Html::activeTextInput($model, "[$key]qty", ['data-field' => 'qty', 'size' => 5, 'id' => false,  'class'=>'form-control','required' => true]) ?>
+    <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'uom_id', 'id' => false, 'class'=>'form-control', 'style' => 'height:32px;']) ?>
 </td>
 <td class="col-lg-3">
     <?= Html::activeTextInput($model, "[$key]price", ['data-field' => 'price', 'size' => 16, 'id' => false, 'required' => true]) ?>
