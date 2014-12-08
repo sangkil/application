@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\purchase\PurchaseDtl */
 /* @var $key string */
 ?>
-<tr>    
+    
     <td class="table-cell" >
         <span class="product"></span>
     </td>
@@ -25,4 +25,4 @@ use yii\helpers\Html;
             <?= Html::activeHiddenInput($model, "[$key]product_id", ['data-field' => 'product_id', 'id' => false]) ?>
             <?= Html::activeHiddenInput($model, "[$key]uom_id", ['data-field' => 'sel_uom_id', 'id' => false, 'name' => false]) ?>
     </td>
-</tr>
+
