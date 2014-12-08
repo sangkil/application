@@ -33,6 +33,14 @@ use mdm\widgets\TabularInput;
             </div>
         </div> 
         <table class="tabular table-striped">
+            <thead>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Uom</th>
+            <th>@Price</th>
+            <th>Sub Total</th>
+            <th>&nbsp;</th>
+            </thead>
             <?=
             TabularInput::widget([
                 'id' => 'detail-grid',
