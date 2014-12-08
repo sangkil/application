@@ -24,11 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'List', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'btn btn-info btn-sm']]
     ]]);
     ?>
-    <?php
-    echo $this->render('_form', [
-        'model' => $model,
-    ]);
-    ?>
     <?php $form = ActiveForm::begin(); ?>
     <div class="box box-info">
         <div class="box-body">
@@ -41,3 +36,4 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
 </div><!-- create -->
+
