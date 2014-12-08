@@ -37,8 +37,8 @@ use mdm\widgets\TabularInput;
             'id' => 'detail-grid',
             'allModels' => $details,
             'modelClass' => PurchaseDtl::className(),
-            'options' => ['class' => 'tabular table-striped'],
-            //'itemOptions' => ['tag' => 'tr'],
+            'options' => ['class' => 'tabular table-striped','tag'=>'table'],
+            'itemOptions' => ['tag' => 'tr'],
             'itemView' => '_item_detail',
             'clientOptions' => [
             ]
