@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <div class="table-cell"><?= Html::activeTextInput($model, "[$key]qty", ['data-field' => 'qty', 'size' => 5, 'id' => false, 'required' => true]) ?>
     <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'uom_id', 'id' => false]) ?></div>
 <div class="table-cell">
-        <?= Html::activeTextInput($model, "[$key]price", ['data-field' => 'price', 'size' => 16, 'id' => false, 'required' => true]) ?>
+    <?= Html::activeTextInput($model, "[$key]price", ['data-field' => 'price', 'size' => 16, 'id' => false, 'required' => true]) ?>
 </div>
 <div class="table-cell">
     <input type="hidden" data-field="total_price"><span class="total-price"></span>
