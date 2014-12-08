@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box-body">
             <?php
             echo DetailView::widget([
-                'options' => ['class' => 'table table-striped detail-view', 'style' => 'padding:0px;'],
+                //'options' => ['class' => 'table table-striped detail-view', 'style' => 'padding:0px;'],
                 'model' => $model,
                 'attributes' => [
                     'number',
