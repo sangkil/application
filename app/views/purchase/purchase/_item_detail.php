@@ -21,7 +21,7 @@ use yii\helpers\Html;
 </td>
 <td  class="col-lg-3" style="text-align: center">
     <a data-action="delete" title="Delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
-        <?= Html::activeHiddenInput($model, "[$key]product_id", ['data-field' => 'product_id', 'id' => false]) ?>
-        <?= Html::activeHiddenInput($model, "[$key]uom_id", ['data-field' => 'sel_uom_id', 'id' => false, 'name' => false]) ?>
+    <?= Html::activeHiddenInput($model, "[$key]product_id", ['data-field' => 'product_id', 'id' => false]) ?>
+    <?= Html::activeHiddenInput($model, "[$key]uom_id", ['data-field' => 'sel_uom_id', 'id' => false, 'name' => false]) ?>
 </td>
 
