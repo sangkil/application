@@ -46,27 +46,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
         </div>
     </div>    
-</div>
-<div class="box box-info">
-    <div class="box-body no-padding">
-        <?php
-        echo yii\grid\GridView::widget([
-            'tableOptions' => ['class' => 'table table-striped'],
-            'layout' => '{items}',
-            'dataProvider' => new \yii\data\ActiveDataProvider([
-                'query' => $model->getPurchaseDtls(),
-                'sort' => false,
-                'pagination' => false,
-                    ]),
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'product.name',
-                'qty',
-                'total_receive',
-                'price',
-                'uom.name',
-            ]
-        ]);
-        ?>
+    <div class="box box-info">
+        <div class="box-body no-padding">
+            <?php
+            echo yii\grid\GridView::widget([
+                'tableOptions' => ['class' => 'table table-striped'],
+                'layout' => '{items}',
+                'dataProvider' => new \yii\data\ActiveDataProvider([
+                    'query' => $model->getPurchaseDtls(),
+                    'sort' => false,
+                    'pagination' => false,
+                        ]),
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'product.name',
+                    'qty',
+                    'total_receive',
+                    'price',
+                    'uom.name',
+                ]
+            ]);
+            ?>
+        </div>
     </div>
 </div>
+
