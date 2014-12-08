@@ -11,11 +11,8 @@ use mdm\widgets\TabularInput;
 /* @var $this yii\web\View */
 ?>
 <div class="box box-info">
-    <div class="box-header">
-
-    </div>
     <div class="box-body no-padding">
-        <div class="row">
+        <div class="row" style="padding: 10px;">
             <div class="col-xs-6">
                 Product :
                 <?php
