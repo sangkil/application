@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\components\Toolbar;
 
 /**
  * @var yii\web\View $this
