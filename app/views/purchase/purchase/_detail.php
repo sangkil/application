@@ -34,12 +34,12 @@ use mdm\widgets\TabularInput;
         </div> 
         <table class="tabular table-striped">
             <thead>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Uom</th>
-            <th>@Price</th>
-            <th>Sub Total</th>
-            <th>&nbsp;</th>
+            <th class="col-lg-4">Product</th>
+            <th class="col-lg-1">Qty</th>
+            <th class="col-lg-2">Uom</th>
+            <th class="col-lg-2">@Price</th>
+            <th class="col-lg-2">Sub Total</th>
+            <th class="col-lg-1">&nbsp;</th>
             </thead>
             <?=
             TabularInput::widget([
