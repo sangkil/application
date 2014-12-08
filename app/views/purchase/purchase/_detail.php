@@ -49,8 +49,7 @@ use mdm\widgets\TabularInput;
     </div>
     <div class="box-footer"> 
         <?= Html::activeHiddenInput($model, 'value', ['id' => 'purchase-value']); ?>
-        <h4 id="bfore" class="col-lg-9" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>         
-
-        <h2 class="col-lg-3">Rp <span id="total-price"></span></h2>
+        <h4 id="bfore" style="display: none;">Rp <span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>         
+        <h2>Rp <span id="total-price"></span></h2>
     </div>
 </div>  
