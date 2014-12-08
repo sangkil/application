@@ -8,18 +8,16 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="supplier-form">
-
+<div class="box box-warning">
     <?php $form = ActiveForm::begin(); ?>
+    <div class="box-body">
+        <?= $form->field($model, 'code')->textInput(['maxlength' => 4]) ?>
 
-    <?= $form->field($model, 'code')->textInput(['maxlength' => 4]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
-
-    <div class="form-group">
+    </div>
+    <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
