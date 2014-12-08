@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-lg-12">
     <div class="box box-primary">
-        <div class="box-body">
+        <div class="box-body no-padding">
             <?php
             echo DetailView::widget([
-                'options' => ['class' => 'table table-striped detail-view', 'style' => 'padding:0px;'],
+                'options' => ['class' => 'table table-striped detail-view'],
                 'model' => $model,
                 'attributes' => [
                     'number',
