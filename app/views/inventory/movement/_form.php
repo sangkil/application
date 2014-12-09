@@ -18,7 +18,7 @@ use app\models\master\Warehouse;
 
         <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
 
-        <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker',['class'=>'form-control']) ?>
+        <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker',['htmlOptions'=>['class'=>'form-control','style'=>'width:150px;']]) ?>
 
         <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
     </div>
