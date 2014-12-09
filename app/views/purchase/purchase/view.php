@@ -54,9 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div> 
             </div>
-        </div>
-        <div class="tab-pane" id="tab_2-2">
-            Shipping Cost, dll.
+            <div class="tab-pane" id="tab_2-2">
+                Shipping Cost, dll.
+            </div>
         </div>
     </div>
 </div>   
