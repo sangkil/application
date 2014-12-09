@@ -11,14 +11,14 @@ use app\models\master\Warehouse;
 
 <?php $form = ActiveForm::begin(); ?>
 <?= $form->errorSummary($model); ?>
-<?= (!count($model->getErrors()) > 0) ? $form->errorSummary($details) : ''; ?>
+<?= $form->errorSummary($details); ?>
 <div class="box box-primary">
     <div class="box-body">
         <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
 
         <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
 
-        <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker', ['options' => ['class' => 'form-control', 'style' => 'width:150px;']]) ?>
+        <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker',['options'=>['class'=>'form-control','style'=>'width:150px;']]) ?>
 
         <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
     </div>
