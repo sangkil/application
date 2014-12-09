@@ -11,7 +11,7 @@ use app\models\master\Warehouse;
 
 <?php $form = ActiveForm::begin(); ?>
 <?= $form->errorSummary($model); ?>
-<?= (count($model->getErrors()) > 0) ? $form->errorSummary($details) : ''; ?>
+<?= (!count($model->getErrors()) > 0) ? $form->errorSummary($details) : ''; ?>
 <div class="box box-primary">
     <div class="box-body">
         <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
