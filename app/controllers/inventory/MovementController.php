@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use biz\core\inventory\components\GoodsMovement as ApiMovement;
 use yii\helpers\ArrayHelper;
 use app\models\inventory\GoodsMovementDtl;
+use biz\core\base\Configs;
 
 /**
  * MovementController implements the CRUD actions for GoodsMovement model.
@@ -74,7 +75,8 @@ class MovementController extends Controller
             'reff_id' => $id,
         ]);
         $api = new ApiMovement();
-
+        $config = Configs::movement($type);
+        
         list($modelRef, $details) = $this->getReference($type, $id, $model->goodsMovementDtls);
         $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
@@ -100,6 +102,7 @@ class MovementController extends Controller
                 'model' => $model,
                 'modelRef' => $modelRef,
                 'details' => $model->goodsMovementDtls,
+                'title' => $config['type']==GoodsMovement::TYPE_RECEIVE?'Receive':'Issue',
         ]);
     }
 
