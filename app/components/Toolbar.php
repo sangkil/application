@@ -45,16 +45,12 @@ class Toolbar extends \yii\base\Widget {
         $label = Html::encode($item['label']);
         $options = ArrayHelper::getValue($item, 'options', []);
         $items = ArrayHelper::getValue($item, 'items');
-        $visible = ArrayHelper::getValue($item, 'visible');
         $url = ArrayHelper::getValue($item, 'url', '#');
         $linkOptions = ArrayHelper::getValue($item, 'linkOptions', []);
         $icon = ArrayHelper::getValue($item, 'icon');
         $badge = ArrayHelper::getValue($item, 'badge');
 
         $linkContent = '';
-        if($visible == false){
-            return;
-        }
         if ($icon) {
             $linkContent .= Html::tag('i', '', ['class' => $icon]);
         }
