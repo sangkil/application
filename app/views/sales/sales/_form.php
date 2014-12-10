@@ -2,42 +2,40 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\web\JsExpression;
+use yii\web\View;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\sales\Sales */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $model app\models\sales\Sales */
 ?>
 
-<div class="sales-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'number')->textInput(['maxlength' => 16]) ?>
-
-    <?= $form->field($model, 'branch_id')->textInput() ?>
-
-    <?= $form->field($model, 'customer_id')->textInput() ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <?= $form->field($model, 'value')->textInput() ?>
-
-    <?= $form->field($model, 'discount')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<div class="purchase-hdr-form">
+    <?php
+    $form = ActiveForm::begin(['id' => 'sales-form',]);
+    ?>
+    <?php
+    $models = $details;
+    $models[] = $model;
+    echo $form->errorSummary($models)
+    ?>
+    <div class="col-lg-12">
+        <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
     </div>
-
+    <div class="col-lg-12">
+        <?= $this->render('_detail', ['model' => $model, 'details' => $details]); ?>
+    </div>
     <?php ActiveForm::end(); ?>
-
 </div>
+<?php
+app\assets\BizWidget::widget([
+    'config' => [
+        'masters' => ['products', 'customers', 'barcodes'],
+        'storageClass' => new JsExpression('DLocalStorage')
+    ],
+    'scripts' => [
+        View::POS_END => $this->render('_script'),
+        View::POS_READY => 'biz.sales.onReady();'
+    ]
+]);
+

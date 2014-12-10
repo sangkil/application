@@ -8,7 +8,7 @@ use app\models\master\Customer;
 /**
  * Sales
  *
- * @property SalesDtls[] $salesDtls
+ * @property SalesDtl[] $salesDtls
  * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
@@ -21,7 +21,7 @@ class Sales extends \biz\core\sales\models\Sales
     {
         $rules = parent::rules();
         return array_merge([
-            [['customer', 'Date'], 'required'],
+            [['Date'], 'required'],
             [['customer'], 'in', 'range' => Customer::find()->select('name')->column()]
             ], $rules);
     }
@@ -40,6 +40,12 @@ class Sales extends \biz\core\sales\models\Sales
                 'attributes' => [
                     'Date' => 'date',
                 ]
+            ],
+            [
+                'class' => 'mdm\converter\RelatedConverter',
+                'attributes' => [
+                    'nmCustomer' => [[Customer::className(), 'id' => 'customer_id'], 'name'],
+                ],
             ],
             ], $behaviors);
     }

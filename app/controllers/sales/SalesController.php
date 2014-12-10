@@ -8,6 +8,7 @@ use app\models\sales\searchs\Sales as SalesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use biz\core\sales\components\Sales as ApiSales;
 
 /**
  * SalesController implements the CRUD actions for Sales model.
@@ -60,15 +61,34 @@ class SalesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Sales();
+        $model = new Sales([
+            'branch_id' => 1
+        ]);
+        $api = new ApiSales([
+            'modelClass' => Sales::className(),
+        ]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $data = $model->attributes;
+                $data['details'] = Yii::$app->request->post('SalesDtl', []);
+                $model = $api->create($data, $model);
+                if (!$model->hasErrors()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
         }
+        return $this->render('create', [
+                'model' => $model,
+                'details' => $model->salesDtls
+        ]);
     }
 
     /**
