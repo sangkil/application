@@ -23,6 +23,12 @@ class SalesDtl extends \biz\core\sales\models\SalesDtl
 {
     private $_uomList;
 
+    public function rules()
+    {
+        return array_merge([
+            [['cogs'],'default','value'=>0]
+        ], parent::rules());
+    }
     public function getUomList()
     {
         if ($this->_uomList === null) {
@@ -49,5 +55,10 @@ class SalesDtl extends \biz\core\sales\models\SalesDtl
     public function getSales()
     {
         return $this->hasOne(Sales::className(), ['id' => 'sales_id']);
+    }
+    
+    public function getUom()
+    {
+        return $this->hasOne(Uom::className(), ['id' => 'uom_id']);
     }
 }

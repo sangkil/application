@@ -122,7 +122,7 @@ class PurchaseController extends Controller
                 throw $e;
             }
         }
-        return $this->render('create', [
+        return $this->render('update', [
                 'model' => $model,
                 'details' => $model->purchaseDtls
         ]);

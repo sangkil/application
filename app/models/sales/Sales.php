@@ -4,6 +4,7 @@ namespace app\models\sales;
 
 use Yii;
 use app\models\master\Customer;
+use app\models\master\Branch;
 
 /**
  * Sales
@@ -15,15 +16,25 @@ use app\models\master\Customer;
  */
 class Sales extends \biz\core\sales\models\Sales
 {
-    public $customer;
 
     public function rules()
     {
         $rules = parent::rules();
         return array_merge([
             [['Date'], 'required'],
-            [['customer'], 'in', 'range' => Customer::find()->select('name')->column()]
+            [['nmCustomer'], 'safe'],
+            [['customer_id'], 'in', 'range' => Customer::find()->select('name')->column()]
             ], $rules);
+    }
+
+    public function getCustomer()
+    {
+        return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
+    }
+
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
     }
 
     public function getSalesDtls()

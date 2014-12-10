@@ -1,5 +1,8 @@
 <?php
+
 namespace app\models\master;
+
+use yii\helpers\ArrayHelper;
 /**
  * Customer
  *
@@ -8,5 +11,9 @@ namespace app\models\master;
  */
 class Customer extends \biz\core\master\models\Customer
 {
-    
+
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->asArray()->all(), 'id', 'name');
+    }
 }

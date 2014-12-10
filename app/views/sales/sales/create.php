@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\sales\Sales */
 
 $this->title = 'Create Sales';
-$this->params['breadcrumbs'][] = ['label' => 'Purchases', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Sales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="purchase-create">

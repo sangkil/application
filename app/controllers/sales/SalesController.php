@@ -15,6 +15,7 @@ use biz\core\sales\components\Sales as ApiSales;
  */
 class SalesController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -37,8 +38,8 @@ class SalesController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -50,7 +51,7 @@ class SalesController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                'model' => $this->findModel($id),
         ]);
     }
 
@@ -101,13 +102,31 @@ class SalesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $api = new ApiSales([
+            'modelClass' => Sales::className(),
+        ]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $data = $model->attributes;
+                $data['details'] = Yii::$app->request->post('SalesDtl', []);
+                $model = $api->update($id, $data, $model);
+                if (!$model->hasErrors()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
         }
+        return $this->render('update', [
+                'model' => $model,
+                'details' => $model->salesDtls
+        ]);
     }
 
     /**
