@@ -19,8 +19,8 @@ class GoodsMovement extends GoodsMovementModel
     public function rules()
     {
         return [
-            [['id', 'type', 'reff_type', 'reff_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['number', 'Date', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'type', 'reff_type', 'reff_id', 'status', 'created_by', 'updated_by','warehouse_id'], 'integer'],
+            [['number', 'Date', 'date', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -61,6 +61,7 @@ class GoodsMovement extends GoodsMovementModel
             'reff_type' => $this->reff_type,
             'reff_id' => $this->reff_id,
             'status' => $this->status,
+            'warehouse_id'=>  $this->warehouse_id,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,

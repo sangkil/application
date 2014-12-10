@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use app\models\inventory\GoodsMovement;
 use biz\core\base\Configs;
 use app\components\Toolbar;
+use app\models\master\Warehouse;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\inventory\searchs\GoodsMovement */
@@ -32,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $filterRef[$key] = isset($value['name']) ? $value['name'] : $key;
                 }
                 ?>
+                <?php \yii\widgets\Pjax::begin(['enablePushState' => false]); ?>
                 <?=
                 GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -41,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         'number',
-                        'Date',
+                        'date:date',
                         [
                             'attribute' => 'type',
                             'value' => 'nmType',
@@ -60,7 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => 'reffLink',
                             'format' => 'raw',
                         ],
-                        'warehouse.name',
+                        [
+                            'attribute' => 'warehouse_id',
+                            'value' => 'warehouse.name',
+                            'filter' => Warehouse::selectOptions(),
+                        ],
                         [
                             'attribute' => 'status',
                             'value' => 'nmStatus',
@@ -70,10 +76,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 GoodsMovement::STATUS_INVOICED => 'Invoiced',
                             ]
                         ],
-                        ['class' => 'yii\grid\ActionColumn'],
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'template' => '{view}{update}{delete}{apply}',
+                        ],
                     ],
                 ]);
                 ?>
+                <?php \yii\widgets\Pjax::end(); ?>
             </div>
         </div>
     </div>

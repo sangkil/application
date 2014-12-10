@@ -17,6 +17,6 @@ class Warehouse extends \biz\core\master\models\Warehouse
     {
         return ArrayHelper::map(static::find()->andFilterWhere([
                     'branch_id' => $branch_id
-                ])->all(), 'id', 'name');
+                ])->asArray()->all(), 'id', 'name');
     }
 }

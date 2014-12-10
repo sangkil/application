@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'number',
-                    'Date',
+                    'date:date',
                     'nmType',
                     'nmReffType',
                     'reffLink:raw:Reference',
