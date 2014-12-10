@@ -10,11 +10,12 @@ use yii\helpers\Html;
 $this->title = $name;
 ?>
 <div class="error-page">
+    <h2 class="headline text-info"> <?php echo $code; ?></h2>
     <div class="error-content">
-        <h3><i class="fa fa-warning text-yellow"></i> Oops! Something Error. </h3>
+        <h3><i class="fa fa-warning text-yellow"></i> Oops! <?= nl2br(Html::encode($message)) ?></h3>
         <p>
-            <?= nl2br(Html::encode($message)) ?>
-            Meanwhile, you may <a href='../../index.html'>return to dashboard</a> or try using the search form.
+            We could not find the page you were looking for or another error happen.
+            Meanwhile, you may <a href='#'>return to dashboard</a> or try using the search form.
         </p>
         <form class='search-form'>
             <div class='input-group'>
@@ -26,4 +27,3 @@ $this->title = $name;
         </form>
     </div><!-- /.error-content -->
 </div><!-- /.error-page -->
-
