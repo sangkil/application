@@ -12,22 +12,20 @@ use app\models\master\Warehouse;
 <?php $form = ActiveForm::begin(); ?>
 <?= $form->errorSummary($model); ?>
 <?= (!$model->getErrors()) ? $form->errorSummary($details) : ''; ?>
-<div class="col-lg-8">
-    <div class="box box-primary">
-        <div class="box-body">
-            <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
+<div class="box box-primary">
+    <div class="box-body">
+        <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
 
-            <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
+        <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
 
-            <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker', ['options' => ['class' => 'form-control', 'style' => 'width:150px;']]) ?>
+        <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker', ['options' => ['class' => 'form-control', 'style' => 'width:150px;']]) ?>
 
-            <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
-        </div>
-        <div class="box-footer">
-            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?> 
-        </div>
+        <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
     </div>
-</div> 
+    <div class="box-footer">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?> 
+    </div>
+</div>
 <div class="box box-info">
     <div class="box-body no-padding">
         <table class="table table-striped">
