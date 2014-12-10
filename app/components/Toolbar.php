@@ -52,7 +52,7 @@ class Toolbar extends \yii\base\Widget {
         $badge = ArrayHelper::getValue($item, 'badge');
 
         $linkContent = '';
-        if(!$visible){
+        if($visible == false){
             return;
         }
         if ($icon) {
