@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\inventory\GoodsMovement;
 use biz\core\base\Configs;
+use app\components\Toolbar;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\inventory\searchs\GoodsMovement */
