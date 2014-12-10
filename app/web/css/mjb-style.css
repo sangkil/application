@@ -10,6 +10,10 @@ form{
     margin-top: 15px;
 }
 
+.right-side{
+    background-color: whitesmoke;
+}
+
 select {
     padding: 10px;
 }

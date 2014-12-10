@@ -40,6 +40,14 @@ class GoodsMovement extends \biz\core\inventory\models\GoodsMovement
         $this->trans_value = $value;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWarehouse()
+    {
+        return $this->hasOne(\biz\core\master\models\Warehouse::className(), ['id' => 'warehouse_id']);
+    }
+    
     public function getNmReffType()
     {
         if (($config = $this->reffConfig) !== null) {
