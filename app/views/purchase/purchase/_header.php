@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#purch_header" data-toggle="tab">Purchase Header</a></li>
-        <li><a href="#receices" data-toggle="tab"><i class="fa fa-money"></i> Goods Receive</a></li>
+        <li><a href="#receives" data-toggle="tab"><i class="fa fa-money"></i> Goods Receive</a></li>
         <li><a href="#fico" data-toggle="tab"><i class="fa fa-money"></i> Finance & Costing</a></li>
     </ul>
     <div class="tab-content">
@@ -43,7 +43,7 @@ use yii\helpers\Html;
                 ?>
             </div>
         </div>
-        <div class="tab-pane" id="receices">
+        <div class="tab-pane" id="receives">
             Goods Receives
         </div>        
         <div class="tab-pane" id="fico">
