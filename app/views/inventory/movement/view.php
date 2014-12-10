@@ -41,6 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ])
             ?>
         </div>
+        <div class="box-footer">
+            <?= ''//Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>   
+        </div>
     </div>
     <div class="box box-primary">
         <div class="box-body no-padding">
