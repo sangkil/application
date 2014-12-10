@@ -12,7 +12,7 @@ $this->title = $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="col-lg-12 good-movement-view">
+<div class="col-lg-8 good-movement-view">
     <?php
     echo Toolbar::widget(['items' => [
             ['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
@@ -45,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= ''//Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>   
         </div>
     </div>
+</div>
+<div class="col-lg-12">    
     <div class="box box-primary">
         <div class="box-body no-padding">
             <?php
