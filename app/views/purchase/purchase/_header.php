@@ -9,11 +9,12 @@ use yii\helpers\Html;
 ?>
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1-1" data-toggle="tab">Header</a></li>
-        <li><a href="#tab_2-2" data-toggle="tab"><i class="fa fa-money"></i> Finance & Costing</a></li>
+        <li class="active"><a href="#purch_header" data-toggle="tab">Purchase Header</a></li>
+        <li><a href="#receices" data-toggle="tab"><i class="fa fa-money"></i> Goods Receive</a></li>
+        <li><a href="#fico" data-toggle="tab"><i class="fa fa-money"></i> Finance & Costing</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_1-1" style="min-height: 10em;">
+        <div class="tab-pane active" id="purch_header" style="min-height: 10em;">
             <div class="col-lg-6">
                 <?= $form->field($model, 'number')->textInput(['maxlength' => 16, 'readonly' => true, 'style' => 'width:50%']); ?>
                 <?=
@@ -42,7 +43,10 @@ use yii\helpers\Html;
                 ?>
             </div>
         </div>
-        <div class="tab-pane" id="tab_2-2">
+        <div class="tab-pane" id="receices">
+            Goods Receives
+        </div>        
+        <div class="tab-pane" id="fico">
             Shipping Cost, dll.
         </div>
     </div>
