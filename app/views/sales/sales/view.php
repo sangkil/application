@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\sales\Sales;
 
-
 /* @var $this yii\web\View */
 /* @var $model Sales */
 
@@ -43,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'data-method' => 'post',
                     ]) . ' ';
                 }
-                echo Html::a('Receive', ['receive', 'id' => $model->id], [
+                echo Html::a('Release', ['release', 'id' => $model->id], [
                     'class' => 'btn btn-success',
                 ]);
                 ?>
@@ -66,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'query' => $model->getSalesDtls(),
                     'sort' => false,
                     'pagination' => false,
-                        ]),
+                    ]),
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'product.name',

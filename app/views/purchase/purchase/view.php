@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'query' => $model->getPurchaseDtls(),
                     'sort' => false,
                     'pagination' => false,
-                        ]),
+                    ]),
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'product.name',

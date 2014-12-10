@@ -6,9 +6,9 @@ use app\components\Toolbar;
 /* @var $this yii\web\View */
 /* @var $model app\models\inventory\GoodsMovement */
 
-$this->title = 'Update Good Movement: ' . ' ' . $model->id;
+$this->title = 'Update Good Movement: ' . ' ' . $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->number, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="col-lg-12 good-movement-update">

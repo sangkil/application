@@ -102,4 +102,4 @@ class GoodsMovement extends \biz\core\inventory\models\GoodsMovement
     }
 }
 // Extend reference
-Configs::merge('movement', '@app/components/configs/movement.php');
+Configs::merge('movement', '@app/config/biz/movement.php');

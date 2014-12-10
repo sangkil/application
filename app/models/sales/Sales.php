@@ -22,8 +22,7 @@ class Sales extends \biz\core\sales\models\Sales
         $rules = parent::rules();
         return array_merge([
             [['Date'], 'required'],
-            [['nmCustomer'], 'safe'],
-            [['customer_id'], 'in', 'range' => Customer::find()->select('name')->column()]
+            [['nmCustomer'], 'in', 'range' => Customer::find()->select('name')->column()]
             ], $rules);
     }
 

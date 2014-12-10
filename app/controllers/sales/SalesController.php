@@ -129,6 +129,10 @@ class SalesController extends Controller
         ]);
     }
 
+    public function actionRelease($id)
+    {
+        return $this->redirect(['/inventory/movement/create', 'type' => 200, 'id' => $id]);
+    }
     /**
      * Deletes an existing Sales model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
