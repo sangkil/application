@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => 'reffLink',
                             'format' => 'raw',
                         ],
-                        'getWarehouse.name',
+                        'warehouse.name',
                         [
                             'attribute' => 'status',
                             'value' => 'nmStatus',
