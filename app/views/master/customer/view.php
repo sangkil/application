@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\Toolbar;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\master\Customer */
