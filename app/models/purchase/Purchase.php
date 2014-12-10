@@ -3,6 +3,7 @@
 namespace app\models\purchase;
 
 use Yii;
+use app\models\master\Branch;
 use app\models\master\Supplier;
 use app\models\inventory\GoodsMovement;
 
@@ -45,6 +46,32 @@ class Purchase extends \biz\core\purchase\models\Purchase
                 ->onCondition(['reff_type' => 100]);
     }
 
+    public function getSupplier()
+    {
+        return $this->hasOne(Supplier::className(), ['id' => 'supplier_id']);
+    }
+
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id' => 'branch_id']);
+    }
+    
+    /**
+     * 
+     * @param sting $name
+     * @return boolean
+     */
+    public function visibleButton($name)
+    {
+        switch ($name) {
+            case 'update':
+            case 'delete':
+                return $this->status == static::STATUS_DRAFT;
+            default:
+                return true;
+        }
+    }
+    
     public function behaviors()
     {
         $behaviors = parent::behaviors();

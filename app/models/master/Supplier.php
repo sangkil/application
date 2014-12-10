@@ -2,6 +2,8 @@
 
 namespace app\models\master;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * Supplier
  *
@@ -11,4 +13,8 @@ namespace app\models\master;
 class Supplier extends \biz\core\master\models\Supplier
 {
     
+    public static function selectOptions()
+    {
+        return ArrayHelper::map(static::find()->asArray()->all(), 'id', 'name');
+    }
 }

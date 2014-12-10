@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\components\Toolbar;
+use app\models\purchase\Purchase;
+use app\models\master\Branch;
+use app\models\master\Supplier;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\purchase\searchs\Purchase */
@@ -23,25 +26,37 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <div class="box box-info">
         <div class="box-body no-padding">
+            <?php \yii\widgets\Pjax::begin(['enablePushState'=>false]); ?>
             <?=
             GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
-                'layout'=>"{items}\n{pager}",
-                'tableOptions'=>['class'=>'table table-striped'],
+                'layout' => "{items}\n{pager}",
+                'tableOptions' => ['class' => 'table table-striped'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'number',
-                    'nmSupplier',
-                    'branch_id',
-                    'Date',
-                    'value',
-                    // 'discount',
-                    'nmStatus',
+                    [
+                        'attribute' => 'supplier_id',
+                        'value' => 'supplier.name',
+                        'filter' => Supplier::selectOptions(),
+                    ],
+                    [
+                        'attribute' => 'branch_id',
+                        'value' => 'branch.name',
+                        'filter' => Branch::selectOptions(),
+                    ],
+                    'date:date',
+                    'value:currency',
+                    [
+                        'attribute' => 'status',
+                        'value' => 'nmStatus'
+                    ],
                     ['class' => 'yii\grid\ActionColumn'],
                 ],
             ]);
             ?>
+            <?php \yii\widgets\Pjax::end(); ?>
         </div>
     </div>
 </div>
