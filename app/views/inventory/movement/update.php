@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index'
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="good-movement-update">
+<div class="col-lg-12 good-movement-update">
     <?php
     echo Toolbar::widget(['items' => [
             ['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
