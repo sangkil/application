@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\inventory\GoodsMovement;
+use app\components\Toolbar;
 
 /* @var $this yii\web\View */
 /* @var $model GoodsMovement */
