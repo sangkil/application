@@ -23,7 +23,7 @@ use app\models\master\Warehouse;
         <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
     </div>
     <div class="box-footer">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>   
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>   
     </div>
 </div>
 <div class="box box-info">
