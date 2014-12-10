@@ -28,33 +28,35 @@ use app\models\master\Warehouse;
         </div>
     </div>
 </div>
-<div class="box box-info">
-    <div class="box-body no-padding">
-        <table class="table table-striped">
-            <tbody>
-                <?php
-                /* @var $detail app\models\inventory\GoodsMovementDtl */
-                $i = 0;
-                ?>
-                <?php foreach ($details as $detail): ?>
-                    <tr>
-                        <td><?= $i + 1; ?>
-                            <div style="display: none;">
-                                <?= Html::activeHiddenInput($detail, "[{$i}]product_id") ?>
-                                <?= Html::activeHiddenInput($detail, "[{$i}]trans_value") ?>
-                            </div>
-                        </td>
-                        <td><?= $detail->product->name ?></td>
-                        <td><?= $detail->avaliable ?></td>
-                        <td><?= Html::activeTextInput($detail, "[{$i}]qty") ?></td>
-                        <td><?= $detail->uom->name ?></td>
-                    </tr>
+<div class="col-lg-12">  
+    <div class="box box-info">
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tbody>
                     <?php
-                    $i++;
+                    /* @var $detail app\models\inventory\GoodsMovementDtl */
+                    $i = 0;
                     ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>    
+                    <?php foreach ($details as $detail): ?>
+                        <tr>
+                            <td><?= $i + 1; ?>
+                                <div style="display: none;">
+                                    <?= Html::activeHiddenInput($detail, "[{$i}]product_id") ?>
+                                    <?= Html::activeHiddenInput($detail, "[{$i}]trans_value") ?>
+                                </div>
+                            </td>
+                            <td><?= $detail->product->name ?></td>
+                            <td><?= $detail->avaliable ?></td>
+                            <td><?= Html::activeTextInput($detail, "[{$i}]qty") ?></td>
+                            <td><?= $detail->uom->name ?></td>
+                        </tr>
+                        <?php
+                        $i++;
+                        ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>  
+</div>
 <?php ActiveForm::end(); ?>
