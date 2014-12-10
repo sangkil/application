@@ -27,6 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
             GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'layout'=>"{items}\n{pager}",
+                'tableOptions'=>['class'=>'table table-striped'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'number',
