@@ -47,7 +47,7 @@ class GoodsMovement extends \biz\core\inventory\models\GoodsMovement
     {
         return $this->hasOne(\biz\core\master\models\Warehouse::className(), ['id' => 'warehouse_id']);
     }
-    
+
     public function getNmReffType()
     {
         if (($config = $this->reffConfig) !== null) {
@@ -62,6 +62,23 @@ class GoodsMovement extends \biz\core\inventory\models\GoodsMovement
             return $this->reffDoc ? Html::a($this->reffDoc->number, [$config['link'], 'id' => $this->reffDoc->id]) : null;
         }
         return null;
+    }
+
+    /**
+     * 
+     * @param sting $name
+     * @return boolean
+     */
+    public function visibleButton($name)
+    {
+        switch ($name) {
+            case 'update':
+            case 'delete':
+            case 'apply':
+                return $this->status == static::STATUS_DRAFT;
+            default:
+                return true;
+        }
     }
 
     public function behaviors()
