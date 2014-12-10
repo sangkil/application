@@ -45,7 +45,7 @@ class GoodsMovement extends \biz\core\inventory\models\GoodsMovement
      */
     public function getWarehouse()
     {
-        return $this->hasOne(\biz\core\master\models\Warehouse::className(), ['warehouse_id'=>'id']);
+        return $this->hasOne(\biz\core\master\models\Warehouse::className(), ['id' => 'warehouse_id']);
     }
     
     public function getNmReffType()
