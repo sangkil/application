@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\base\Exception;
 
 /* @var $this yii\web\View */
 /* @var $name string */
@@ -10,7 +11,7 @@ use yii\helpers\Html;
 $this->title = $name;
 ?>
 <div class="error-page">
-    <h2 class="headline text-info"> <?php echo empty($code)?'404':$code; ?></h2>
+    <h2 class="headline text-info"> <?php echo ErrorException::code ?></h2>
     <div class="error-content">
         <h3><i class="fa fa-warning text-yellow"></i> Oops! <?= nl2br(Html::encode($message)) ?></h3>
         <p>
