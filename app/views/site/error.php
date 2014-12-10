@@ -1,17 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-use yii\base\Exception;
 
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
+/* @var $code string */
 /* @var $exception Exception */
 
 $this->title = $name;
 ?>
 <div class="error-page">
-    <h2 class="headline text-info"> <?php echo Exception::code ?></h2>
+    <h2 class="headline text-info"> <?php echo $code ?></h2>
     <div class="error-content">
         <h3><i class="fa fa-warning text-yellow"></i> Oops! <?= nl2br(Html::encode($message)) ?></h3>
         <p>
