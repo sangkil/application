@@ -8,19 +8,18 @@ use yii\data\ActiveDataProvider;
 use app\models\inventory\Transfer as TransferModel;
 
 /**
- * GoodsMovement represents the model behind the search form about `app\models\inventory\GoodsMovement`.
+ * Transfer represents the model behind the search form about `app\models\inventory\Transfer`.
  */
-class GoodsMovement extends GoodsMovementModel
+class Transfer extends TransferModel
 {
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'type', 'reff_type', 'reff_id', 'status', 'created_by', 'updated_by'], 'integer'],
-            [['number', 'Date', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'branch_id', 'branch_dest_id', 'status', 'created_by', 'updated_by'], 'integer'],
+            [['number', 'date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -42,24 +41,21 @@ class GoodsMovement extends GoodsMovementModel
      */
     public function search($params)
     {
-        $query = GoodsMovementModel::find();
+        $query = TransferModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
-        if (!$this->validate()) {
-            $query->where('1=0');
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'branch_id' => $this->branch_id,
+            'branch_dest_id' => $this->branch_dest_id,
             'date' => $this->date,
-            'type' => $this->type,
-            'reff_type' => $this->reff_type,
-            'reff_id' => $this->reff_id,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
@@ -67,8 +63,7 @@ class GoodsMovement extends GoodsMovementModel
             'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'number', $this->number]);
 
         return $dataProvider;
     }

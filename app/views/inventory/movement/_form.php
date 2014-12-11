@@ -14,9 +14,20 @@ use app\models\master\Warehouse;
 <?= (!$model->getErrors()) ? $form->errorSummary($details) : ''; ?>
 <div class="box box-primary" style="width: 60%;">
     <div class="box-body">
+        <div class="form-group field-goodsmovement-number">
+            <label class="control-label">Reference</label>
+            <span class="form-control"><?= $model->reffLink ?></span>
+        </div>
         <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
 
-        <?= $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions()) ?>
+        <?php
+        if (isset($config['branch_field'])) {
+            $branch_id = $model->reffDoc->{$config['branch_field']};
+        } else {
+            $branch_id = null;
+        }
+        echo $form->field($model, 'warehouse_id')->dropDownList(Warehouse::selectOptions($branch_id))
+        ?>
 
         <?= $form->field($model, 'Date')->widget('yii\jui\DatePicker', ['options' => ['class' => 'form-control', 'style' => 'width:150px;']]) ?>
 

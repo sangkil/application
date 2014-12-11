@@ -2,12 +2,14 @@
 
 use yii\helpers\Html;
 use app\components\Toolbar;
+use app\models\inventory\GoodsMovement;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\inventory\GoodsMovement */
+/* @var $model GoodsMovement */
 
-$this->title = 'Update Good Movement: ' . ' ' . $model->number;
-$this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
+$type = $config['type'] == GoodsMovement::TYPE_RECEIVE ? 'Receive' : 'Issue';
+$this->title = "Update Good {$type}: {$model->number}";
+$this->params['breadcrumbs'][] = ['label' => 'Good ' . $type, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->number, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
@@ -24,7 +26,8 @@ $this->params['breadcrumbs'][] = 'Update';
     <?=
     $this->render('_form', [
         'model' => $model,
-        'details' => $details
+        'details' => $details,
+        'config'=>$config,
     ])
     ?>
 

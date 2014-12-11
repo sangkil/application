@@ -3,18 +3,15 @@
 namespace app\controllers\inventory;
 
 use Yii;
-use app\models\inventory\GoodsMovement;
-use app\models\inventory\searchs\GoodsMovement as GoodsMovementSearch;
+use app\models\inventory\Transfer;
+use app\models\inventory\searchs\Transfer as TransferSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use biz\core\inventory\components\GoodsMovement as ApiMovement;
-use yii\helpers\ArrayHelper;
-use app\models\inventory\GoodsMovementDtl;
-use biz\core\base\Configs;
+use biz\core\inventory\components\Transfer as ApiTransfer;
 
 /**
- * MovementController implements the CRUD actions for GoodsMovement model.
+ * MovementController implements the CRUD actions for Transfer model.
  */
 class TransferController extends Controller
 {
@@ -32,12 +29,12 @@ class TransferController extends Controller
     }
 
     /**
-     * Lists all GoodsMovement models.
+     * Lists all Transfer models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GoodsMovementSearch();
+        $searchModel = new TransferSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +44,7 @@ class TransferController extends Controller
     }
 
     /**
-     * Displays a single GoodsMovement model.
+     * Displays a single Transfer model.
      * @param integer $id
      * @return mixed
      */
@@ -59,55 +56,44 @@ class TransferController extends Controller
     }
 
     /**
-     * Creates a new GoodsMovement model.
+     * Creates a new Transfer model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($type, $id)
+    public function actionCreate()
     {
-        $model = GoodsMovement::findOne([
-                'reff_type' => $type,
-                'reff_id' => $id,
-                'status' => GoodsMovement::STATUS_DRAFT,
+        $model = new Transfer([
+            'branch_id' => 1
         ]);
-        $model = $model ? : new GoodsMovement([
-            'reff_type' => $type,
-            'reff_id' => $id,
+        $api = new ApiTransfer([
+            'modelClass' => Transfer::className(),
         ]);
-        $api = new ApiMovement();
-        $config = Configs::movement($type);
-        
-        list($modelRef, $details) = $this->getReference($type, $id, $model->goodsMovementDtls);
-        $model->populateRelation('goodsMovementDtls', $details);
+
         if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
             try {
-                $transaction = Yii::$app->db->beginTransaction();
                 $data = $model->attributes;
-
-                $data['details'] = Yii::$app->request->post('GoodsMovementDtl', []);
-
+                $data['details'] = Yii::$app->request->post('TransferDtl', []);
                 $model = $api->create($data, $model);
-                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                if (!$model->hasErrors()) {
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     $transaction->rollBack();
                 }
-            } catch (\Exception $exc) {
+            } catch (\Exception $e) {
                 $transaction->rollBack();
-                throw $exc;
+                throw $e;
             }
         }
         return $this->render('create', [
                 'model' => $model,
-                'modelRef' => $modelRef,
-                'details' => $model->goodsMovementDtls,
-                'title' => $config['type']==GoodsMovement::TYPE_RECEIVE?'Receive':'Issue',
+                'details' => $model->transferDtls
         ]);
     }
 
     /**
-     * Updates an existing GoodsMovement model.
+     * Updates an existing Transfer model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -115,61 +101,35 @@ class TransferController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $api = new ApiMovement();
+        $api = new ApiTransfer([
+            'modelClass' => Transfer::className(),
+        ]);
 
-        list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodsMovementDtls);
-        $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
             try {
-                $transaction = Yii::$app->db->beginTransaction();
                 $data = $model->attributes;
-
-                $data['details'] = Yii::$app->request->post('GoodsMovementDtl', []);
-
+                $data['details'] = Yii::$app->request->post('TransferDtl', []);
                 $model = $api->update($id, $data, $model);
-                if (!$model->hasErrors() && !$model->hasRelatedErrors()) {
+                if (!$model->hasErrors()) {
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
                     $transaction->rollBack();
                 }
-            } catch (\Exception $exc) {
+            } catch (\Exception $e) {
                 $transaction->rollBack();
-                throw $exc;
+                throw $e;
             }
         }
         return $this->render('update', [
                 'model' => $model,
-                'modelRef' => $modelRef,
-                'details' => $model->goodsMovementDtls,
+                'details' => $model->transferDtls
         ]);
     }
 
-    protected function getReference($reff_type, $reff_id, $origin = [])
-    {
-        $config = GoodsMovement::reffConfig($reff_type);
-        $class = $config['class'];
-        $relation = $config['relation'];
-
-        $modelRef = $class::findOne($reff_id);
-        $refDtls = $modelRef->$relation;
-
-        $details = ArrayHelper::index($origin, 'product_id');
-        foreach ($refDtls as $refDtl) {
-            if (!isset($details[$refDtl->product_id])) {
-                $details[$refDtl->product_id] = new GoodsMovementDtl([
-                    'product_id' => $refDtl->product_id,
-                ]);
-            }
-            if (!empty($config['apply_method'])) {
-                call_user_func([$refDtl, $config['apply_method']], $details[$refDtl->product_id]);
-            }
-        }
-        return [$modelRef, array_values($details)];
-    }
-
     /**
-     * Deletes an existing GoodsMovement model.
+     * Deletes an existing Transfer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -179,7 +139,9 @@ class TransferController extends Controller
         $model = $this->findModel($id);
         try {
             $transaction = Yii::$app->db->beginTransaction();
-            $api = new ApiMovement();
+            $api = new ApiTransfer([
+                'modelClass'=>  Transfer::className()
+            ]);
             if ($api->delete($id, $model)) {
                 $transaction->commit();
                 return $this->redirect(['index']);
@@ -192,34 +154,26 @@ class TransferController extends Controller
         }
     }
 
-    public function actionApply($id)
+    public function actionRelease($id)
     {
-        $model = $this->findModel($id);
-        try {
-            $transaction = Yii::$app->db->beginTransaction();
-            $api = new ApiMovement();
-            if ($api->apply($id, $model)) {
-                $transaction->commit();
-                return $this->redirect(['index']);
-            }  else {
-                $transaction->rollBack();
-            }
-        } catch (\Exception $exc) {
-            $transaction->rollBack();
-            throw $exc;
-        }
+        return $this->redirect(['/inventory/movement/create', 'type' => 300, 'id' => $id]);
+    }
+
+    public function actionReceive($id)
+    {
+        return $this->redirect(['/inventory/movement/create', 'type' => 400, 'id' => $id]);
     }
 
     /**
-     * Finds the GoodsMovement model based on its primary key value.
+     * Finds the Transfer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return GoodsMovement the loaded model
+     * @return Transfer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = GoodsMovement::findOne($id)) !== null) {
+        if (($model = Transfer::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

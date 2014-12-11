@@ -32,7 +32,7 @@ $asset2 = app\assets\AddAsset::register($this);
                 <section class="content-header">
                     <h1>
                         <?= '&nbsp;' . Html::encode($this->title) ?>
-                        <small><?php echo \Yii::$app->controller->id . '-' . \Yii::$app->controller->action->id; ?></small>
+                        <small><?php //echo \Yii::$app->controller->id . '-' . \Yii::$app->controller->action->id; ?></small>
                     </h1>
                     <?php
                     $breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];

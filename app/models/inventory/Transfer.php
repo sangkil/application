@@ -3,19 +3,42 @@
 namespace app\models\inventory;
 
 use Yii;
-use yii\helpers\Html;
-use biz\core\base\Configs;
+use app\models\master\Branch;
 
 /**
- * GoodsMovement
+ * Transfer
  *
- * @property GoodsMovementDtl[] $goodsMovementDtls
+ * @property TransferDtl[] $transferDtls
  * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class TransferMovement extends \biz\core\inventory\models\Transfer
+class Transfer extends \biz\core\inventory\models\Transfer
 {
+
+    public function rules()
+    {
+        $rules = parent::rules();
+        return array_merge([
+             [['Date'], 'required'],
+            ], $rules);
+    }
+
+    public function getTransferDtls()
+    {
+        return $this->hasMany(TransferDtl::className(), ['transfer_id' => 'id']);
+    }
+
+    public function getBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id'=>'branch_id']);
+    }
+
+    public function getDestBranch()
+    {
+        return $this->hasOne(Branch::className(), ['id'=>'branch_dest_id']);
+    }
+    
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -26,15 +49,6 @@ class TransferMovement extends \biz\core\inventory\models\Transfer
                     'Date' => 'date',
                 ]
             ],
-            [
-                'class' => 'mdm\converter\EnumConverter',
-                'attributes' => [
-                    'nmType' => 'type'
-                ],
-                'enumPrefix' => 'TYPE_'
-            ],
         ]);
     }
 }
-// Extend reference
-Configs::merge('movement', '@app/components/configs/movement.php');

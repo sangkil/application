@@ -76,7 +76,7 @@ class MovementController extends Controller
         ]);
         $api = new ApiMovement();
         $config = Configs::movement($type);
-        
+
         list($modelRef, $details) = $this->getReference($type, $id, $model->goodsMovementDtls);
         $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
@@ -102,7 +102,7 @@ class MovementController extends Controller
                 'model' => $model,
                 'modelRef' => $modelRef,
                 'details' => $model->goodsMovementDtls,
-                'title' => $config['type']==GoodsMovement::TYPE_RECEIVE?'Receive':'Issue',
+                'config' => $config,
         ]);
     }
 
@@ -118,6 +118,7 @@ class MovementController extends Controller
         $api = new ApiMovement();
 
         list($modelRef, $details) = $this->getReference($model->reff_type, $model->reff_id, $model->goodsMovementDtls);
+        $config = Configs::movement($model->reff_type);
         $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
             try {
@@ -142,12 +143,13 @@ class MovementController extends Controller
                 'model' => $model,
                 'modelRef' => $modelRef,
                 'details' => $model->goodsMovementDtls,
+                'config' => $config,
         ]);
     }
 
     protected function getReference($reff_type, $reff_id, $origin = [])
     {
-        $config = GoodsMovement::reffConfig($reff_type);
+        $config = Configs::movement($reff_type);;
         $class = $config['class'];
         $relation = $config['relation'];
 
@@ -183,7 +185,7 @@ class MovementController extends Controller
             if ($api->delete($id, $model)) {
                 $transaction->commit();
                 return $this->redirect(['index']);
-            }  else {
+            } else {
                 $transaction->rollBack();
             }
         } catch (\Exception $exc) {
@@ -201,7 +203,7 @@ class MovementController extends Controller
             if ($api->apply($id, $model)) {
                 $transaction->commit();
                 return $this->redirect(['index']);
-            }  else {
+            } else {
                 $transaction->rollBack();
             }
         } catch (\Exception $exc) {

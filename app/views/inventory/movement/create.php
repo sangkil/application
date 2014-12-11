@@ -1,11 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\inventory\GoodsMovement;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\inventory\GoodsMovement */
 
-$this->title = 'Create Good ' . $title;
+$this->title = 'Create Good ' . ($config['type'] == GoodsMovement::TYPE_RECEIVE ? 'Receive' : 'Issue');
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -14,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $this->render('_form', [
         'model' => $model,
         'details' => $details,
+        'config' => $config,
     ])
     ?>
 </div>

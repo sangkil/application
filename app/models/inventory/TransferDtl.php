@@ -7,7 +7,7 @@ use app\models\master\Product;
 use app\models\master\Uom;
 
 /**
- * GoodsMovementDtl
+ * TransferDtl
  *
  * @property Product $product
  * @property Uom $uom
