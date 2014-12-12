@@ -22,9 +22,11 @@
         "yiisoft/yii2": "~2.0",
         "mdmsoft/yii2-admin": "~2.0",
         "mdmsoft/yii2-widgets": "~1.0",
-        "sangkil/biz3-api": "~3.0",
         "yiisoft/yii2-bootstrap": "~2.0",
-        "bower-asset/admin-lte": "1.3"
+        "bower-asset/admin-lte": "1.3",
+        "mdmsoft/yii2-autonumber": "~1.0",
+        "mdmsoft/yii2-format-converter": "~1.0",
+        "mdmsoft/yii2-ar-behaviors": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0",

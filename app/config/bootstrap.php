@@ -1,5 +1,7 @@
 <?php
 
+Yii::setAlias('@biz', dirname(dirname(__DIR__)).'/biz');
+
 // set DI
 $container = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/container.php'),
