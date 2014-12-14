@@ -38,9 +38,8 @@ class GoodsMovement extends \yii\db\ActiveRecord
 {
     // status GoodsMovement
     const STATUS_DRAFT = 10;
-    const STATUS_APPLIED = 20;
-    const STATUS_INVOICED = 30;
-    const STATUS_CLOSED = 40;
+    const STATUS_PROCESS = 20;
+    const STATUS_CLOSE = 90;
     // type movement
     const TYPE_RECEIVE = 10;
     const TYPE_ISSUE = 20;

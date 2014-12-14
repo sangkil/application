@@ -26,8 +26,8 @@ use Yii;
 class Transfer extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 10;
-    const STATUS_PARTIAL_RELEASE = 20;
-    const STATUS_COMPLETE_RELEASE = 30;
+    const STATUS_PROCESS = 20;
+    const STATUS_CLOSE = 90;
 
     /**
      * @inheritdoc

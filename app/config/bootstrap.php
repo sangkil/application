@@ -1,6 +1,6 @@
 <?php
 
-Yii::setAlias('@biz', dirname(dirname(__DIR__)).'/biz');
+Yii::setAlias('@biz', dirname(dirname(__DIR__)).'/libraries/biz');
 
 // set DI
 $container = yii\helpers\ArrayHelper::merge(

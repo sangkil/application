@@ -56,10 +56,10 @@ class Purchase extends \yii\base\Behavior
             }
         }
         if ($complete) {
-            $purchase->status = MPurchase::STATUS_COMPLETE_RECEIVE;
+            $purchase->status = MPurchase::STATUS_PROCESS;
             $purchase->save(false);
         }  elseif($purchase->status == MPurchase::STATUS_DRAFT) {
-            $purchase->status = MPurchase::STATUS_PARTIAL_RECEIVE;
+            $purchase->status = MPurchase::STATUS_PROCESS;
             $purchase->save(false);
         }
     }

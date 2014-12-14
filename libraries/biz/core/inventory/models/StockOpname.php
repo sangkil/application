@@ -26,6 +26,10 @@ use Yii;
  */
 class StockOpname extends \yii\db\ActiveRecord
 {
+    const STATUS_DRAFT = 10;
+    const STATUS_PROCESS = 20;
+    const STATUS_CLOSE = 90;
+
     /**
      * @inheritdoc
      */
@@ -40,7 +44,7 @@ class StockOpname extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number', 'warehouse_id', 'date', 'status'], 'required'],
+            [['warehouse_id', 'date', 'status'], 'required'],
             [['warehouse_id', 'status', 'created_by', 'updated_by'], 'integer'],
             [['date', 'created_at', 'updated_at'], 'safe'],
             [['number'], 'string', 'max' => 16],
