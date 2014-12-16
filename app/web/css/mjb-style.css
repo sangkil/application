@@ -6,6 +6,14 @@ Create at {date('now')}
     Created on : Oct 30, 2014, 7:07:53 PM
     Author     : samsung-pc
 */
+html{
+    overflow: scroll;
+}
+
+body{
+    overflow: hidden;
+}
+
 form{
     margin-top: 15px;
 }
@@ -60,4 +68,22 @@ select {
 
 .grid-view .pagination{
     margin-left: 15px;
+}
+
+::-webkit-scrollbar
+{
+    width: 8px;  /* for vertical scrollbars */
+    height: 8px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
