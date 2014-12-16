@@ -2,7 +2,7 @@
 
 return[
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-    'bootstrap'=>[
+    'bootstrap' => [
         'biz\\Bootstrap'
     ],
     'components' => [
@@ -13,5 +13,9 @@ return[
             'dateFormat' => 'dd/MM/yyyy',
             'datetimeFormat' => 'dd/MM/yyyy HH:mm:ss'
         ],
+        'report' => [
+            'class' => 'mdm\\report\\BirtReport',
+            'reportPath' => '@app/reports'
+        ]
     ],
 ];
