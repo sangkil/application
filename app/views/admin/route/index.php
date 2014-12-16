@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             Avaliable:
             <?php
             echo Html::textInput('search_av', '', ['class' => 'role-search', 'data-target' => 'new']).' ';
+            echo Html::a('<span class="glyphicon glyphicon-refresh"></span>', '', ['id'=>'btn-refresh']);
             ?>
         </div>
         <div class="box-body no-padding">
