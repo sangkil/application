@@ -1,9 +1,13 @@
 <?php
 
-/* @var $faker Faker\Generator */
-/* @var $index integer */
+use yii\helpers\Console;
 
-return[
+/* @var $this app\commands\SampleDataController */
+/* @var $command yii\db\Command */
+/* @var $faker Faker\Generator */
+
+
+$rows = [
     [1, "The Dexter"],
     [2, "Warning"],
     [3, "Top Extreme"],
@@ -40,3 +44,19 @@ return[
     [34, "Triad"],
     [35, "Shiverwear"]
 ];
+
+echo "Insert data product group\n";
+$total = count($rows);
+Console::startProgress(0, $total);
+$command->delete('{{%product_group}}')->execute();
+foreach ($rows as $i => $row) {
+    $command->insert('{{%product_group}}', [
+        'id' => $row[0],
+        'code' => sprintf('%04d', $row[0]),
+        'name' => $row[1],
+        'created_at' => $now,
+        'updated_at' => $now,
+    ])->execute();
+    Console::updateProgress($i + 1, 1);
+}
+Console::endProgress();
