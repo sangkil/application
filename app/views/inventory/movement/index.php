@@ -72,8 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => 'nmStatus',
                             'filter' => [
                                 GoodsMovement::STATUS_DRAFT => 'Draft',
-                                GoodsMovement::STATUS_APPLIED => 'Applied',
-                                GoodsMovement::STATUS_INVOICED => 'Invoiced',
+                                GoodsMovement::STATUS_PROCESS => 'Proccess',
+                                GoodsMovement::STATUS_CLOSE => 'Closed',
                             ]
                         ],
                         [
