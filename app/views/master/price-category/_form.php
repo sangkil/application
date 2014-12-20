@@ -8,18 +8,15 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="price-category-form">
-
+<div class="box box-warning price-category-form">
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
-
-    <?= $form->field($model, 'formula')->textInput(['maxlength' => 256]) ?>
-
-    <div class="form-group">
+    <div class="box-body">
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 64]) ?>
+        <?= $form->field($model, 'formula')->textInput(['maxlength' => 256]) ?>
+    </div>
+    <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
 </div>
