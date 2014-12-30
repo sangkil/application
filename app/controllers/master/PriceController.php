@@ -71,6 +71,24 @@ class PriceController extends Controller
             ]);
         }
     }
+    
+        /**
+     * Creates a new Price model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateByPO()
+    {
+        $model = new Price();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'product_id' => $model->product_id, 'price_category_id' => $model->price_category_id]);
+        } else {
+            return $this->render('create_by_po', [
+                'model' => $model,
+            ]);
+        }
+    }
 
     /**
      * Updates an existing Price model.
