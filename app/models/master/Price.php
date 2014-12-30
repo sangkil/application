@@ -10,5 +10,5 @@ namespace app\models\master;
  */
 class Price extends \biz\core\master\models\Price
 {
-    
+    public $product_name;
 }
