@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
+use yii\jui\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\master\Price */
