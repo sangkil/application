@@ -17,7 +17,7 @@ class Price extends \biz\core\master\models\Price
      */
     public function attributeLabels()
     {
-        return array_push(parent::attributeLabels(), ['product_name'=>'Name of Product']);
+        return array_merge(parent::attributeLabels(), ['product_name'=>'Name of Product']);
     }
             
 }
