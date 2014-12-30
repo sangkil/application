@@ -72,7 +72,7 @@ class PriceController extends Controller
         }
     }
     
-        /**
+    /**
      * Creates a new Price model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
