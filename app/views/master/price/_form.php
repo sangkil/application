@@ -12,7 +12,17 @@ use yii\web\JsExpression;
 <div class="box box-warning price-category-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
-        <?= $form->field($model, 'product_id')->textInput() ?>
+        <?= $form->field($model, 'product_id')->hiddenInput() ?>
+
+        <?php
+        echo AutoComplete::widget([
+            'model' => $model,
+            'attribute' => 'product_name',
+            'clientOptions' => [
+                'source' => ['USA', 'RUS'],
+            ],
+        ]);
+        ?>
 
         <?= $form->field($model, 'price_category_id')->dropDownList(\app\models\master\PriceCategory::selectOptions(), ['style' => 'width:150px;']) ?>
 
