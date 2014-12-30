@@ -11,4 +11,13 @@ namespace app\models\master;
 class Price extends \biz\core\master\models\Price
 {
     public $product_name;
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return array_push(parent::attributeLabels(), ['product_name'=>'Name of Product']);
+    }
+            
 }
