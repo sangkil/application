@@ -33,8 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'tableOptions' => ['class' => 'table table-striped'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'product_id',
-                    'price_category_id',
+                    //'product_id',
+                    [
+                        'label' => 'Product Name',
+                        'value' => 'product.name'
+                    ],
+                    //'price_category_id',
+                    [
+                        'label' => 'Price category',
+                        'value' => 'priceCategory.name'
+                    ],
                     'price',
                     'created_at',
                     'created_by',

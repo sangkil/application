@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
 use yii\jui\AutoComplete;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\master\Price */
@@ -13,21 +14,19 @@ use yii\jui\AutoComplete;
 <div class="box box-warning price-category-form">
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
-        <?= $form->field($model, 'product_id')->hiddenInput() ?>
-
-        <?php
-        echo AutoComplete::widget([
-            'model' => $model,
-            'attribute' => 'product_name',
+        <?=
+        $form->field($model, 'product_name')->widget('yii\jui\AutoComplete', [
             'clientOptions' => [
-                'source' => ['USA', 'RUS'],
-            ],
-        ]);
+                'source' => new JsExpression('biz.master.sourceProduct'),
+                'search' => new JsExpression('biz.price.onProductSearch'),
+                'select' => new JsExpression('biz.price.onProductSelect'),
+                ],
+            'options' => ['class' => 'form-control']
+        ])
         ?>
-
-        <?= $form->field($model, 'price_category_id')->dropDownList(\app\models\master\PriceCategory::selectOptions(), ['style' => 'width:150px;']) ?>
-
-        <?= $form->field($model, 'price')->input('number', ['style' => 'width:200px;']) ?>
+        <?= $form->field($model, 'price_category_id')->dropDownList(\app\models\master\PriceCategory::selectOptions(), ['style' => 'width:200px;']) ?>
+        <?= $form->field($model, 'price')->input('number', ['style' => 'width:150px;']) ?>
+        <?= $form->field($model, 'product_id')->hiddenInput()->label(false) ?>
     </div>
 
     <div class="box-footer">
@@ -39,11 +38,11 @@ use yii\jui\AutoComplete;
 <?php
 app\assets\BizWidget::widget([
     'config' => [
-        'masters' => ['products', 'barcodes'],
-        'storageClass' => new JsExpression('DLocalStorage')
+        'masters' => ['products']
+    //'storageClass' => new JsExpression('DLocalStorage')
     ],
-//    'scripts' => [
-//        View::POS_END => $this->render('_script'),
-//        View::POS_READY => 'biz.price.onReady();'
-//    ]
+    'scripts' => [
+        View::POS_END => $this->render('_script'),
+        //View::POS_READY => 'biz.price.onReady();'
+    ]
 ]);
