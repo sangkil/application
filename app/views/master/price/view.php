@@ -7,7 +7,7 @@ use app\components\Toolbar;
 /* @var $this yii\web\View */
 /* @var $model app\models\master\Price */
 
-$this->title = $model->product_id;
+$this->title = 'Detail Price: ' . ' ' . $model->product->name;
 $this->params['breadcrumbs'][] = ['label' => 'Prices', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
