@@ -39,10 +39,8 @@ use yii\web\View;
 app\assets\BizWidget::widget([
     'config' => [
         'masters' => ['products']
-    //'storageClass' => new JsExpression('DLocalStorage')
     ],
     'scripts' => [
-        View::POS_END => $this->render('_script'),
-        //View::POS_READY => 'biz.price.onReady();'
+        View::POS_END => $this->render('_script')
     ]
 ]);
