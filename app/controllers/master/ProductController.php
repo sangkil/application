@@ -9,6 +9,7 @@ use app\models\master\searchs\ProductPrice as ProductPriceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use mdm\report\BirtReport;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -42,19 +43,25 @@ class ProductController extends Controller
         ]);
     }
 
+    public function actionPrint()
+    {
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
     /**
      * Lists all Product models.
      * @return mixed
      */
     public function actionPrices()
     {
-        $searchModel = new ProductPriceSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('prices', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $pro_rpt = new BirtReport();
+        $pro_rpt->renderReport('master_product.rptdesign');
     }
 
     /**
