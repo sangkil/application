@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]]);
     ?>
     <?= Html::beginForm() ?>
+    <?= Html::errorSummary($products) ?>
     <table id="tabular-input">
         <thead>
             <tr>
