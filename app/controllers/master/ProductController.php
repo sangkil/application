@@ -47,7 +47,8 @@ class ProductController extends Controller
     {        
         $pro_rpt = new BirtReport();
         $pro_rpt->reportPath = '@app/reports';
-        $pro_rpt->renderReport('master_product.rptdesign');
+        $result = $pro_rpt->renderReport('master_product.rptdesign');
+        echo $result;
     }
     
     /**
