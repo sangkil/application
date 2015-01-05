@@ -44,11 +44,12 @@ class ProductController extends Controller
     }
 
     public function actionPrint()
-    {        
+    {    
         $pro_rpt = new BirtReport();
         $pro_rpt->reportPath = '@app/reports';
-        $result = $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
-        echo $result;
+        $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
+        //$result = $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
+        //echo $result;
     }
     
     /**
