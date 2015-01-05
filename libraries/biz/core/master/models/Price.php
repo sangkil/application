@@ -35,7 +35,7 @@ class Price extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['product_id', 'price_category_id'], 'required'],
+            [['product_id', 'price_category_id', 'price'], 'required'],
             [['product_id', 'price_category_id', 'created_by', 'updated_by'], 'integer'],
             [['product_id', 'price_category_id'], 'unique', 'targetAttribute' => ['product_id', 'price_category_id']],
             [['price'], 'number'],
