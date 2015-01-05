@@ -43,7 +43,17 @@ class ProductController extends Controller
         ]);
     }
 
-    public function actionPrint()
+    public function actionPrintHtml()
+    {   
+        $pro_rpt = new BirtReport();
+        $pro_rpt->reportPath = '@app/reports';
+        
+       /* Html output */
+           $result = $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
+           echo $result;
+    }
+    
+    public function actionPrintPdf()
     {   
         $pro_rpt = new BirtReport();
         $pro_rpt->reportPath = '@app/reports';
@@ -52,12 +62,19 @@ class ProductController extends Controller
         //$this->layout = false;
         Yii::$app->response->format = 'raw';
         Yii::$app->response->getHeaders()->add('Content-type','application/pdf');
-        return $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
+        return $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);        
+    }
+    
+    public function actionPrintXsl()
+    {   
+        $pro_rpt = new BirtReport();
+        $pro_rpt->reportPath = '@app/reports';
         
-        /* Html output
-           $result = $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
-           echo $result;
-         */
+        /* Pdf output */
+        //$this->layout = false;
+        Yii::$app->response->format = 'raw';
+        Yii::$app->response->getHeaders()->add('Content-type','application/vnd.ms-excel');
+        return $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_XLS);        
     }
     
     /**
