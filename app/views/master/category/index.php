@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'tableOptions' => ['class' => 'table table-striped'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'id',
+                    //'id',
                     'code',
                     'name',
                     'created_at',

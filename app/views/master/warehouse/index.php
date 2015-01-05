@@ -31,10 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'tableOptions' => ['class' => 'table table-striped'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'id',
-                    'branch_id',
+                    //'id',
+                    //'branch_id',
                     'code',
                     'name',
+                    'branch.name',
                     'created_at',
                     // 'created_by',
                     // 'updated_at',
