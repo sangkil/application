@@ -80,12 +80,12 @@ class PriceController extends Controller
     public function actionListPo()
     {
         $searchModel = new PurchaseSearch([
-            'status'=>  Purchase::STATUS_PROCESS
+            'status' => Purchase::STATUS_PROCESS
         ]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->getSort()->defaultOrder = [
             'date' => SORT_DESC,
-            'number'=>SORT_DESC
+            'number' => SORT_DESC
         ];
         return $this->render('list_po', [
                 'searchModel' => $searchModel,
@@ -125,6 +125,7 @@ class PriceController extends Controller
                 }
                 if ($success) {
                     $transaction->commit();
+                    return $this->redirect(['list-po']);
                 } else {
                     $transaction->rollBack();
                 }

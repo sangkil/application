@@ -48,8 +48,8 @@ class ProductPrice extends \yii\base\Model
         }
 
         foreach ($this->prices as $ct_id => $value) {
-            $model = Price::findOne(['product_id' => $this->id, 'category_id' => $ct_id]);
-            $model = $model ? : new Price(['product_id' => $this->id, 'category_id' => $ct_id]);
+            $model = Price::findOne(['product_id' => $this->id, 'price_category_id' => $ct_id]);
+            $model = $model ? : new Price(['product_id' => $this->id, 'price_category_id' => $ct_id]);
             $model->price = $value;
             if (!$model->save()) {
                 return false;
