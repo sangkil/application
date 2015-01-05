@@ -21,24 +21,23 @@ use Yii;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>  
  * @since 3.0
  */
-class Price extends \yii\db\ActiveRecord
-{
+class Price extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%price}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['product_id', 'price_category_id'], 'required'],
             [['product_id', 'price_category_id', 'created_by', 'updated_by'], 'integer'],
+            [['product_id', 'price_category_id'], 'unique', 'targetAttribute' => ['product_id', 'price_category_id']],
             [['price'], 'number'],
             [['created_at', 'updated_at'], 'safe']
         ];
@@ -47,8 +46,7 @@ class Price extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'product_id' => 'Product ID',
             'price_category_id' => 'Price Category ID',
@@ -63,27 +61,25 @@ class Price extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProduct()
-    {
+    public function getProduct() {
         return $this->hasOne(Product::className(), ['id' => 'product_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPriceCategory()
-    {
+    public function getPriceCategory() {
         return $this->hasOne(PriceCategory::className(), ['id' => 'price_category_id']);
     }
-    
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return[
             'BizTimestampBehavior',
             'BizBlameableBehavior'
         ];
     }
+
 }
