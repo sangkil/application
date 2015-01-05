@@ -66,7 +66,7 @@ class ProductController extends Controller {
         /* xsl output */
         Yii::$app->response->format = 'raw';
         //Yii::$app->response->getHeaders()->add('Content-type', 'application/vnd.ms-excel');
-        Yii::$app->response->setDownloadHeaders('product_list.xsl','Content-type: application/vnd.ms-excel');
+        Yii::$app->response->setDownloadHeaders('product_list.xls','Content-type: application/vnd.ms-excel');
         return $pro_rpt->renderReport('master_product.rptdesign', [], BirtReport::OUTPUT_TYPE_XLS);
     }
 
