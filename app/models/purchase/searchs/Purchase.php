@@ -48,7 +48,9 @@ class Purchase extends PurchaseModel
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+        if (!$this->validate()) {
+            $query->where('1=0');
             return $dataProvider;
         }
 
