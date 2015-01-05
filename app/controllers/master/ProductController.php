@@ -44,14 +44,9 @@ class ProductController extends Controller
     }
 
     public function actionPrint()
-    {
-        $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+    {        
+        $pro_rpt = new BirtReport();
+        $pro_rpt->renderReport('master_product.rptdesign');
     }
     
     /**
@@ -60,8 +55,13 @@ class ProductController extends Controller
      */
     public function actionPrices()
     {
-        $pro_rpt = new BirtReport();
-        $pro_rpt->renderReport('master_product.rptdesign');
+        $searchModel = new ProductPriceSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('prices', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
