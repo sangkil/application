@@ -15,7 +15,7 @@ use yii\web\View;
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
         <?=
-        $form->field($model, 'product_name')->widget('yii\jui\AutoComplete', [
+        $form->field($model, 'nmProduct')->widget('yii\jui\AutoComplete', [
             'clientOptions' => [
                 'source' => new JsExpression('biz.master.sourceProduct'),
                 'search' => new JsExpression('biz.price.onProductSearch'),
@@ -26,7 +26,6 @@ use yii\web\View;
         ?>
         <?= $form->field($model, 'price_category_id')->dropDownList(\app\models\master\PriceCategory::selectOptions(), ['style' => 'width:200px;']) ?>
         <?= $form->field($model, 'price')->input('number', ['style' => 'width:150px;']) ?>
-        <?= $form->field($model, 'product_id')->hiddenInput()->label(false) ?>
     </div>
 
     <div class="box-footer">

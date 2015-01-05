@@ -11,7 +11,8 @@ use app\models\master\Supplier;
 /* @var $searchModel app\models\purchase\searchs\Purchase */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Purchases';
+$this->title = 'Purchase List';
+$this->params['breadcrumbs'][] = ['label' => 'Prices', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="purchase-index">
@@ -50,7 +51,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value:currency',
                     [
                         'attribute' => 'status',
-                        'value' => 'nmStatus'
+                        'value' => 'nmStatus',
+                        'filter'=>[
+                            Purchase::STATUS_DRAFT=>'Draft',
+                            Purchase::STATUS_PROCESS=>'Process',
+                            Purchase::STATUS_CLOSE=>'Close',
+                        ]
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
