@@ -47,9 +47,16 @@ class ProductController extends Controller
     {   
         $pro_rpt = new BirtReport();
         $pro_rpt->reportPath = '@app/reports';
-        //$pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
-        $result = $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
-        echo $result;
+        
+        /* Pdf output */
+        Yii::$app->response->format = 'raw';
+        Yii::$app->response->getHeders()->add('contex-type','application/pdf');
+        $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
+        
+        /* Html output
+           $result = $pro_rpt->renderReport('master_product.rptdesign',[],  BirtReport::OUTPUT_TYPE_PDF);
+           echo $result;
+         */
     }
     
     /**
