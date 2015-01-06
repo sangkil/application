@@ -42,7 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'parent_id',
                     'code',
                     'name',
-                    'type',
+                    '',
+                    [
+                        'attribute' => 'type',
+                        'label' => 'Acc Groups'
+                    ],
                     'normal_balance',
                     // 'created_at',
                     // 'created_by',
