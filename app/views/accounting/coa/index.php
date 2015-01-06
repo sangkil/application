@@ -42,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'parent_id',
                     'code',
                     'name',
-                    '',
                     [
                         'attribute' => 'type',
                         'label' => 'Acc Groups'
