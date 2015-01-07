@@ -113,7 +113,8 @@ class CoaController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Coa::findOne($id)) !== null) {
+        if (($model = Coa::findOne($id)) !== null) {            
+            $model->nmParent = $model->parent->name;
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
