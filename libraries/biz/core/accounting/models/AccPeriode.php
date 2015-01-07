@@ -24,7 +24,10 @@ use Yii;
  */
 class AccPeriode extends \yii\db\ActiveRecord
 {
-
+    const STATUS_DRAFT = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_CLOSE = 2;
+    
     /**
      * @inheritdoc
      */
@@ -40,7 +43,7 @@ class AccPeriode extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'date_from', 'date_to', 'status'], 'required'],
-            [['date_from', 'date_to', 'created_at', 'updated_at'], 'safe'],
+            [['date_from', 'date_to', 'DateFrom', 'DateTo','created_at', 'updated_at'], 'safe'],
             [['status', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 32]
         ];
