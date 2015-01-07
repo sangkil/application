@@ -10,13 +10,12 @@ use app\models\accounting\Coa as CoaModel;
 /**
  * Coa represents the model behind the search form about `app\models\accounting\Coa`.
  */
-class Coa extends CoaModel
-{
+class Coa extends CoaModel {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'parent_id', 'type', 'created_by', 'updated_by'], 'integer'],
             [['code', 'name', 'normal_balance', 'created_at', 'updated_at'], 'safe'],
@@ -26,8 +25,7 @@ class Coa extends CoaModel
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,12 +37,15 @@ class Coa extends CoaModel
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = CoaModel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['code' => SORT_ASC]],
+            'pagination' => [
+                'pageSize' => 100,
+            ],
         ]);
 
         $this->load($params);
@@ -64,9 +65,10 @@ class Coa extends CoaModel
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'normal_balance', $this->normal_balance]);
+                ->andFilterWhere(['like', 'name', $this->name])
+                ->andFilterWhere(['like', 'normal_balance', $this->normal_balance]);
 
         return $dataProvider;
     }
+
 }

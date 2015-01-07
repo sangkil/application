@@ -8,6 +8,7 @@ use app\models\accounting\searchs\Coa as CoaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Sort;
 
 /**
  * CoaController implements the CRUD actions for Coa model.

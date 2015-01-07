@@ -23,9 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <?php
     echo Toolbar::widget(['items' => [
-            ['label' => '', 'url' => ['print-html'], 'icon' => 'fa fa-print', 'linkOptions' => ['class' => 'btn bg-maroon btn-sm', 'target' => '_blank', 'title' => 'Html Print']],
-            ['label' => '', 'url' => ['print-pdf'], 'icon' => 'fa fa-file', 'linkOptions' => ['class' => 'btn bg-orange btn-sm', 'target' => '_blank', 'title' => 'Export to Pdf']],
-            ['label' => '', 'url' => ['print-xsl'], 'icon' => 'fa fa-table', 'linkOptions' => ['class' => 'btn bg-olive btn-sm', 'target' => '_blank', 'title' => 'Export to Excel']],
+            ['label' => '', 'url' => ['print-html'], 'icon' => 'fa fa-print', 'linkOptions' => ['class' => 'btn btn-default btn-sm', 'target' => '_blank', 'title' => 'Html Print']],
+            ['label' => '', 'url' => ['print-pdf'], 'icon' => 'fa fa-file', 'linkOptions' => ['class' => 'btn btn-default btn-sm', 'target' => '_blank', 'title' => 'Export to Pdf']],
+            ['label' => '', 'url' => ['print-xsl'], 'icon' => 'fa fa-table', 'linkOptions' => ['class' => 'btn btn-default btn-sm', 'target' => '_blank', 'title' => 'Export to Excel']],
     ]]);
     ?>
     <div class="box box-info">
