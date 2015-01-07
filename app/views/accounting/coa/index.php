@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\components\Toolbar;
+use app\models\accounting\Coa;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\accounting\searchs\Coa */
@@ -42,11 +43,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'parent_id',
                     'code',
                     'name',
-                    [
+                    [                        
                         'attribute' => 'type',
-                        'label' => 'Acc Groups'
+                        'value' => 'group.name',
+                        'label' => 'Coa Group',                        
+                        'filter' => Coa::selectGroup()
                     ],
-                    'normal_balance',
+                    [                        
+                        'attribute' => 'normal_balance',
+                        'value' => 'normal_balance',
+                        'filter' => ['D'=>'Debit','K'=>'Kredit']
+                    ],
                     // 'created_at',
                     // 'created_by',
                     // 'updated_at',

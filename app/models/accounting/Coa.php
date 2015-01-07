@@ -17,4 +17,5 @@ class Coa extends \biz\core\accounting\models\Coa
     {
         return ArrayHelper::map(static::find()->where('code::INT % 100000 = 0')->asArray()->all(), 'code', 'name');
     }
+        
 }
