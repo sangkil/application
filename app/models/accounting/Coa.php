@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models\accounting;
+use yii\helpers\ArrayHelper;
 
 /**
  * Coa
@@ -9,6 +10,12 @@ namespace app\models\accounting;
  * @since 1.0
  */
 class Coa extends \biz\core\accounting\models\Coa
-{
+{    
+    public $nmParent;
     
+    public static function selectGroup()
+    {
+        return ArrayHelper::map(static::find()->where('code::INT % 100000 = 0')->asArray()->all(), 'code', 'name');
+    }
+        
 }

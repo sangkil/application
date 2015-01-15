@@ -61,7 +61,7 @@ class Coa extends \yii\db\ActiveRecord
             'parent_id' => 'Parent ID',
             'code' => 'Code',
             'name' => 'Name',
-            'type' => 'Type',
+            'type' => 'Coa Group',
             'normal_balance' => 'Normal Balance',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
@@ -84,6 +84,14 @@ class Coa extends \yii\db\ActiveRecord
     public function getParent()
     {
         return $this->hasOne(Coa::className(), ['id' => 'parent_id']);
+    }
+    
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup()
+    {
+        return $this->hasOne(Coa::className(), ['code' => 'type']);
     }
 
     /**

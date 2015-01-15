@@ -8,6 +8,7 @@ use app\models\accounting\searchs\Coa as CoaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Sort;
 
 /**
  * CoaController implements the CRUD actions for Coa model.
@@ -112,7 +113,8 @@ class CoaController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Coa::findOne($id)) !== null) {
+        if (($model = Coa::findOne($id)) !== null) {            
+            $model->nmParent = $model->parent->name;
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -70,6 +70,16 @@ class GlController extends Controller
             ]);
         }
     }
+    
+    /**
+     * Creates a new GlHeader model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionClosing()
+    {
+        return;
+    }
 
     /**
      * Updates an existing GlHeader model.

@@ -12,6 +12,7 @@ use app\models\master\Customer;
 use app\models\master\Supplier;
 use app\models\master\ProductSupplier;
 use app\models\master\ProductStock;
+use app\models\accounting\searchs\Coa;
 
 /**
  * Helper
@@ -126,6 +127,12 @@ class Helper
             $result['product_stock'] = $prod_stock;
         }
 
+        // supplier
+        if (isset($masters['coa'])) {
+            $result['coa'] = Coa::find()
+                    ->select(['id', 'cd' => 'code', 'text' => 'name', 'label' => 'name'])
+                    ->asArray()->all();
+        }
         return $result;
     }
 }

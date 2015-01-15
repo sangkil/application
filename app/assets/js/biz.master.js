@@ -108,6 +108,22 @@ biz.master = (function($) {
             }
             return false;
         },
+        sourceCoa: function(request, callback) {
+            var result = [];
+            var limit = biz.config.limit;
+            var term = request.term.toLowerCase();
+            $.each(pub.coa, function() {
+                var coa = this;
+                if (coa.text.toLowerCase().indexOf(term) >= 0 || coa.cd.toLowerCase().indexOf(term) >= 0) {
+                    result.push(coa);
+                }
+                limit--;
+                if (limit <= 0) {
+                    return false;
+                }
+            });
+            callback(result);
+        },
     }
     return pub;
 })(window.jQuery);
