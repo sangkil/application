@@ -17,7 +17,7 @@ Console::startProgress(0, $total);
 $command->delete('{{%product_uom}}')->execute();
 $command->sql = "insert into product_uom(product_id,uom_id,isi,created_at,updated_at)\n"
     . "select id,:uom_id,:isi,NOW(),NOW() from product";
-foreach ($rows as $row) {
+foreach ($rows as $i=>$row) {
     $command->bindValues([':uom_id' => $row[0], ':isi' => $row[3]])->execute();
     Console::updateProgress($i + 1, $total);
 }

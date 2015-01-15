@@ -15,7 +15,7 @@ echo "Insert data uom\n";
 $total = count($rows);
 Console::startProgress(0, $total);
 $command->delete('{{%uom}}')->execute();
-foreach ($rows as $row) {
+foreach ($rows as $i=>$row) {
     $command->insert('{{%uom}}', [
         'id' => $row[0],
         'code' => $row[1],

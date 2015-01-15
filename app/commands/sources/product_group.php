@@ -57,6 +57,6 @@ foreach ($rows as $i => $row) {
         'created_at' => $now,
         'updated_at' => $now,
     ])->execute();
-    Console::updateProgress($i + 1, 1);
+    Console::updateProgress($i + 1, $total);
 }
 Console::endProgress();

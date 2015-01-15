@@ -53,7 +53,7 @@ class SampleDataController extends \yii\console\Controller
         'category',
         'product_group',
         'product' => ['category', 'product_group'],
-        'barcode' => ['product'],
+        'product_child' => ['product'],
         'uom',
         'product_uom' => ['product', 'uom'],
         'coa'
@@ -94,7 +94,7 @@ class SampleDataController extends \yii\console\Controller
                 }
             }
             return self::EXIT_CODE_NORMAL;
-        } elseif (in_array($sample, $this->_samples)) {
+        } elseif (in_array($sample, $this->_samples) || array_key_exists($sample, $this->_samples)) {
             $this->load($sample, $command);
             return self::EXIT_CODE_NORMAL;
         }
