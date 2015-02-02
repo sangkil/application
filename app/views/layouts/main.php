@@ -23,7 +23,7 @@ $asset2 = app\assets\AddAsset::register($this);
         <?php $this->head() ?>
     </head>
     <?php $this->beginBody() ?>
-    <body class="skin-black fixed">
+    <body class="skin-blue">
         <header class="header">
             <?php echo $this->render('heading', ['baseurl' => $asset->baseUrl]); ?>
         </header>
