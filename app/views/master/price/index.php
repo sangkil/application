@@ -12,7 +12,6 @@ $this->title = 'Prices';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="price-index">
-
     <?php
     echo Toolbar::widget(['items' => [
             ['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],
@@ -28,13 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             GridView::widget([
                 'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
+                //'filterModel' => $searchModel,
                 'layout' => "{items}\n{pager}",
                 'tableOptions' => ['class' => 'table table-striped'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     //'product_id',
                     [
+                        'label' => 'Product Code',
+                        'value' => 'product.code'
+                    ],[
                         'label' => 'Product Name',
                         'value' => 'product.name'
                     ],
@@ -55,6 +57,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
     </div>
-
-
 </div>

@@ -9,15 +9,15 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use biz\core\purchase\components\Purchase as ApiPurchase;
+use app\models\inventory\GoodsMovement;
+use yii\data\ActiveDataProvider;
 
 /**
  * PurchaseController implements the CRUD actions for Purchase model.
  */
-class PurchaseController extends Controller
-{
+class PurchaseController extends Controller {
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -32,14 +32,13 @@ class PurchaseController extends Controller
      * Lists all Purchase models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new PurchaseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -48,10 +47,35 @@ class PurchaseController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+        $model = $this->findModel($id);
+
+        //load gr list
+        $greceipt = ($model->status >= Purchase::STATUS_CONFIRMED) ? $this->findGR($id) : new \yii\data\ArrayDataProvider();;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $api = new ApiPurchase([
+                'modelClass' => Purchase::className(),
+            ]);
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->status = Purchase::STATUS_CONFIRMED;
+                if ($model->save()) {
+                    $transaction->commit();
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+        }
+
         return $this->render('view', [
-                'model' => $this->findModel($id),
+                    'model' => $model,
+                    'details' => $model->purchaseDtls,
+                    'greceipt' => $greceipt
         ]);
     }
 
@@ -60,14 +84,18 @@ class PurchaseController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Purchase([
-            'branch_id' => 1
+            'branch_id' => 1,
+            'date'=>date('Y-m-d')
         ]);
+        
         $api = new ApiPurchase([
             'modelClass' => Purchase::className(),
         ]);
+
+        //load gr list
+        $greceipt = new \yii\data\ArrayDataProvider();
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
@@ -87,8 +115,9 @@ class PurchaseController extends Controller
             }
         }
         return $this->render('create', [
-                'model' => $model,
-                'details' => $model->purchaseDtls
+                    'model' => $model,
+                    'details' => $model->purchaseDtls,
+                    'greceipt' => $greceipt
         ]);
     }
 
@@ -98,12 +127,18 @@ class PurchaseController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
         $api = new ApiPurchase([
             'modelClass' => Purchase::className(),
         ]);
+
+        //load gr list
+        $greceipt = ($model->status >= Purchase::STATUS_CONFIRMED) ? $this->findGR($id) : new \yii\data\ArrayDataProvider();;
+
+        if ($model->status > Purchase::STATUS_DRAFT) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
@@ -123,13 +158,13 @@ class PurchaseController extends Controller
             }
         }
         return $this->render('update', [
-                'model' => $model,
-                'details' => $model->purchaseDtls
+                    'model' => $model,
+                    'details' => $model->purchaseDtls,
+                    'greceipt' => $greceipt
         ]);
     }
 
-    public function actionReceive($id)
-    {
+    public function actionReceive($id) {
         return $this->redirect(['/inventory/movement/create', 'type' => 100, 'id' => $id]);
     }
 
@@ -139,8 +174,7 @@ class PurchaseController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $model = $this->findModel($id);
         $api = new ApiPurchase([
             'modelClass' => Purchase::className(),
@@ -156,12 +190,21 @@ class PurchaseController extends Controller
      * @return Purchase the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Purchase::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findGR($id) {
+        return new ActiveDataProvider([
+            'query' => GoodsMovement::find()->where(['reff_type' => 100, 'reff_id' => $id]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+    }
+
 }

@@ -136,6 +136,7 @@ class PriceController extends Controller
         }
 
         return $this->render('create_by_po', [
+                'purchase'=>$purchase,
                 'products' => $products,
                 'categories' => PriceCategory::find()->all()
         ]);
