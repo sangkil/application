@@ -3,7 +3,7 @@
 namespace biz\core\sales\controllers;
 
 use Yii;
-use biz\core\sales\components\Sales as ApiSales;
+use biz\core\components\sales\Sales as ApiSales;
 
 /**
  * Description of PurchaseController
@@ -17,7 +17,7 @@ class SalesController extends \biz\core\base\rest\Controller
     /**
      * @inheritdoc
      */
-    public $api = 'biz\core\sales\components\Sales';
+    public $api = 'biz\core\components\sales\Sales';
 
     public function release($id)
     {
