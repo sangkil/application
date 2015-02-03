@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
 use yii\web\View;
+use app\components\Toolbar;
+use app\components\ActionToolbar;
+use app\models\purchase\Purchase;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,18 +15,18 @@ use yii\web\View;
 
 <div class="purchase-hdr-form">
     <?php
-    $form = ActiveForm::begin(['id' => 'purchase-form',]);
+    $form = ActiveForm::begin(['id' => 'purchase-form']);
     ?>
     <?php
     $models = $details;
     $models[] = $model;
     echo $form->errorSummary($models)
-    ?>
+    ?>    
     <div class="col-lg-12">
         <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
     </div>
     <div class="col-lg-12">
-        <?= $this->render('_detail', ['model' => $model, 'details' => $details]); ?>
+        <?= $this->render('_detail', ['model' => $model, 'details' => $details, 'greceipt' => $greceipt]); ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

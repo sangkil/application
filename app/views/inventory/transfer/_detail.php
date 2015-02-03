@@ -32,11 +32,13 @@ use mdm\widgets\TabularInput;
         </div> 
         <table class="tabular table-striped">
             <thead>
-            <th class="col-lg-4">Product</th>
-            <th class="col-lg-1">Qty</th>
-            <th class="col-lg-2">Uom</th>
+            <th class="col-lg-6">Product</th>
+            <th class="col-lg-2">Qty</th>
+            <th class="col-lg-3">Uom</th>
             <th class="col-lg-1">&nbsp;</th>
             </thead>
+            
+            <thead style="background-color: #9d9d9d;">
             <?=
             TabularInput::widget([
                 'id' => 'detail-grid',

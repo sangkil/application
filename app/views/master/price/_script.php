@@ -6,6 +6,11 @@
             },
             onProductSelect: function(event, ui) {
                 $('#price-product_id').val(ui.item.id);
+            },
+            onReady: function(event, ui) {
+                $('#save').on('click',function(){
+                    $("#price-form").submit();
+                });
             }
         }
         return pub;

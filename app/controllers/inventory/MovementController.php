@@ -73,7 +73,9 @@ class MovementController extends Controller
         $model = $model ? : new GoodsMovement([
             'reff_type' => $type,
             'reff_id' => $id,
+            'date'=>date('Y-m-d')
         ]);
+        
         $api = new ApiMovement();
         $config = Configs::movement($type);
 

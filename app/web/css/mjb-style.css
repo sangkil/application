@@ -22,8 +22,9 @@ form{
     background-color: whitesmoke;
 }
 
-select {
+select .form-control{
     padding: 10px;
+    padding-top: 0px;
 }
 
 .error-summary{
@@ -37,11 +38,9 @@ select {
 .form-control {
     border-radius: 0 !important;
     box-shadow: none;
-}
-
-.form-control {    
     display:inline;
-    height: 30px;  
+    height: 26px;
+    padding-top: .2em;
 }
 
 .form-group .form-control{

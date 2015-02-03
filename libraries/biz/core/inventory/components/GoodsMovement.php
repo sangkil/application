@@ -91,7 +91,7 @@ class GoodsMovement extends \biz\core\base\Api
         if ($model->status != MGoodsMovement::STATUS_DRAFT) {
             throw new ServerErrorHttpException('Document can not be applied');
         }
-        $model->status = MGoodsMovement::STATUS_APPLIED;
+        $model->status = MGoodsMovement::STATUS_PROCESS;
         if ($model->save()) {
             $this->fire('_applied', [$model]);
             return true;

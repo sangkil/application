@@ -6,11 +6,13 @@ use app\models\inventory\GoodsMovement;
 /* @var $this yii\web\View */
 /* @var $model app\models\inventory\GoodsMovement */
 
-$this->title = 'Create Good ' . ($config['type'] == GoodsMovement::TYPE_RECEIVE ? 'Receive' : 'Issue');
+$this->title = ($model->isNewRecord)? 'Create Good ': 'Update ';
+$this->title .= ($model->isNewRecord)? ($config['type'] == GoodsMovement::TYPE_RECEIVE ? 'Receive' : 'Issue'):
+    ($config['type'] == GoodsMovement::TYPE_RECEIVE ? 'Receive' : 'Issue').' #'.$model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Good Movements', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="col-lg-12 good-movement-create">
+<div class="good-movement-create">
     <?=
     $this->render('_form', [
         'model' => $model,

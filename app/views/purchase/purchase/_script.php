@@ -50,6 +50,13 @@
                 });
                 $('#purchase-value').val(total);
                 $('#total-price').text(biz.format(total));
+
+                /* 
+                 * Add by Mujib 27012015
+                 * 
+                 */
+                var $nheight = $('.detail-pane-head').height() + $('.detail-pane-body').height() + $('.form-control').height() * 3;
+                $('#detail-pane').height($nheight);
             },
             showDiscount: function() {
                 var purch_val = $('#purchase-value').val();
@@ -77,44 +84,44 @@
         var pub = {
             onReady: function() {
                 $('#detail-grid')
-                    .off('keydown.purchase', ':input[data-field]')
-                    .on('keydown.purchase', ':input[data-field]', function(e) {
-                        if (e.keyCode == 13) {
-                            var $this = $(this);
-                            var $inputs = $this.closest('tr').find(':input:visible[data-field]');
-                            var idx = $inputs.index(this);
-                            if (idx >= 0) {
-                                if (idx < $inputs.length - 1) {
-                                    $inputs.eq(idx + 1).focus();
-                                } else {
-                                    $('#product').focus();
+                        .off('keydown.purchase', ':input[data-field]')
+                        .on('keydown.purchase', ':input[data-field]', function(e) {
+                            if (e.keyCode == 13) {
+                                var $this = $(this);
+                                var $inputs = $this.closest('tr').find(':input:visible[data-field]');
+                                var idx = $inputs.index(this);
+                                if (idx >= 0) {
+                                    if (idx < $inputs.length - 1) {
+                                        $inputs.eq(idx + 1).focus();
+                                    } else {
+                                        $('#product').focus();
+                                    }
                                 }
                             }
-                        }
-                    });
-                    
+                        });
+
                 var clicked = false;
                 $('#detail-grid')
-                    .off('click.purchase, focus.purchase', 'input[data-field]')
-                    .on('click.purchase, focus.purchase', 'input[data-field]', function(e) {
-                        if (e.type == 'click') {
-                            clicked = true;
-                        } else {
-                            if (!clicked) {
-                                $(this).select();
+                        .off('click.purchase, focus.purchase', 'input[data-field]')
+                        .on('click.purchase, focus.purchase', 'input[data-field]', function(e) {
+                            if (e.type == 'click') {
+                                clicked = true;
+                            } else {
+                                if (!clicked) {
+                                    $(this).select();
+                                }
+                                clicked = false;
                             }
-                            clicked = false;
-                        }
-                    });
+                        });
 
                 $('#product').change(local.onProductChange);
                 $('#product').focus();
                 $('#product').data('ui-autocomplete')._renderItem = biz.global.renderItem;
-                
-                $('#detail-grid').on('change','[data-field]',function(){
+
+                $('#detail-grid').on('change', '[data-field]', function() {
                     local.normalizeItem();
                 });
-                
+
                 local.showDiscount();
                 $('#item-discount').change(local.showDiscount);
 
@@ -139,8 +146,17 @@
                     }
                 });
 
+                $(document).on('click', 'a[data-action="delete"]', function() {
+                    local.normalizeItem();
+                });
+
+                $('#save,#create,#confirm').on('click', function() {
+                    $("#purchase-form").submit();
+                });
+
                 $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
+
             },
             onProductSelect: function(event, ui) {
                 local.addItem(ui.item);
