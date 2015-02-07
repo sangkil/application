@@ -33,12 +33,44 @@
                     $('#detail-grid').mdmTabularInput('selectRow', $row);
                     $row.find('input[data-field="qty"]').focus();
                 }
+                local.normalizeItem();
             },
             normalizeItem: function() {
-                
+                var total = 0.0;
+                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
+                    var $row = $(this);
+                    var q = $row.find('input[data-field="qty"]').val();
+                    q = (q == '' ? 1 : q);
+                    var isi = $row.find('[data-field="uom_id"] > :selected').data('isi');
+                    isi = isi ? isi : 1;
+                    var t = isi * q * $row.find('input[data-field="price"]').val();
+                    $row.find('span.total-price').text(biz.format(t));
+                    $row.find('input[data-field="total_price"]').val(t);
+                    total += t;
+                });
+                $('#transfer-value').val(total);
+                $('#total-price').text(biz.format(total));
+
+                /* 
+                 * Add by Mujib 27012015
+                 * 
+                 */
+                var $nheight = $('.detail-pane-head').height() + $('.detail-pane-body').height() + $('.form-control').height() * 3;
+                $('#detail-pane').height($nheight);
             },
             showDiscount: function() {
-                
+                var purch_val = $('#transfer-value').val();
+                var disc_val = $('#item-discount').val();
+                if (disc_val * 1 != 0) {
+                    $('#bfore').show();
+                    var disc_val = purch_val * disc_val * 0.01;
+                    $('#transfer-val').text(biz.format(purch_val));
+                    $('#disc-val').text(biz.format(disc_val));
+                    $('#total-price').text(biz.format(purch_val - disc_val));
+                } else {
+                    $('#total-price').text(biz.format(purch_val));
+                    $('#bfore').hide();
+                }
             },
             onProductChange: function() {
                 var item = biz.master.searchProductByCode(this.value);
@@ -52,40 +84,47 @@
         var pub = {
             onReady: function() {
                 $('#detail-grid')
-                    .off('keydown.transfer', ':input[data-field]')
-                    .on('keydown.transfer', ':input[data-field]', function(e) {
-                        if (e.keyCode == 13) {
-                            var $this = $(this);
-                            var $inputs = $this.closest('tr').find(':input:visible[data-field]');
-                            var idx = $inputs.index(this);
-                            if (idx >= 0) {
-                                if (idx < $inputs.length - 1) {
-                                    $inputs.eq(idx + 1).focus();
-                                } else {
-                                    $('#product').focus();
+                        .off('keydown.transfer', ':input[data-field]')
+                        .on('keydown.transfer', ':input[data-field]', function(e) {
+                            if (e.keyCode == 13) {
+                                var $this = $(this);
+                                var $inputs = $this.closest('tr').find(':input:visible[data-field]');
+                                var idx = $inputs.index(this);
+                                if (idx >= 0) {
+                                    if (idx < $inputs.length - 1) {
+                                        $inputs.eq(idx + 1).focus();
+                                    } else {
+                                        $('#product').focus();
+                                    }
                                 }
                             }
-                        }
-                    });
-                    
+                        });
+
                 var clicked = false;
                 $('#detail-grid')
-                    .off('click.transfer, focus.transfer', 'input[data-field]')
-                    .on('click.transfer, focus.transfer', 'input[data-field]', function(e) {
-                        if (e.type == 'click') {
-                            clicked = true;
-                        } else {
-                            if (!clicked) {
-                                $(this).select();
+                        .off('click.transfer, focus.transfer', 'input[data-field]')
+                        .on('click.transfer, focus.transfer', 'input[data-field]', function(e) {
+                            if (e.type == 'click') {
+                                clicked = true;
+                            } else {
+                                if (!clicked) {
+                                    $(this).select();
+                                }
+                                clicked = false;
                             }
-                            clicked = false;
-                        }
-                    });
+                        });
 
                 $('#product').change(local.onProductChange);
                 $('#product').focus();
                 $('#product').data('ui-autocomplete')._renderItem = biz.global.renderItem;
-                
+
+                $('#detail-grid').on('change', '[data-field]', function() {
+                    local.normalizeItem();
+                });
+
+                local.showDiscount();
+                $('#item-discount').change(local.showDiscount);
+
                 $(window).keydown(function(event) {
                     if (event.keyCode == 13) {
                         var $target = $(event.target);
@@ -107,8 +146,17 @@
                     }
                 });
 
+                $(document).on('click', 'a[data-action="delete"]', function() {
+                    local.normalizeItem();
+                });
+
+                $('#save,#create,#confirm').on('click', function() {
+                    $("#transfer-form").submit();
+                });
+
                 $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
+
             },
             onProductSelect: function(event, ui) {
                 local.addItem(ui.item);

@@ -5,57 +5,93 @@ use yii\jui\AutoComplete;
 use yii\helpers\Html;
 use app\models\inventory\TransferDtl;
 use mdm\widgets\TabularInput;
+use app\models\inventory\Transfer;
+use yii\widgets\ListView;
+use yii\data\ActiveDataProvider;
 
-/* @var $details SalesDtl[] */
-/* @var $model app\models\sales\Sales */
+/* @var $details TransferDtl[] */
+/* @var $model Transfer */
 /* @var $this yii\web\View */
 ?>
-<div class="box box-info">
-    <div class="box-body no-padding">
-        <div class="row" style="padding: 10px;">
-            <div class="col-xs-8">
-                Product :
+<?php
+$allow_edit = ($model->status == Transfer::STATUS_DRAFT && ($this->context->action->id == 'create' || $this->context->action->id == 'update')) ? true : false;
+$allow_edit = ($model->isNewRecord) ? true : $allow_edit;
+?>
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#detail-pane" data-toggle="tab">Detail Items</a></li>
+        <li><a href="#delivery-pane" data-toggle="tab">Deliveries</a></li>
+        <li><a href="#payments-pane" data-toggle="tab">Invoice & Payments</a></li>
+    </ul>
+    <div class="tab-content"  style="min-height: 20em;">
+        <div class="tab-pane active" id="detail-pane" style="min-height: 10em;">
+            <div class="detail-pane-head col-lg-12" style="padding: 10px; padding-left: 0px;">
+                <div class="col-xs-10">
+                    Product :
+                    <?php
+                    echo AutoComplete::widget([
+                        'name' => 'product',
+                        'id' => 'product',
+                        'clientOptions' => [
+                            'source' => new JsExpression('biz.master.sourceProduct'),
+                            'select' => new JsExpression('biz.transfer.onProductSelect'),
+                            'delay' => 100,
+                        ], 'options' => ['class' => 'form-control', 'readOnly' => !$allow_edit],
+                    ]);
+                    ?>
+                </div>
+                <div class="col-xs-2">
+
+                </div>
+            </div>
+            <div class="detail-pane-body col-lg-12">
+                <table class="tabular table-striped col-lg-12">
+                    <thead style="background-color: #9d9d9d;">
+                    <th class="col-lg-4">Product</th>
+                    <th class="col-lg-1">Qty</th>
+                    <th class="col-lg-2">Uom</th>
+                    <?php if ($allow_edit) { ?>                    
+                        <th class="col-lg-2">Sub Total</th>
+                        <th class="col-lg-1">&nbsp;</th>
+                    <?php }else{ ?>                               
+                        <th class="col-lg-3">Sub Total</th>
+                    <?php } ?>
+                    </thead>
+                    <?=
+                    TabularInput::widget([
+                        'id' => 'detail-grid',
+                        'allModels' => $details,
+                        'modelClass' => TransferDtl::className(),
+                        'options' => ['tag' => 'tbody'],
+                        'itemOptions' => ['tag' => 'tr'],
+                        'itemView' => '_item_detail',
+                        'clientOptions' => [
+                        ],
+                        'viewParams'=>[
+                            'parent'=>$model
+                        ]
+                    ])
+                    ?>
+                </table>
+                <?= Html::activeHiddenInput($model, 'value', ['id' => 'transfer-value']); ?>
+            </div>
+        </div>
+        <div class="tab-pane col-lg-12" id="delivery-pane">
+            <div class="box box-solid">
                 <?php
-                echo AutoComplete::widget([
-                    'name' => 'product',
-                    'id' => 'product',
-                    'clientOptions' => [
-                        'source' => new JsExpression('biz.master.sourceProduct'),
-                        'select' => new JsExpression('biz.transfer.onProductSelect'),
-                        'delay' => 100,
-                    ], 'options' => ['class' => 'form-control'],
+                echo ListView::widget([
+                    'dataProvider' => new ActiveDataProvider([
+                        'query'=>$model->getGis()
+                    ]),
+                    'layout' => '{items}',
+                    'itemView' => '_greceipt',
+                    //'options' => ['class' => 'box-body']
                 ]);
                 ?>
-            </div>
-            <div class="col-xs-4">
-            </div>
-        </div> 
-        <table class="tabular table-striped">
-            <thead>
-            <th class="col-lg-6">Product</th>
-            <th class="col-lg-2">Qty</th>
-            <th class="col-lg-3">Uom</th>
-            <th class="col-lg-1">&nbsp;</th>
-            </thead>
-            
-            <thead style="background-color: #9d9d9d;">
-            <?=
-            TabularInput::widget([
-                'id' => 'detail-grid',
-                'allModels' => $details,
-                'modelClass' => TransferDtl::className(),
-                'options' => ['tag' => 'tbody'],
-                'itemOptions' => ['tag' => 'tr'],
-                'itemView' => '_item_detail',
-                'clientOptions' => [
-                ]
-            ])
-            ?>
-        </table>
+            </div>            
+        </div>
+        <div class="tab-pane col-lg-12" id="payments-pane">
+            Payments
+        </div>
     </div>
-    <div class="box-footer"> 
-        <?= Html::activeHiddenInput($model, 'value', ['id' => 'sales-value']); ?>
-        <h4 id="bfore" style="display: none;">Rp <span id="sales-val">0</span>-<span id="disc-val">0</span></h4>         
-        <h2>Rp <span id="total-price"></span></h2>
-    </div>
-</div>  
+</div>

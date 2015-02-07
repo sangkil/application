@@ -38,6 +38,18 @@ class Transfer extends \biz\core\inventory\models\Transfer
     {
         return $this->hasOne(Branch::className(), ['id'=>'branch_dest_id']);
     }
+
+    public function getGrs()
+    {
+        return $this->hasMany(GoodsMovement::className(), ['reff_id' => 'id'])
+                ->onCondition(['reff_type' => 400]);
+    }
+
+    public function getGis()
+    {
+        return $this->hasMany(GoodsMovement::className(), ['reff_id' => 'id'])
+                ->onCondition(['reff_type' => 300]);
+    }
     
     public function behaviors()
     {

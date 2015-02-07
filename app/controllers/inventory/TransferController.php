@@ -50,8 +50,26 @@ class TransferController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->status = Transfer::STATUS_CONFIRMED;
+                if ($model->save()) {
+                    $transaction->commit();
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+        }
+
         return $this->render('view', [
-                'model' => $this->findModel($id),
+                'model' => $model,
+                'details' => $model->transferDtls,
         ]);
     }
 
@@ -105,6 +123,10 @@ class TransferController extends Controller
             'modelClass' => Transfer::className(),
         ]);
 
+        if ($model->status > Transfer::STATUS_DRAFT) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
@@ -140,12 +162,12 @@ class TransferController extends Controller
         try {
             $transaction = Yii::$app->db->beginTransaction();
             $api = new ApiTransfer([
-                'modelClass'=>  Transfer::className()
+                'modelClass' => Transfer::className()
             ]);
             if ($api->delete($id, $model)) {
                 $transaction->commit();
                 return $this->redirect(['index']);
-            }  else {
+            } else {
                 $transaction->rollBack();
             }
         } catch (\Exception $exc) {
