@@ -29,6 +29,7 @@ class Sales extends \yii\db\ActiveRecord
 {
     // status sales
     const STATUS_DRAFT = 10;
+    const STATUS_CONFIRMED = 11;
     const STATUS_PROCESS = 20;
     const STATUS_CLOSE = 90;
 

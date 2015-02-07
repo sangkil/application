@@ -8,7 +8,7 @@ use app\models\sales\searchs\Sales as SalesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use biz\core\components\sales\Sales as ApiSales;
+use biz\core\sales\components\Sales as ApiSales;
 
 /**
  * SalesController implements the CRUD actions for Sales model.
@@ -38,8 +38,8 @@ class SalesController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -48,10 +48,27 @@ class SalesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->status = Sales::STATUS_CONFIRMED;
+                if ($model->save()) {
+                    $transaction->commit();
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+        }
+
         return $this->render('view', [
-                'model' => $this->findModel($id),
+                    'model' => $model,
+                    'details' => $model->salesDtls,
         ]);
     }
 
@@ -87,7 +104,7 @@ class SalesController extends Controller
             }
         }
         return $this->render('create', [
-                'model' => $model,
+                    'model' => $model,
                 'details' => $model->salesDtls
         ]);
     }
@@ -98,13 +115,15 @@ class SalesController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
-
         $api = new ApiSales([
             'modelClass' => Sales::className(),
         ]);
+
+        if ($model->status > Sales::STATUS_DRAFT) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
@@ -124,8 +143,8 @@ class SalesController extends Controller
             }
         }
         return $this->render('update', [
-                'model' => $model,
-                'details' => $model->salesDtls
+                    'model' => $model,
+                    'details' => $model->salesDtls
         ]);
     }
 
@@ -133,16 +152,19 @@ class SalesController extends Controller
     {
         return $this->redirect(['/inventory/movement/create', 'type' => 200, 'id' => $id]);
     }
+
     /**
      * Deletes an existing Sales model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
+    public function actionDelete($id) {
+        $model = $this->findModel($id);
+        $api = new ApiSales([
+            'modelClass' => Sales::className(),
+        ]);
+        $api->delete($id, $model);
         return $this->redirect(['index']);
     }
 
@@ -153,12 +175,21 @@ class SalesController extends Controller
      * @return Sales the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Sales::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findGR($id) {
+        return new ActiveDataProvider([
+            'query' => GoodsMovement::find()->where(['reff_type' => 100, 'reff_id' => $id]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+    }
+
 }

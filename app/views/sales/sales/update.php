@@ -10,10 +10,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Sales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->number, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="purchase-update">
+
+<div class="sales-update">
     <?= $this->render('_form', [
         'model' => $model,
         'details' => $details,
     ]) ?>
-
 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace biz\core\components\sales;
+namespace biz\core\sales\components;
 
 use Yii;
 use biz\core\sales\models\Sales as MSales;

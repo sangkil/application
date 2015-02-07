@@ -5,6 +5,7 @@ namespace app\models\sales;
 use Yii;
 use app\models\master\Customer;
 use app\models\master\Branch;
+use app\models\inventory\GoodsMovement;
 
 /**
  * Sales
@@ -41,6 +42,12 @@ class Sales extends \biz\core\sales\models\Sales
         return $this->hasMany(SalesDtl::className(), ['sales_id' => 'id']);
     }
 
+    public function getGis()
+    {
+        return $this->hasMany(GoodsMovement::className(), ['reff_id' => 'id'])
+                ->onCondition(['reff_type' => 200]);
+    }
+    
     public function behaviors()
     {
         $behaviors = parent::behaviors();

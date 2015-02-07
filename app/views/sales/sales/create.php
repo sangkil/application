@@ -9,11 +9,12 @@ $this->title = 'Create Sales';
 $this->params['breadcrumbs'][] = ['label' => 'Sales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="purchase-create">
+
+<div class="sales-create">
     <?=
     $this->render('_form', [
         'model' => $model,
-        'details' => $details
+        'details' => $details,
     ])
     ?>
 </div>

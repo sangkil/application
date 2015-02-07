@@ -19,9 +19,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'number') ?>
 
-    <?= $form->field($model, 'branch_id') ?>
+    <?= $form->field($model, 'supplier_id') ?>
 
-    <?= $form->field($model, 'customer_id') ?>
+    <?= $form->field($model, 'branch_id') ?>
 
     <?= $form->field($model, 'date') ?>
 

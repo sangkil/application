@@ -4,21 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
 use yii\web\View;
+use app\components\Toolbar;
+use app\components\ActionToolbar;
+use app\models\sales\Sales;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $model app\models\sales\Sales */
+/* @var $model Sales */
 ?>
 
-<div class="purchase-hdr-form">
+<div class="sales-hdr-form">
     <?php
-    $form = ActiveForm::begin(['id' => 'sales-form',]);
+    $form = ActiveForm::begin(['id' => 'sales-form']);
     ?>
     <?php
     $models = $details;
     $models[] = $model;
     echo $form->errorSummary($models)
-    ?>
+    ?>    
     <div class="col-lg-12">
         <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
     </div>
