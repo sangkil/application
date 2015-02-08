@@ -7,10 +7,9 @@ use app\models\inventory\TransferDtl;
 use mdm\widgets\TabularInput;
 use app\models\inventory\Transfer;
 use yii\widgets\ListView;
-use yii\data\ActiveDataProvider;
 
-/* @var $details TransferDtl[] */
-/* @var $model Transfer */
+/* @var $details SalesDtl[] */
+/* @var $model app\models\sales\Sales */
 /* @var $this yii\web\View */
 ?>
 <?php
@@ -21,12 +20,12 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
     <ul class="nav nav-tabs">
         <li class="active"><a href="#detail-pane" data-toggle="tab">Detail Items</a></li>
         <li><a href="#delivery-pane" data-toggle="tab">Deliveries</a></li>
-        <li><a href="#receive-pane" data-toggle="tab">Receives</a></li>
+        <li><a href="#payments-pane" data-toggle="tab">Invoice & Payments</a></li>
     </ul>
     <div class="tab-content"  style="min-height: 20em;">
         <div class="tab-pane active" id="detail-pane" style="min-height: 10em;">
             <div class="detail-pane-head col-lg-12" style="padding: 10px; padding-left: 0px;">
-                <div class="col-xs-10">
+                <div class="col-xs-8">
                     Product :
                     <?php
                     echo AutoComplete::widget([
@@ -36,26 +35,22 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                             'source' => new JsExpression('biz.master.sourceProduct'),
                             'select' => new JsExpression('biz.transfer.onProductSelect'),
                             'delay' => 100,
-                        ], 'options' => ['class' => 'form-control', 'readOnly' => !$allow_edit],
+                        ], 'options' => ['class' => 'form-control'],
                     ]);
                     ?>
                 </div>
-                <div class="col-xs-2">
-
-                </div>
             </div>
             <div class="detail-pane-body col-lg-12">
-                <table class="tabular table-striped col-lg-12">
-                    <thead style="background-color: #9d9d9d;">
+                <table class="tabular table-striped">
+                    <thead>
                     <th class="col-lg-4">Product</th>
-                    <th class="col-lg-1">Qty</th>
-                    <th class="col-lg-2">Uom</th>
-                    <?php if ($allow_edit) { ?>                    
-                        <th class="col-lg-2">Sub Total</th>
-                        <th class="col-lg-1">&nbsp;</th>
-                    <?php }else{ ?>                               
-                        <th class="col-lg-3">Sub Total</th>
+                    <th class="col-lg-1">Qty Trans</th>
+                    <?php if (!($model->isNewRecord)) { ?>
+                        <th class="col-lg-1">Issued</th>
+                        <th class="col-lg-1">Received</th>
                     <?php } ?>
+                    <th class="col-lg-2">Uom</th>
+                    <th class="col-lg-1">&nbsp;</th>
                     </thead>
                     <?=
                     TabularInput::widget([
@@ -66,43 +61,23 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                         'itemOptions' => ['tag' => 'tr'],
                         'itemView' => '_item_detail',
                         'clientOptions' => [
-                        ],
-                        'viewParams'=>[
-                            'parent'=>$model
                         ]
                     ])
                     ?>
                 </table>
-                <?= Html::activeHiddenInput($model, 'value', ['id' => 'transfer-value']); ?>
             </div>
         </div>
         <div class="tab-pane col-lg-12" id="delivery-pane">
             <div class="box box-solid">
                 <?php
                 echo ListView::widget([
-                    'dataProvider' => new ActiveDataProvider([
-                        'query'=>$model->getGis()
-                    ]),
+                    'dataProvider' => $gmovement,
                     'layout' => '{items}',
-                    'itemView' => '_greceipt',
-                    //'options' => ['class' => 'box-body']
+                    'itemView' => '_gissue',
+                        //'options' => ['class' => 'box-body']
                 ]);
                 ?>
             </div>            
-        </div>
-        <div class="tab-pane col-lg-12" id="receive-pane">
-            <div class="box box-solid">
-                <?php
-                echo ListView::widget([
-                    'dataProvider' => new ActiveDataProvider([
-                        'query'=>$model->getGrs()
-                    ]),
-                    'layout' => '{items}',
-                    'itemView' => '_greceipt',
-                    //'options' => ['class' => 'box-body']
-                ]);
-                ?>
-            </div>            
-        </div>
+        </div>        
     </div>
 </div>
