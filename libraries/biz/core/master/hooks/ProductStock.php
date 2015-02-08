@@ -2,7 +2,10 @@
 
 namespace biz\core\master\hooks;
 
+use Yii;
+use biz\core\base\Event;
 use biz\core\master\models\ProductStock as MProductStock;
+use biz\core\inventory\models\ProductStockHistory;
 use biz\core\master\models\ProductUom;
 use biz\core\base\NotFoundException;
 use yii\base\UserException;
@@ -73,13 +76,15 @@ class ProductStock extends \yii\base\Behavior
             }
             $stock->logParams = $logParams;
         }
-        if (!$stock->save()) {
+        if ($stock->save()) {
+            Yii::$app->trigger('e_product-stock_changed', new Event([$stock]));
+        }else{
             throw new UserException(implode(",\n", $stock->firstErrors));
         }
 
         return true;
     }
-
+    
     protected function updateCogs($params)
     {
         $cogs = Cogs::findOne(['product_id' => $params['product_id']]);
@@ -115,7 +120,7 @@ class ProductStock extends \yii\base\Behavior
     /**
      * Handler for Good Movement created.
      * It used to update stock
-     * @param \biz\core\base\Event $event
+     * @param Event $event
      */
     public function goodsMovementApplied($event)
     {
