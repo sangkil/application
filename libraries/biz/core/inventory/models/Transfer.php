@@ -26,8 +26,10 @@ use Yii;
 class Transfer extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 10;
-    const STATUS_CONFIRMED = 11;
-    const STATUS_PROCESS = 20;
+    const STATUS_PARTIAL_ISSUED = 11;
+    const STATUS_ISSUED = 20;    
+    const STATUS_PARTIAL_RECEIVED = 21;
+    const STATUS_RECEIVED = 30;
     const STATUS_CLOSE = 90;
 
     /**
