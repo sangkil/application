@@ -49,6 +49,22 @@ select .form-control{
     width: 50%;
 }
 
+.form-group .form-text{
+    border-radius: .15em !important;
+    box-shadow: none;
+    display:inline;
+    position: absolute;
+    left: 150px; 
+}
+
+.form-group .form-text{
+    border-radius: .15em !important;
+    box-shadow: none;
+    display:inline;
+    position: absolute;
+    left: 150px; 
+}
+
 .box .box-footer{
     text-align: right;
 }

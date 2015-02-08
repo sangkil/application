@@ -8,9 +8,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="box box-warning">
+<div class="box box-info">
     <?php $form = ActiveForm::begin(); ?>
-        <div class="col-lg-6">
+        <div class="box-header">
             <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
             <?=
             $form->field($model, 'Date')->widget('yii\jui\DatePicker', [
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($model, 'vendor_id')->textInput() ?>
         </div>
-        <div class="col-lg-12">
+        <div class="box-body">
             <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
 

@@ -20,7 +20,8 @@ use yii\grid\GridView;
                 ['class' => 'yii\grid\SerialColumn'],
                 'product.code',
                 'product.name',
-                'qty'
+                'qty',
+                'uom.code'
             ]
         ]);
         ?>

@@ -12,7 +12,7 @@ use app\components\ActionToolbar;
 /* @var $searchModel app\models\inventory\searchs\GoodsMovement */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Good Movements';
+$this->title = 'Goods Movement';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-12 purchase-index">
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Create New', 'url' => ['create', 'type' => 100], 'icon' => 'fa fa-plus-square'],
             ['label' => 'Update', 'url' => ['update'], 'icon' => 'fa fa-pencil', 'linkOptions' => ['class' => 'disabled']],
             ['label' => 'Delete', 'url' => ['delete'], 'icon' => 'fa fa-trash-o', 'linkOptions' => ['class' => 'disabled', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']]],
-            ['label' => 'PO List', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'disabled']]
+            ['label' => 'Goods Movement List', 'url' => ['index'], 'icon' => 'fa fa-list', 'linkOptions' => ['class' => 'disabled']]
     ]]);
     ?>
     <div class="box box-info">
@@ -48,14 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     'number',
                     'date:date',
-                    [
-                        'attribute' => 'type',
-                        'value' => 'nmType',
-                        'filter' => [
-                            GoodsMovement::TYPE_RECEIVE => 'Receive',
-                            GoodsMovement::TYPE_ISSUE => 'Issue',
-                        ]
-                    ],
+//                    [
+//                        'attribute' => 'type',
+//                        'value' => 'nmType',
+//                        'filter' => [
+//                            GoodsMovement::TYPE_RECEIVE => 'Receive',
+//                            GoodsMovement::TYPE_ISSUE => 'Issue',
+//                        ]
+//                    ],
                     [
                         'attribute' => 'reff_type',
                         'value' => 'nmReffType',
