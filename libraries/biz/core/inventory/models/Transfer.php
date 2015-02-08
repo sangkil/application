@@ -34,6 +34,7 @@ class Transfer extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
+     * update status constanta by mujib
      */
     public static function tableName()
     {
