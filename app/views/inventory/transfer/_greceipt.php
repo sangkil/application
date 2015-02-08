@@ -8,6 +8,9 @@ use app\models\inventory\GoodsMovement;
  * Create By Mujib Masyhudi <mujib.masyhudi@gmail.com>
  * Create at {date('now')}
  */
+/* @var $model GoodsMovement */
+
+$title = $model->type == GoodsMovement::TYPE_ISSUE ? 'issue' : 'receipt';
 $label_color = ($model->status == GoodsMovement::STATUS_DRAFT) ? 'danger' : 'success';
 $label_color = ($model->status == GoodsMovement::STATUS_PROCESS) ? 'warning' : $label_color;
 $label_color = ($model->status == GoodsMovement::STATUS_CLOSE) ? 'success' : $label_color;
@@ -16,8 +19,8 @@ $label_color = ($model->status == GoodsMovement::STATUS_CLOSE) ? 'success' : $la
     <h5>
         <?= Html::a($model->number, ['inventory/movement/view', 'id' => $model->id], ['class' => 'name']) ?>
     </h5>
-    <?= 'This receipt was create on ' . $model->date ?>
-    <?= ' and stored in ' . $model->warehouse->name ?> 
+    <?= "This {$title} was create on {$model->date} and stored in {$model->warehouse->name}" ?>
+    
     <br>
     <small class="label label-<?= $label_color ?>"><?= $model->nmStatus ?></small>
 </div>

@@ -21,8 +21,7 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
     <ul class="nav nav-tabs">
         <li class="active"><a href="#detail-pane" data-toggle="tab">Detail Items</a></li>
         <li><a href="#delivery-pane" data-toggle="tab">Deliveries</a></li>
-        <li><a href="#receive-pane" data-toggle="tab">Deliveries</a></li>
-        <li><a href="#payments-pane" data-toggle="tab">Invoice & Payments</a></li>
+        <li><a href="#receive-pane" data-toggle="tab">Receives</a></li>
     </ul>
     <div class="tab-content"  style="min-height: 20em;">
         <div class="tab-pane active" id="detail-pane" style="min-height: 10em;">
@@ -104,9 +103,6 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                 ]);
                 ?>
             </div>            
-        </div>
-        <div class="tab-pane col-lg-12" id="payments-pane">
-            Payments
         </div>
     </div>
 </div>
