@@ -51,8 +51,12 @@ echo ActionToolbar::widget(['items' => [
                             'source' => new JsExpression("biz.master.suppliers"),
                         ]
             ]);
+//            $color = ($model->status == Purchase::STATUS_DRAFT) ? 'danger' : 'success';
+//            $color = ($model->status == Purchase::STATUS_CONFIRMED) ? 'warning' : $color;
+//            $color = ($model->status == Purchase::STATUS_PROCESS) ? 'info' : $color;
+//            $color = ($model->status == Purchase::STATUS_CLOSE) ? 'success' : $color;
             ?>
-            <?= $form->field($model, 'nmStatus')->textInput(['maxlength' => 16, 'readonly' => true, 'style' => 'width:20%']); ?>
+            <?= $form->field($model, 'nmStatus')->textInput(['maxlength' => 16, 'readonly' => true, 'style' => 'width:20%']);?>
         </div>
         <div class="col-lg-6">                
             <?=

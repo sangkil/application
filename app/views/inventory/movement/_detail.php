@@ -21,8 +21,8 @@ use app\models\purchase\Purchase;
             <th>No.</th>
             <th>Code</th>
             <th>Product Name</th>
-            <th>Purchase Qty</th>
-            <th>Receipt Qty</th>
+            <th>Req Qty</th>
+            <th>Movement Qty</th>
             <th>UOM</th>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@ use app\models\purchase\Purchase;
                         <td><?= $detail->product->code ?></td>
                         <td><?= $detail->product->name ?></td>
                         <td><?= $detail->avaliable ?></td>
-                        <td><?= ($detail->avaliable > 0) ? Html::activeTextInput($detail, "[{$i}]qty") : Html::activeTextInput($detail, "[{$i}]qty", ['disabled' => 'disabled']) ?></td>
+                        <td><?= ($detail->avaliable > 0) ? Html::activeTextInput($detail, "[{$i}]qty",['style'=>'text-align:right;']) : Html::activeTextInput($detail, "[{$i}]qty", ['disabled' => 'disabled']) ?></td>
                         <td><?= $detail->uom->code ?></td>
                     </tr>
                     <?php

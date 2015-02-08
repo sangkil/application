@@ -80,7 +80,7 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                 echo ListView::widget([
                     'dataProvider' => $greceipt,
                     'layout' => '{items}',
-                    'itemView' => '_greceipt',
+                    'itemView' => '_gissue',
                     //'options' => ['class' => 'box-body']
                 ]);
                 ?>

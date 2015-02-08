@@ -8,7 +8,7 @@ return[
     // Purchase receive
     100 => [
         'class' => 'app\models\purchase\Purchase',
-        'name' => 'Purchase',
+        'name' => 'Purchase Received',
         'link' => '/purchase/purchase/view',
         'label_field' => 'number',
         'branch_field' => 'branch_id',
@@ -24,7 +24,7 @@ return[
     // Transfer release
     300 => [
         'class' => 'app\models\inventory\Transfer',
-        'name' => 'Transfer Issue',
+        'name' => 'Transfer Issued',
         'link' => '/inventory/transfer/view',
         'label_field' => 'number',
         'branch_field' => 'branch_id',
@@ -32,7 +32,7 @@ return[
     // Transfer receive
     400 => [
         'class' => 'app\models\inventory\Transfer',
-        'name' => 'Transfer Receipt',
+        'name' => 'Transfer Received',
         'link' => '/inventory/transfer/view',
         'label_field' => 'number',
         'branch_field' => 'branch_dest_id',

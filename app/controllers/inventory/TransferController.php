@@ -9,15 +9,15 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use biz\core\inventory\components\Transfer as ApiTransfer;
+use yii\data\ActiveDataProvider;
+use app\models\inventory\GoodsMovement;
 
 /**
  * MovementController implements the CRUD actions for Transfer model.
  */
-class TransferController extends Controller
-{
+class TransferController extends Controller {
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -32,14 +32,13 @@ class TransferController extends Controller
      * Lists all Transfer models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new TransferSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -48,28 +47,15 @@ class TransferController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post())) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model->status = Transfer::STATUS_CONFIRMED;
-                if ($model->save()) {
-                    $transaction->commit();
-                } else {
-                    $transaction->rollBack();
-                }
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                throw $e;
-            }
-        }
+        //load gr list
+        $gmovement = ($model->status >= Transfer::STATUS_ISSUED) ? $this->findGMovement($id) : new \yii\data\ArrayDataProvider(); //findGR($id) : new \yii\data\ArrayDataProvider();
 
         return $this->render('view', [
-                'model' => $model,
-                'details' => $model->transferDtls,
+                    'model' => $model,
+                    'details' => $model->transferDtls,
+                    'gmovement' => $gmovement
         ]);
     }
 
@@ -78,14 +64,16 @@ class TransferController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Transfer([
             'branch_id' => 1
         ]);
         $api = new ApiTransfer([
             'modelClass' => Transfer::className(),
         ]);
+
+        //load gr list
+        $gmovement = new \yii\data\ArrayDataProvider();
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
@@ -105,8 +93,9 @@ class TransferController extends Controller
             }
         }
         return $this->render('create', [
-                'model' => $model,
-                'details' => $model->transferDtls
+                    'model' => $model,
+                    'details' => $model->transferDtls,
+                    'gmovement' => $gmovement
         ]);
     }
 
@@ -116,16 +105,13 @@ class TransferController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
         $api = new ApiTransfer([
             'modelClass' => Transfer::className(),
         ]);
-
-        if ($model->status > Transfer::STATUS_DRAFT) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        //load gi-gr list
+        $gmovement = new \yii\data\ArrayDataProvider();
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();
@@ -145,8 +131,9 @@ class TransferController extends Controller
             }
         }
         return $this->render('update', [
-                'model' => $model,
-                'details' => $model->transferDtls
+                    'model' => $model,
+                    'details' => $model->transferDtls,
+                    'gmovement' => $gmovement
         ]);
     }
 
@@ -156,8 +143,7 @@ class TransferController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $model = $this->findModel($id);
         try {
             $transaction = Yii::$app->db->beginTransaction();
@@ -176,13 +162,11 @@ class TransferController extends Controller
         }
     }
 
-    public function actionRelease($id)
-    {
+    public function actionRelease($id) {
         return $this->redirect(['/inventory/movement/create', 'type' => 300, 'id' => $id]);
     }
 
-    public function actionReceive($id)
-    {
+    public function actionReceive($id) {
         return $this->redirect(['/inventory/movement/create', 'type' => 400, 'id' => $id]);
     }
 
@@ -193,12 +177,21 @@ class TransferController extends Controller
      * @return Transfer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Transfer::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findGMovement($id) {
+        return new ActiveDataProvider([
+            'query' => GoodsMovement::find()->where(['reff_type' => [300, 400], 'reff_id' => $id]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+    }
+
 }
