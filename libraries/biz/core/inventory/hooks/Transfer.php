@@ -36,7 +36,7 @@ class Transfer extends \yii\base\Behavior
          * 300 = Transfer Release
          * 400 = Transfer Receive
          */
-        if (!in_array($model->reff_type, [300,400])) {
+        if (!in_array($model->reff_type, [300, 400])) {
             return;
         }
         $type = $model->type;
@@ -46,26 +46,36 @@ class Transfer extends \yii\base\Behavior
         /* @var $transferDtl \biz\core\inventory\models\TransferDtl */
         foreach ($model->goodsMovementDtls as $detail) {
             $transferDtl = $transferDtls[$detail->product_id];
-            if($type == MGoodsMovement::TYPE_ISSUE){
+            if ($type == MGoodsMovement::TYPE_ISSUE) {
                 $transferDtl->total_release += $detail->qty;
-            }  else {
+            } else {
                 $transferDtl->total_receive += $detail->qty;
             }
             $transferDtl->save(false);
         }
-//        $complete = true;
-//        foreach ($transferDtls as $transferDtl) {
-//            if ($transferDtl->total_release != $transferDtl->qty) {
-//                $complete = false;
-//                break;
-//            }
-//        }
-//        if ($complete) {
-//            $transfer->status = MTransfer::STATUS_PROCESS;
-//            $transfer->save(false);
-//        }  elseif($transfer->status == MTransfer::STATUS_DRAFT) {
-//            $transfer->status = MTransfer::STATUS_PARTIAL_RELEASE;
-//            $transfer->save(false);
-//        }
+
+        $complete = true;
+        switch ($model->reff_type) {
+            case '300':
+                foreach ($transferDtls as $transferDtl) {
+                    if ($transferDtl->total_release != $transferDtl->qty) {
+                        $complete = false;
+                        break;
     }
+}
+                $transfer->status = ($complete) ? MTransfer::STATUS_ISSUED : MTransfer::STATUS_PARTIAL_ISSUED;
+                break;
+            case '400':
+                foreach ($transferDtls as $transferDtl) {
+                    if ($transferDtl->total_receive != $transferDtl->qty) {
+                        $complete = false;
+                        break;
+                    }
+                }
+                $transfer->status = ($complete) ? MTransfer::STATUS_RECEIVED : MTransfer::STATUS_PARTIAL_RECEIVED;
+                break;
+        }
+        $transfer->save(false);
+    }
+
 }
