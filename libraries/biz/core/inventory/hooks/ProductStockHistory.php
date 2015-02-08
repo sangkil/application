@@ -3,7 +3,7 @@
 namespace biz\core\inventory\hooks;
 
 use biz\core\master\models\ProductStock;
-use biz\core\inventory\models\ProductStockHistory;
+use biz\core\inventory\models\ProductStockHistory as MProductStockHistory;
 use yii\base\UserException;
 use yii\db\Expression;
 
@@ -33,13 +33,13 @@ class ProductStockHistory extends \yii\base\Behavior
         /* @var $stock ProductStock */
         $stock = $event->params[0];
 
-        $hstock = ProductStockHistory::findOne([
+        $hstock = MProductStockHistory::findOne([
                 'date' => new Expression($this->dateFindExpresion),
                 'warehouse_id' => $stock->warehouse_id,
                 'product_id' => $stock->product_id,
         ]);
         if ($hstock === null) {
-            $hstock = new ProductStockHistory([
+            $hstock = new MProductStockHistory([
                 'date' => new Expression($this->dateInsertExpresion),
                 'warehouse_id' => $stock->warehouse_id,
                 'product_id' => $stock->product_id,
