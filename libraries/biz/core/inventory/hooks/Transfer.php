@@ -53,19 +53,19 @@ class Transfer extends \yii\base\Behavior
             }
             $transferDtl->save(false);
         }
-        $complete = true;
-        foreach ($transferDtls as $transferDtl) {
-            if ($transferDtl->total_release != $transferDtl->qty) {
-                $complete = false;
-                break;
-            }
-        }
-        if ($complete) {
-            $transfer->status = MTransfer::STATUS_COMPLETE_RELEASE;
-            $transfer->save(false);
-        }  elseif($transfer->status == MTransfer::STATUS_DRAFT) {
-            $transfer->status = MTransfer::STATUS_PARTIAL_RELEASE;
-            $transfer->save(false);
-        }
+//        $complete = true;
+//        foreach ($transferDtls as $transferDtl) {
+//            if ($transferDtl->total_release != $transferDtl->qty) {
+//                $complete = false;
+//                break;
+//            }
+//        }
+//        if ($complete) {
+//            $transfer->status = MTransfer::STATUS_PROCESS;
+//            $transfer->save(false);
+//        }  elseif($transfer->status == MTransfer::STATUS_DRAFT) {
+//            $transfer->status = MTransfer::STATUS_PARTIAL_RELEASE;
+//            $transfer->save(false);
+//        }
     }
 }

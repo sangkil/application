@@ -24,9 +24,9 @@ $toolbar_items = (!$model->isNewRecord && $model->status == Transfer::STATUS_DRA
 $toolbar_items = (!$model->isNewRecord && $model->status > Transfer::STATUS_DRAFT && $model->status < Transfer::STATUS_PROCESS ) ?
         array_merge($toolbar_items, [['label' => 'Deliver', 'url' => ['/inventory/movement/create', 'type' => 300, 'id' => $model->id], 'linkOptions' => ['id' => 'deliver', 'class' => 'btn btn-success btn-sm']]]) :
         array_merge($toolbar_items, [['label' => 'Deliver', 'linkOptions' => ['id' => 'deliver', 'class' => 'btn btn-primary btn-sm disabled']]]);
-$toolbar_items = (!$model->isNewRecord && $model->status == Transfer::STATUS_PROCESS) ?
-        array_merge($toolbar_items, [['label' => 'Invoice', 'url' => ['/accounting/invoice/create', 'type' => 300, 'id' => $model->id], 'linkOptions' => ['id' => 'invoice', 'class' => 'btn btn-success btn-sm']]]) :
-        array_merge($toolbar_items, [['label' => 'Invoice', 'linkOptions' => ['id' => 'invoice', 'class' => 'btn btn-primary btn-sm disabled']]]);
+$toolbar_items = (!$model->isNewRecord && $model->status > Transfer::STATUS_DRAFT && $model->status < Transfer::STATUS_PROCESS ) ?
+        array_merge($toolbar_items, [['label' => 'Receive', 'url' => ['/inventory/movement/create', 'type' => 400, 'id' => $model->id], 'linkOptions' => ['id' => 'receive', 'class' => 'btn btn-success btn-sm']]]) :
+        array_merge($toolbar_items, [['label' => 'Receive', 'linkOptions' => ['id' => 'receive', 'class' => 'btn btn-primary btn-sm disabled']]]);
 echo Toolbar::widget(['items' => $toolbar_items]) . '&nbsp;&nbsp;';
 echo Toolbar::widget(['items' => [
         ['label' => '', 'url' => ['print-html'], 'icon' => 'fa fa-print', 'linkOptions' => ['class' => 'btn btn-default btn-sm disabled', 'target' => '_blank', 'title' => 'Html Print']],

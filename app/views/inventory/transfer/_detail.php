@@ -21,6 +21,7 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
     <ul class="nav nav-tabs">
         <li class="active"><a href="#detail-pane" data-toggle="tab">Detail Items</a></li>
         <li><a href="#delivery-pane" data-toggle="tab">Deliveries</a></li>
+        <li><a href="#receive-pane" data-toggle="tab">Deliveries</a></li>
         <li><a href="#payments-pane" data-toggle="tab">Invoice & Payments</a></li>
     </ul>
     <div class="tab-content"  style="min-height: 20em;">
@@ -82,6 +83,20 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                 echo ListView::widget([
                     'dataProvider' => new ActiveDataProvider([
                         'query'=>$model->getGis()
+                    ]),
+                    'layout' => '{items}',
+                    'itemView' => '_greceipt',
+                    //'options' => ['class' => 'box-body']
+                ]);
+                ?>
+            </div>            
+        </div>
+        <div class="tab-pane col-lg-12" id="receive-pane">
+            <div class="box box-solid">
+                <?php
+                echo ListView::widget([
+                    'dataProvider' => new ActiveDataProvider([
+                        'query'=>$model->getGrs()
                     ]),
                     'layout' => '{items}',
                     'itemView' => '_greceipt',
