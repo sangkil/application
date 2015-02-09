@@ -1,13 +1,13 @@
 <script>
-    biz.sales = (function($) {
+    biz.sales = (function ($) {
         var local = {
-            applyProduct: function($row, item, sel_uom) {
+            applyProduct: function ($row, item, sel_uom) {
                 $row.find('span.product').text(item.cd + ' ' + item.text);
                 $row.find('input[data-field="product_id"]').val(item.id);
 
                 // apply uoms
                 var $select = $row.find('select[data-field="uom_id"]').html('');
-                $.each(item.uoms, function() {
+                $.each(item.uoms, function () {
                     var $opt = $('<option>').val(this.id).text(this.nm).attr('data-isi', this.isi);
                     if (sel_uom !== undefined && sel_uom == this.id) {
                         $opt.prop('selected', true);
@@ -15,9 +15,9 @@
                     $select.append($opt);
                 });
             },
-            addItem: function(item) {
+            addItem: function (item) {
                 var has = false;
-                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
+                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function () {
                     var $row = $(this);
                     if ($row.find('input[data-field="product_id"]').val() == item.id) {
                         has = true;
@@ -35,9 +35,9 @@
                 }
                 local.normalizeItem();
             },
-            normalizeItem: function() {
+            normalizeItem: function () {
                 var total = 0.0;
-                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
+                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function () {
                     var $row = $(this);
                     var q = $row.find('input[data-field="qty"]').val();
                     q = (q == '' ? 1 : q);
@@ -58,7 +58,7 @@
                 var $nheight = $('.detail-pane-head').height() + $('.detail-pane-body').height() + $('.form-control').height() * 3;
                 $('#detail-pane').height($nheight);
             },
-            showDiscount: function() {
+            showDiscount: function () {
                 var purch_val = $('#sales-value').val();
                 var disc_val = $('#item-discount').val();
                 if (disc_val * 1 != 0) {
@@ -72,7 +72,7 @@
                     $('#bfore').hide();
                 }
             },
-            onProductChange: function() {
+            onProductChange: function () {
                 var item = biz.master.searchProductByCode(this.value);
                 if (item !== false) {
                     local.addItem(item);
@@ -82,50 +82,50 @@
             },
         }
         var pub = {
-            onReady: function() {
+            onReady: function () {
                 $('#detail-grid')
-                        .off('keydown.sales', ':input[data-field]')
-                        .on('keydown.sales', ':input[data-field]', function(e) {
-                            if (e.keyCode == 13) {
-                                var $this = $(this);
-                                var $inputs = $this.closest('tr').find(':input:visible[data-field]');
-                                var idx = $inputs.index(this);
-                                if (idx >= 0) {
-                                    if (idx < $inputs.length - 1) {
-                                        $inputs.eq(idx + 1).focus();
-                                    } else {
-                                        $('#product').focus();
-                                    }
+                    .off('keydown.sales', ':input[data-field]')
+                    .on('keydown.sales', ':input[data-field]', function (e) {
+                        if (e.keyCode == 13) {
+                            var $this = $(this);
+                            var $inputs = $this.closest('tr').find(':input:visible[data-field]');
+                            var idx = $inputs.index(this);
+                            if (idx >= 0) {
+                                if (idx < $inputs.length - 1) {
+                                    $inputs.eq(idx + 1).focus();
+                                } else {
+                                    $('#product').focus();
                                 }
                             }
-                        });
+                        }
+                    });
 
                 var clicked = false;
                 $('#detail-grid')
-                        .off('click.sales, focus.sales', 'input[data-field]')
-                        .on('click.sales, focus.sales', 'input[data-field]', function(e) {
-                            if (e.type == 'click') {
-                                clicked = true;
-                            } else {
-                                if (!clicked) {
-                                    $(this).select();
-                                }
-                                clicked = false;
+                    .off('click.sales, focus.sales', 'input[data-field]')
+                    .on('click.sales, focus.sales', 'input[data-field]', function (e) {
+                        if (e.type == 'click') {
+                            clicked = true;
+                        } else {
+                            if (!clicked) {
+                                $(this).select();
                             }
-                        });
+                            clicked = false;
+                        }
+                    });
 
                 $('#product').change(local.onProductChange);
                 $('#product').focus();
                 $('#product').data('ui-autocomplete')._renderItem = biz.global.renderItem;
 
-                $('#detail-grid').on('change', '[data-field]', function() {
+                $('#detail-grid').on('change', '[data-field]', function () {
                     local.normalizeItem();
                 });
 
                 local.showDiscount();
                 $('#item-discount').change(local.showDiscount);
 
-                $(window).keydown(function(event) {
+                $(window).keydown(function (event) {
                     if (event.keyCode == 13) {
                         var $target = $(event.target);
                         if ($target.is('#product') || $target.is('#saleshdr-item_discount')) {
@@ -138,7 +138,7 @@
                 });
 
                 // inisialisasi uom
-                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function() {
+                $.each($('#detail-grid').mdmTabularInput('getAllRows'), function () {
                     var $row = $(this);
                     var product = biz.master.products[$row.find('[data-field="product_id"]').val()];
                     if (product) {
@@ -146,19 +146,22 @@
                     }
                 });
 
-                $(document).on('click', 'a[data-action="delete"]', function() {
+                $(document).on('click', 'a[data-action="delete"]', function () {
                     local.normalizeItem();
-                });
-
-                $('#save,#create,#confirm').on('click', function() {
-                    $("#sales-form").submit();
                 });
 
                 $('#detail-grid').mdmNumericInput('input[data-field]');
                 local.normalizeItem();
 
+<?php if ($this->context->action->id == 'view'): ?>
+                $('#sales-form input,#sales-form select').prop('disabled',true).css({
+                    cursor:'text',
+                    border:0,
+                    'background-color':'#fff'
+                });
+<?php endif; ?>
             },
-            onProductSelect: function(event, ui) {
+            onProductSelect: function (event, ui) {
                 local.addItem(ui.item);
             }
         };

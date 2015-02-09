@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "{{%product_stock_history}}".
  *
- * @property string $time
+ * @property string $date
  * @property integer $warehouse_id
  * @property integer $product_id
  * @property double $qty
@@ -31,8 +31,8 @@ class ProductStockHistory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['time', 'warehouse_id', 'product_id', 'qty'], 'required'],
-            [['time'], 'safe'],
+            [['date', 'warehouse_id', 'product_id', 'qty'], 'required'],
+            [['date'], 'safe'],
             [['warehouse_id', 'product_id'], 'integer'],
             [['qty'], 'number']
         ];
@@ -44,7 +44,7 @@ class ProductStockHistory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'time' => 'Time',
+            'date' => 'Date',
             'warehouse_id' => 'Warehouse ID',
             'product_id' => 'Product ID',
             'qty' => 'Qty',

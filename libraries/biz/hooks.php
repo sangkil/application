@@ -6,4 +6,5 @@ return[
     'biz\core\purchase\hooks\Purchase',
     'biz\core\sales\hooks\Sales',
     'biz\core\inventory\hooks\Transfer',
+    'biz\core\inventory\hooks\ProductStockHistory'
 ];

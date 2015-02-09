@@ -23,6 +23,7 @@ class SalesController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'confirm' => ['post']
                 ],
             ],
         ];
@@ -52,24 +53,8 @@ class SalesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                $model->status = Sales::STATUS_CONFIRMED;
-                if ($model->save()) {
-                    $transaction->commit();
-                } else {
-                    $transaction->rollBack();
-                }
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                throw $e;
-            }
-        }
-
         return $this->render('view', [
                 'model' => $model,
-                'details' => $model->salesDtls,
         ]);
     }
 
@@ -106,7 +91,6 @@ class SalesController extends Controller
         }
         return $this->render('create', [
                 'model' => $model,
-                'details' => $model->salesDtls
         ]);
     }
 
@@ -146,8 +130,26 @@ class SalesController extends Controller
         }
         return $this->render('update', [
                 'model' => $model,
-                'details' => $model->salesDtls
         ]);
+    }
+
+    public function actionConfirm($id)
+    {
+        $model = $this->findModel($id);
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $model->status = Sales::STATUS_CONFIRMED;
+            if ($model->save()) {
+                $transaction->commit();
+                return $this->redirect(['view', 'id' => $id]);
+            } else {
+                $transaction->rollBack();
+                throw new \yii\base\UserException(implode(",\n", $model->firstErrors));
+            }
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
     }
 
     public function actionRelease($id)
