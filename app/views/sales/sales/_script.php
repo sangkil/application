@@ -154,7 +154,11 @@
                 local.normalizeItem();
 
 <?php if ($this->context->action->id == 'view'): ?>
-                $('#sales-form input,#sales-form select').prop('disabled',true);
+                $('#sales-form input,#sales-form select').prop('disabled',true).css({
+                    cursor:'text',
+                    border:0,
+                    'background-color':'#fff'
+                });
 <?php endif; ?>
             },
             onProductSelect: function (event, ui) {
