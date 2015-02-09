@@ -11,7 +11,7 @@ $this->title = 'Create Price';
 $this->params['breadcrumbs'][] = ['label' => 'Prices', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="col-lg-8 price-create">
+<div class="price-create">
     <?php
     echo Toolbar::widget(['items' => [
             //['label' => 'Create', 'url' => ['create'], 'icon' => 'fa fa-plus-square', 'linkOptions' => ['class' => 'btn btn-success btn-sm']],

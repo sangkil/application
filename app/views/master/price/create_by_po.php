@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         text-align: right;
     }
 </style>
-<div class="col-lg-8 price-create">
+<div class="col-lg-12 price-create">
     <?= Html::beginForm('','',['id'=>'price-form']) ?>
     <?= Html::errorSummary($products) ?>
     <?php

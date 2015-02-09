@@ -16,11 +16,9 @@ use biz\core\base\Configs;
 /**
  * MovementController implements the CRUD actions for GoodsMovement model.
  */
-class MovementController extends Controller
-{
+class MovementController extends Controller {
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -36,14 +34,13 @@ class MovementController extends Controller
      * Lists all GoodsMovement models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new GoodsMovementSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -52,10 +49,11 @@ class MovementController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+        $model = $this->findModel($id);
         return $this->render('view', [
-                'model' => $this->findModel($id),
+                    'model' => $model,
+                    'config' => Configs::movement($model->reff_type)
         ]);
     }
 
@@ -64,19 +62,18 @@ class MovementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($type, $id)
-    {
+    public function actionCreate($type, $id) {
         $model = GoodsMovement::findOne([
-                'reff_type' => $type,
-                'reff_id' => $id,
-                'status' => GoodsMovement::STATUS_DRAFT,
+                    'reff_type' => $type,
+                    'reff_id' => $id,
+                    'status' => GoodsMovement::STATUS_DRAFT,
         ]);
         $model = $model ? : new GoodsMovement([
             'reff_type' => $type,
             'reff_id' => $id,
-            'date'=>date('Y-m-d')
+            'date' => date('Y-m-d')
         ]);
-        
+
         $api = new ApiMovement();
         $config = Configs::movement($type);
 
@@ -102,10 +99,10 @@ class MovementController extends Controller
             }
         }
         return $this->render('create', [
-                'model' => $model,
-                'modelRef' => $modelRef,
-                'details' => $model->goodsMovementDtls,
-                'config' => $config,
+                    'model' => $model,
+                    'modelRef' => $modelRef,
+                    'details' => $model->goodsMovementDtls,
+                    'config' => $config,
         ]);
     }
 
@@ -115,8 +112,7 @@ class MovementController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
         $api = new ApiMovement();
 
@@ -143,16 +139,16 @@ class MovementController extends Controller
             }
         }
         return $this->render('update', [
-                'model' => $model,
-                'modelRef' => $modelRef,
-                'details' => $model->goodsMovementDtls,
-                'config' => $config,
+                    'model' => $model,
+                    'modelRef' => $modelRef,
+                    'details' => $model->goodsMovementDtls,
+                    'config' => $config,
         ]);
     }
 
-    protected function getReference($reff_type, $reff_id, $origin = [])
-    {
-        $config = Configs::movement($reff_type);;
+    protected function getReference($reff_type, $reff_id, $origin = []) {
+        $config = Configs::movement($reff_type);
+        ;
         $class = $config['class'];
         $relation = $config['relation'];
 
@@ -179,8 +175,7 @@ class MovementController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $model = $this->findModel($id);
         try {
             $transaction = Yii::$app->db->beginTransaction();
@@ -197,8 +192,7 @@ class MovementController extends Controller
         }
     }
 
-    public function actionApply($id)
-    {
+    public function actionApply($id) {
         $model = $this->findModel($id);
         try {
             $transaction = Yii::$app->db->beginTransaction();
@@ -222,12 +216,12 @@ class MovementController extends Controller
      * @return GoodsMovement the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = GoodsMovement::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

@@ -20,7 +20,7 @@ use yii\web\View;
     echo $form->errorSummary($models)
     ?>    
     <div class="col-lg-12">
-        <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
+        <?= $this->render('_header', ['form' => $form, 'model' => $model, 'config' => (isset($config))?$config:[]]); ?>
     </div>
     <div class="col-lg-12">
         <?=
