@@ -13,6 +13,5 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="sales-view">
     <?= $this->render('_form', [
         'model' => $model,
-        'details' => $details,
     ]) ?>
 </div>

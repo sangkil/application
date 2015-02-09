@@ -18,7 +18,7 @@ use app\models\sales\Sales;
     $form = ActiveForm::begin(['id' => 'sales-form']);
     ?>
     <?php
-    $models = $details;
+    $models = $model->salesDtls;
     $models[] = $model;
     echo $form->errorSummary($models)
     ?>    
@@ -26,7 +26,7 @@ use app\models\sales\Sales;
         <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
     </div>
     <div class="col-lg-12">
-        <?= $this->render('_detail', ['model' => $model, 'details' => $details]); ?>
+        <?= $this->render('_detail', ['model' => $model]); ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

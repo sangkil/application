@@ -62,7 +62,7 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                     <?=
                     TabularInput::widget([
                         'id' => 'detail-grid',
-                        'allModels' => $details,
+                        'allModels' => $model->salesDtls,
                         'modelClass' => SalesDtl::className(),
                         'options' => ['tag' => 'tbody'],
                         'itemOptions' => ['tag' => 'tr'],
