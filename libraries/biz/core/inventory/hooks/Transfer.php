@@ -61,8 +61,8 @@ class Transfer extends \yii\base\Behavior
                     if ($transferDtl->total_release != $transferDtl->qty) {
                         $complete = false;
                         break;
-    }
-}
+                    }
+                }
                 $transfer->status = ($complete) ? MTransfer::STATUS_ISSUED : MTransfer::STATUS_PARTIAL_ISSUED;
                 break;
             case '400':
@@ -77,5 +77,4 @@ class Transfer extends \yii\base\Behavior
         }
         $transfer->save(false);
     }
-
 }
