@@ -10,7 +10,7 @@ use yii\web\View;
 ?>
 
 
-<div class="goods-movement-form"> 
+<div class="row goods-movement-form"> 
     <?php $form = ActiveForm::begin(['id' => 'goodsmovement-form']); ?>  
     <?= $form->errorSummary($model); ?>
     <?= (!$model->getErrors()) ? $form->errorSummary($details) : ''; ?>
@@ -19,15 +19,15 @@ use yii\web\View;
     $models[] = $model;
     echo $form->errorSummary($models)
     ?>    
-    <div class="col-lg-12">
+    <section class="col-lg-12">
         <?= $this->render('_header', ['form' => $form, 'model' => $model, 'config' => (isset($config))?$config:[]]); ?>
-    </div>
-    <div class="col-lg-12">
+    </section>
+    <section class="col-lg-12">
         <?=
         ($this->context->action->id == 'view') ?
                 $this->render('_vdetail', ['model' => $model, 'details' => $details]) : $this->render('_detail', ['model' => $model, 'details' => $details]);
         ?>
-    </div>
+    </section>
     <?php ActiveForm::end(); ?>
 </div>
 

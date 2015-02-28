@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Purchases', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="purchase-create">
+<div class="row purchase-create">
     <?=
     $this->render('_form', [
         'model' => $model,

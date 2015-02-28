@@ -24,7 +24,7 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
     </ul>
     <div class="tab-content"  style="min-height: 20em;">
         <div class="tab-pane active" id="detail-pane" style="min-height: 10em;">
-            <div class="detail-pane-head col-lg-12" style="padding: 10px; padding-left: 0px;">
+            <div class="detail-pane-head col-lg-12" style="padding: 10px; padding-left: 0px; padding-right: 0px;">
                 <div class="col-xs-10">
                     Product :
                     <?php
@@ -80,7 +80,7 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
                 echo ListView::widget([
                     'dataProvider' => $greceipt,
                     'layout' => '{items}',
-                    'itemView' => '_gissue',
+                    'itemView' => '_greceipt',
                     //'options' => ['class' => 'box-body']
                 ]);
                 ?>

@@ -9,7 +9,7 @@ $this->title = 'New Stock Transfer';
 $this->params['breadcrumbs'][] = ['label' => 'Transfer', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="transfer-create">
+<div class="row transfer-create">
     <?=
     $this->render('_form', [
         'model' => $model,

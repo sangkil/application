@@ -13,23 +13,21 @@ use app\models\purchase\Purchase;
 /* @var $model app\models\purchase\Purchase */
 ?>
 
-<div class="purchase-hdr-form">
-    <?php
-    $form = ActiveForm::begin(['id' => 'purchase-form']);
-    ?>
-    <?php
-    $models = $details;
-    $models[] = $model;
-    echo $form->errorSummary($models)
-    ?>    
-    <div class="col-lg-12">
-        <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
-    </div>
-    <div class="col-lg-12">
-        <?= $this->render('_detail', ['model' => $model, 'details' => $details, 'greceipt' => $greceipt]); ?>
-    </div>
-    <?php ActiveForm::end(); ?>
-</div>
+<?php
+$form = ActiveForm::begin(['id' => 'purchase-form']);
+?>
+<?php
+$models = $details;
+$models[] = $model;
+echo $form->errorSummary($models)
+?>    
+<section class="col-lg-12">
+    <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?> 
+</section>
+<section class="col-lg-12">
+    <?= $this->render('_detail', ['model' => $model, 'details' => $details, 'greceipt' => $greceipt]); ?>            
+</section> 
+<?php ActiveForm::end(); ?>
 <?php
 app\assets\BizWidget::widget([
     'config' => [

@@ -42,6 +42,38 @@ class InvoiceController extends Controller
                 'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all Invoice models.
+     * filter by type = purchase
+     * @return mixed
+     */
+    public function actionPurchase()
+    {
+        $searchModel = new InvoiceSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Invoice models.
+     * filter by type = purchase
+     * @return mixed
+     */
+    public function actionSales()
+    {
+        $searchModel = new InvoiceSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Invoice model.

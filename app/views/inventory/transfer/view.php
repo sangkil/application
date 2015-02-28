@@ -11,7 +11,7 @@ $this->title = 'Transfer #'.$model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Sales', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="transfer-create">
+<div class="row transfer-view">
     <?=
     $this->render('_form', [
         'model' => $model,

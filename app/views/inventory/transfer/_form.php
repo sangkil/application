@@ -10,27 +10,25 @@ use yii\web\View;
 /* @var $model app\models\inventory\Transfer */
 ?>
 
-<div class="transfer-hdr-form">
-    <?php
-    $form = ActiveForm::begin(['id' => 'transfer-form',]);
+<?php
+$form = ActiveForm::begin(['id' => 'transfer-form',]);
+?>
+<?php
+$models = $details;
+$models[] = $model;
+echo $form->errorSummary($models)
+?>
+<section class="col-lg-12">
+    <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
+</section>
+<section class="col-lg-12">
+    <?=
+    $this->render('_detail', ['model' => $model,
+        'details' => $details,
+        'gmovement' => $gmovement]);
     ?>
-    <?php
-    $models = $details;
-    $models[] = $model;
-    echo $form->errorSummary($models)
-    ?>
-    <div class="col-lg-12">
-        <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?>
-    </div>
-    <div class="col-lg-12">
-        <?=
-        $this->render('_detail', ['model' => $model,
-            'details' => $details,
-            'gmovement' => $gmovement]);
-        ?>
-    </div>
+</section>
 <?php ActiveForm::end(); ?>
-</div>
 <?php
 app\assets\BizWidget::widget([
     'config' => [

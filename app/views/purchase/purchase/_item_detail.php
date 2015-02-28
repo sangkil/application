@@ -14,16 +14,16 @@ $allow_edit = ($model->isNewRecord) ? true : $allow_edit;
 <td class="col-lg-3">
     <span class="product"></span>
 </td>
-<td class="col-lg-1">
+<td class="col-lg-1"  style="text-align: right; padding: 5px;">
     <?= Html::activeTextInput($model, "[$key]qty", ['data-field' => 'qty', 'size' => 5, 'id' => false, 'class' => 'form-control ', 'readonly' => !$allow_edit, 'style' => 'text-align:right;', 'required' => true]) ?>
 </td>
-<td class="col-lg-2">
+<td class="col-lg-2" style="text-align: right; padding: 5px;">
     <?= Html::activeDropDownList($model, "[$key]uom_id", [], ['data-field' => 'uom_id', 'id' => false, 'class' => 'form-control ', 'readonly' => !$allow_edit, 'style' => 'padding-top:0px;']) ?>
 </td>
-<td class="col-lg-2">
+<td class="col-lg-2" style="text-align: right; padding: 5px;">
     <?= Html::activeTextInput($model, "[$key]price", ['data-field' => 'price', 'size' => 16, 'id' => false, 'class' => 'form-control ', 'readonly' => !$allow_edit, 'style' => 'text-align:right;', 'required' => true]) ?>
 </td>
-<td  class="col-lg-2" style="text-align: right;">
+<td class="col-lg-2" style="text-align: right;">
     <input type="hidden" data-field="total_price"><span class="total-price"></span>
 </td>
 <?php if ($allow_edit) { ?>
