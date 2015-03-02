@@ -67,7 +67,7 @@ echo ActionToolbar::widget(['items' => [
             ]);
             ?>
             <h4 id="bfore" style="display: none; padding-left: 135px;">Rp<span id="purchase-val">0</span>-<span id="disc-val">0</span></h4>         
-            <h2 style="padding-left: 133px; margin-top: 0px;">Rp<span id="total-price"></span></h2>
+            <h2 style="padding-left: 133px; margin-top: 0px;">Rp<span id="total-price"><?= (!$model->isNewRecord)? number_format($model->value, 0):'0' ?></span></h2>
         </div>        
     </div>
     <!--    <div class="col-lg-12 footer">                -->

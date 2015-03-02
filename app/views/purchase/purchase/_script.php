@@ -82,6 +82,19 @@
             },
         }
         var pub = {
+            onComplete:function(){
+                $(document).on('click', 'a[data-action="delete"]', function() {
+                    local.normalizeItem();
+                });
+
+                $('#save,#create,#confirm').on('click', function() {
+                    if(!confirm("Are You sure..?")){
+                        return;
+                    }else{
+                        $("#purchase-form").submit();
+                    }
+                });
+            },
             onReady: function() {
                 $('#detail-grid')
                         .off('keydown.purchase', ':input[data-field]')

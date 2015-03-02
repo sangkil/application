@@ -19,9 +19,8 @@ $toolbar_items = (!$model->isNewRecord && $model->status == GoodsMovement::STATU
         array_merge($toolbar_items, [['label' => 'Save Update', 'linkOptions' => ['id' => 'save', 'class' => 'btn btn-success btn-sm']]]) :
         array_merge($toolbar_items, [['label' => 'Save Update', 'linkOptions' => ['id' => 'save', 'class' => 'btn btn-primary btn-sm disabled']]]);
 $toolbar_items = (!$model->isNewRecord && $model->status == GoodsMovement::STATUS_DRAFT && $this->context->action->id == 'view') ?
-        array_merge($toolbar_items, [['label' => 'Apply', 'url' => ['apply', 'id' => $model->id], 'linkOptions' => ['id' => 'apply', 'class' => 'btn btn-success btn-sm', 'data' => ['method' => 'post']]]]) :
+        array_merge($toolbar_items, [['label' => 'Apply', 'url' => ['apply', 'id' => $model->id], 'linkOptions' => ['id' => 'apply', 'class' => 'btn btn-success btn-sm', 'data' => ['confirm' => 'Are you sure you want to apply this item..?', 'method' => 'post']]]]) :
         array_merge($toolbar_items, [['label' => 'Apply', 'linkOptions' => ['id' => 'apply', 'class' => 'btn btn-primary btn-sm disabled']]]);
-
 echo Toolbar::widget(['items' => $toolbar_items]) . '&nbsp;&nbsp;';
 echo Toolbar::widget(['items' => [
         ['label' => '', 'url' => ['print-html'], 'icon' => 'fa fa-print', 'linkOptions' => ['class' => 'btn btn-default btn-sm disabled', 'target' => '_blank', 'title' => 'Html Print']],
