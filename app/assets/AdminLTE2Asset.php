@@ -19,7 +19,7 @@ class AdminLTE2Asset extends AssetBundle {
     //change source location
     public $sourcePath = '@app/views/adminlte2';
     public $css = [
-        'dist/css/AdminLTE.css',
+        'dist/css/AdminLTE.min.css',
         'dist/css/skins/_all-skins.min.css'
     ];
     public $js = [
