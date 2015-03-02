@@ -9,7 +9,8 @@ use app\components\Alert;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$asset = app\assets\AppAsset::register($this);
+//$asset = app\assets\AppAsset::register($this);
+$asset = app\assets\AdminLTE2Asset::register($this);
 $asset2 = app\assets\AddAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
