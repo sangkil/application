@@ -1,6 +1,8 @@
 <?php
 
 namespace app\models\accounting;
+use biz\core\base\Configs;
+use yii\helpers\Html;
 
 /**
  * Invoice
@@ -21,6 +23,22 @@ class Invoice extends \biz\core\accounting\models\Invoice
         return $this->hasMany(InvoiceDtl::className(), ['invoice_id' => 'id']);
     }
 
+    public function getNmReffType()
+    {
+        if (($config = $this->reffConfig) !== null) {
+            return isset($config['name']) ? $config['name'] : null;
+        }
+        return null;
+    }
+
+    public function getReffLink()
+    {
+        if (($config = $this->reffConfig) !== null && isset($config['link'])) {
+            return $this->reffDoc ? Html::a($this->reffDoc->number, [$config['link'], 'id' => $this->reffDoc->id]) : null;
+        }
+        return null;
+    }
+    
     /**
      * @inheritdoc
      */
@@ -44,4 +62,7 @@ class Invoice extends \biz\core\accounting\models\Invoice
             ],
         ]);
     }
+    
 }
+// Extend reference
+Configs::merge('invoice', '@app/config/biz/invoice.php');

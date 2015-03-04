@@ -9,7 +9,7 @@ $this->title = 'Create Invoice';
 $this->params['breadcrumbs'][] = ['label' => 'Invoices', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="invoice-create">
+<div class="row invoice-create">
     <?=
     $this->render('_form', [
         'model' => $model,

@@ -24,7 +24,7 @@ $toolbar_items = (!$model->isNewRecord && $model->status > Purchase::STATUS_DRAF
         array_merge($toolbar_items, [['label' => 'Deliver', 'url' => ['/inventory/movement/create', 'type' => 100, 'id' => $model->id], 'linkOptions' => ['id' => 'deliver', 'class' => 'btn btn-success btn-sm']]]) :
         array_merge($toolbar_items, [['label' => 'Deliver', 'linkOptions' => ['id' => 'deliver', 'class' => 'btn btn-primary btn-sm disabled']]]);
 $toolbar_items = (!$model->isNewRecord && $model->status == Purchase::STATUS_PROCESS) ?
-        array_merge($toolbar_items, [['label' => 'Invoice', 'url' => ['/accounting/invoice/create', 'type' => 100, 'id' => $model->id], 'linkOptions' => ['id' => 'invoice', 'class' => 'btn btn-success btn-sm']]]) :
+        array_merge($toolbar_items, [['label' => 'Invoice', 'url' => ['/accounting/invoice/create', 'type' => 100, 'id' => $model->id, 'dtl'=>[]], 'linkOptions' => ['id' => 'invoice', 'class' => 'btn btn-success btn-sm']]]) :
         array_merge($toolbar_items, [['label' => 'Invoice', 'linkOptions' => ['id' => 'invoice', 'class' => 'btn btn-primary btn-sm disabled']]]);
 echo Toolbar::widget(['items' => $toolbar_items]) . '&nbsp;&nbsp;';
 echo Toolbar::widget(['items' => [

@@ -76,7 +76,7 @@ class MovementController extends Controller {
 
         $api = new ApiMovement();
         $config = Configs::movement($type);
-
+        
         list($modelRef, $details) = $this->getReference($type, $id, $model->goodsMovementDtls);
         $model->populateRelation('goodsMovementDtls', $details);
         if ($model->load(Yii::$app->request->post())) {
@@ -148,7 +148,6 @@ class MovementController extends Controller {
 
     protected function getReference($reff_type, $reff_id, $origin = []) {
         $config = Configs::movement($reff_type);
-        ;
         $class = $config['class'];
         $relation = $config['relation'];
 

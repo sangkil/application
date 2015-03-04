@@ -7,12 +7,17 @@ use biz\core\accounting\models\Invoice;
  */
 
 return[
-    // Purchase receive
+    // Purchase Invoice
     100 => [
+        'type' => Invoice::TYPE_OUTGOING,
+        'class' => 'biz\core\purchase\models\Purchase',
+        'relation' => 'purchaseDtls'
+    ],
+    
+    // Sales Billing
+    200 => [
         'type' => Invoice::TYPE_INCOMING,
         'class' => 'biz\core\purchase\models\Purchase',
-        'relation' => 'purchaseDtls',
-        'apply_method' => 'applyGR',
-        'uom_field' => 'uom_id',
-    ],
+        'relation' => 'salesDtls'
+    ]
 ];

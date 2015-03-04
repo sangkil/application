@@ -27,15 +27,21 @@ use biz\core\base\Configs;
  * @property Payment[] $payments
  * @property InvoiceDtl[] $invoiceDtls
  * 
+ * @property \yii\db\ActiveRecord $reffDoc
+ * @property \yii\db\ActiveRecord[] $reffDocDtls
+ * @property string $reffLink
+ * @property array $reffConfig
+ * 
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>  
  * @since 3.0
  */
 class Invoice extends \yii\db\ActiveRecord
 {
-    const TYPE_OUTGOING = 10; // 
+    const TYPE_OUTGOING = 10; 
     const TYPE_INCOMING = 20;
     // status
     const STATUS_DRAFT = 10;
+    const STATUS_RELEASE = 20;
 
     /**
      * @inheritdoc
@@ -78,13 +84,42 @@ class Invoice extends \yii\db\ActiveRecord
         return Configs::invoice($this->reff_type);
     }
 
+    /**
+     * Set type of document depending reference document
+     */
     public function resolveType()
     {
-        if (($config = Configs::invoice($this->reff_type) !== null)) {
+        if (($config = Configs::invoice($this->reff_type)) !== null) {
             $this->type = $config['type'];
         } else {
             $this->addError('reff_type', "Reference type {$this->reff_type} not recognize");
         }
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReffDoc()
+    {
+        if (($config = $this->reffConfig) && isset($config['class'])) {
+            return $this->hasOne($config['class'], ['id' => 'reff_id']);
+        }
+        return null;
+    }
+
+//    /**
+//     * @return \yii\db\ActiveQuery
+//     */
+    public function getReffDocDtls()
+    {
+        if (($reff = $this->reffDoc) !== null) {
+            $config = $this->reffConfig;
+            $relation = $reff->getRelation($config['relation']);
+            return $this->hasMany($relation->modelClass, $relation->link)
+                    ->via('reffDoc')
+                    ->indexBy('product_id');
+        }
+        return null;
     }
 
     public function checkDetail()

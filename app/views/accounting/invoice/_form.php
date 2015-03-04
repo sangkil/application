@@ -7,28 +7,11 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\accounting\Invoice */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="box box-info">
-    <?php $form = ActiveForm::begin(); ?>
-        <div class="box-header">
-            <?= $form->field($model, 'number')->textInput(['readonly' => true]) ?>
-            <?=
-            $form->field($model, 'Date')->widget('yii\jui\DatePicker', [
-                'options' => ['class' => 'form-control']
-            ])
-            ?>
-
-            <?=
-            $form->field($model, 'DueDate')->widget('yii\jui\DatePicker', [
-                'options' => ['class' => 'form-control']
-            ])
-            ?>
-
-            <?= $form->field($model, 'vendor_id')->textInput() ?>
-        </div>
-        <div class="box-body">
-            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        </div>
-
-    <?php ActiveForm::end(); ?>
-</div>
+<?php $form = ActiveForm::begin(); ?>
+<section class="col-lg-12">
+    <?= $this->render('_header', ['form' => $form, 'model' => $model]); ?> 
+</section>
+<section class="col-lg-12">
+    <?= ''//$this->render('_detail', ['model' => $model, 'details' => $details, 'greceipt' => $greceipt]); ?>            
+</section> 
+<?php ActiveForm::end(); ?>

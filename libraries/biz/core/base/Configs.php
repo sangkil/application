@@ -76,7 +76,7 @@ class Configs
     }
 
     /**
-     * Configuration fo Good Movement
+     * Configuration for Invoice
      * @param integer $type
      * @return array
      */
